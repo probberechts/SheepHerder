@@ -31,7 +31,7 @@ public class World {
 
 	private void generateLevel () {
 		//TODO
-		pen = new Pen(200, 200);
+		pen = new Pen(20, 480);
 		Sheep sheep1 = new Sheep(110, 110);
 		Sheep sheep2 = new Sheep(10, 280);
 		Sheep sheep3 = new Sheep(387, 356);
@@ -40,7 +40,7 @@ public class World {
 		sheeps.add(sheep2);
 		sheeps.add(sheep3);
 		sheeps.add(sheep4);
-		Tree tree = new Tree(345,56);
+		Tree tree = new Tree(200,100);
 		trees.add(tree);
 	}
 

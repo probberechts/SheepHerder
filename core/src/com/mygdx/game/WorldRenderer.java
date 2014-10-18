@@ -2,25 +2,20 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class WorldRenderer {
 	static final float SCREEN_WIDTH = 480;
 	static final float SCREEN_HEIGHT = 800;
 	World world;
-	OrthographicCamera cam;
 	SpriteBatch batch;
 
 	public WorldRenderer (SpriteBatch batch, World world) {
 		this.world = world;
-		this.cam = new OrthographicCamera(SCREEN_WIDTH, SCREEN_HEIGHT);
-		this.cam.setToOrtho(false, SCREEN_WIDTH, SCREEN_WIDTH);
 		this.batch = batch;
 	}
 
 	public void render () {
-		batch.setProjectionMatrix(cam.combined);
 		renderBackground();
 		renderObjects();
 	}
