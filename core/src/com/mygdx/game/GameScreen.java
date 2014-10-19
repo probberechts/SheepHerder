@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
 
 public class GameScreen extends ScreenAdapter {
@@ -14,6 +15,7 @@ public class GameScreen extends ScreenAdapter {
 	SheepHerder game;
 
 	int state;
+	OrthographicCamera camera;
 	Vector3 touchPoint;
 	World world;
 	WorldRenderer renderer;
@@ -24,6 +26,8 @@ public class GameScreen extends ScreenAdapter {
 	public GameScreen (SheepHerder game) {
 		this.game = game;
 
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, 480, 800);
 		state = GAME_READY;
 		touchPoint = new Vector3();
 		world = new World();
@@ -59,6 +63,13 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void updateRunning (float deltaTime) {
+		if (Gdx.input.justTouched()) {
+			Vector3 touchPos = new Vector3();
+	        touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+	        camera.unproject(touchPos);
+	        world.updateRotationSheeps(touchPos);
+		}
+		
 		world.update(deltaTime);
 		
 		world.timeLeft -= deltaTime;
@@ -98,6 +109,8 @@ public class GameScreen extends ScreenAdapter {
 
 		renderer.render();
 
+		camera.update();
+		game.batcher.setProjectionMatrix(camera.combined);
 		game.batcher.enableBlending();
 		game.batcher.begin();
 		switch (state) {
@@ -122,14 +135,14 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void presentRunning () {
-		Assets.font.draw(game.batcher, timeString, 480-170, 800 - 100);
-		Assets.font.draw(game.batcher, scoreString, 480-170, 800 - 130);
+		Assets.font.draw(game.batcher, timeString, 480-170, 800 - 20);
+		Assets.font.draw(game.batcher, scoreString, 480-170, 800 - 50);
 	}
 
 	private void presentPaused () {
 		Assets.font.draw(game.batcher, "--click to resume--", 140, 400);
-		Assets.font.draw(game.batcher, timeString, 480-170, 800 - 100);
-		Assets.font.draw(game.batcher, scoreString, 480-170, 800 - 130);
+		Assets.font.draw(game.batcher, timeString, 480-170, 800 - 20);
+		Assets.font.draw(game.batcher, scoreString, 480-170, 800 - 50);
 	}
 
 	private void presentGameOver () {

@@ -39,7 +39,12 @@ public class WorldRenderer {
 		int len = world.sheeps.size();
 		for (int i = 0; i < len; i++) {
 			Sheep sheep = world.sheeps.get(i);
-			batch.draw(Assets.sheep, sheep.position.x, sheep.position.y);
+			batch.draw(Assets.sheep, 
+					sheep.position.x - Sheep.SHEEP_WIDTH / 2f, sheep.position.y - Sheep.SHEEP_HEIGHT / 2f, 
+					Sheep.SHEEP_WIDTH / 2f, Sheep.SHEEP_HEIGHT / 2f, 
+					Sheep.SHEEP_WIDTH, Sheep.SHEEP_HEIGHT, 
+					1, 1, sheep.rotation, 0, 0, Assets.sheep.getWidth(), Assets.sheep.getHeight(),
+					false, false);
 		}
 	}
 

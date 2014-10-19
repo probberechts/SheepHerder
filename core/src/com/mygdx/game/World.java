@@ -3,6 +3,8 @@ package com.mygdx.game;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.math.Vector3;
+
 public class World {
 
 	public static final float WORLD_WIDTH = 480;
@@ -31,8 +33,8 @@ public class World {
 
 	private void generateLevel () {
 		//TODO
-		pen = new Pen(20, 480);
-		Sheep sheep1 = new Sheep(110, 110);
+		pen = new Pen(20, 550);
+		Sheep sheep1 = new Sheep(200, 400);
 		Sheep sheep2 = new Sheep(10, 280);
 		Sheep sheep3 = new Sheep(387, 356);
 		Sheep sheep4 = new Sheep(56, 178);
@@ -48,6 +50,16 @@ public class World {
 		updateSheeps(deltaTime);
 		checkCollisions();
 		checkGameOver();
+	}
+	
+	public void updateRotationSheeps(Vector3 touchPos) {
+		for (Sheep sheep : sheeps) {
+			if (sheep.position.dst2(touchPos.x, touchPos.y) < 20000) {
+				double angle = Math.atan2(touchPos.y - sheep.position.y, touchPos.x - sheep.position.x );
+				angle = angle * (180/Math.PI);
+				sheep.rotation = ((int) angle + 180)  % 360; 
+			}
+		}
 	}
 
 
