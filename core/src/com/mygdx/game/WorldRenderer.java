@@ -50,14 +50,18 @@ public class WorldRenderer {
 
 	private void renderPen () {
 		Pen pen = world.pen;
-		batch.draw(Assets.pen, pen.position.x - 1, pen.position.y - 0.25f);
+		batch.draw(Assets.pen, pen.position.x - Pen.PEN_WIDTH / 2f, pen.position.y - Pen.PEN_HEIGHT / 2f, 
+				Pen.PEN_WIDTH / 2f, Pen.PEN_HEIGHT / 2f,
+				Pen.PEN_WIDTH, Pen.PEN_HEIGHT, 
+				1, 1, 0, 0, 0, Assets.pen.getWidth(), Assets.pen.getHeight(),
+				false, false);
 	}
 
 	private void renderTrees () {
 		int len = world.trees.size();
 		for (int i = 0; i < len; i++) {
 			Tree tree = world.trees.get(i);
-			batch.draw(Assets.tree, tree.position.x - 0.5f, tree.position.y - 0.5f);
+			batch.draw(Assets.tree, tree.position.x - Tree.TREE_WIDTH / 2f, tree.position.y - Tree.TREE_HEIGHT / 2f);
 		}
 	}
 

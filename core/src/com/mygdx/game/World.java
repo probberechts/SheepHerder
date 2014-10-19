@@ -33,7 +33,7 @@ public class World {
 
 	private void generateLevel () {
 		//TODO
-		pen = new Pen(20, 550);
+		pen = new Pen(120, 680);
 		Sheep sheep1 = new Sheep(200, 400);
 		Sheep sheep2 = new Sheep(10, 280);
 		Sheep sheep3 = new Sheep(387, 356);
@@ -69,7 +69,27 @@ public class World {
 	}
 
 	private void checkCollisions () {
-		//TODO
+		for (Sheep sheep : sheeps) {
+			if (sheep.state != Sheep.SHEEP_STATE_CATCHED) {
+				if (sheep.bounds.overlaps(pen.bounds) && 
+						!pen.canEnter(sheep.bounds)) {
+						sheep.rotation += 180;
+						sheep.position.add(-sheep.direction.x, -sheep.direction.y);
+				}
+				else if (pen.bounds.contains(sheep.bounds)) {
+					sheep.state = Sheep.SHEEP_STATE_CATCHED;
+					sheepsCollected++;
+				}
+			} else if (sheep.state == Sheep.SHEEP_STATE_CATCHED && !pen.bounds.contains(sheep.bounds)) {
+				if (pen.canEnter(sheep.bounds)) {
+					sheep.state = Sheep.SHEEP_STATE_FREE;
+					sheepsCollected--;
+				} else {
+					sheep.rotation += 180;
+					sheep.position.add(-sheep.direction.x, -sheep.direction.y);
+				}
+			}
+		}
 	}
 
 	private void checkGameOver () {
