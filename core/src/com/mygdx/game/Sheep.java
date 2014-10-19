@@ -13,8 +13,8 @@ public class Sheep extends DynamicGameObject {
 
 	public Sheep (float x, float y) {
 		super(x, y, SHEEP_WIDTH, SHEEP_HEIGHT);
-		this.velocity.x = 10;
-		this.velocity.y = 10;
+		this.velocity.x = 20;
+		this.velocity.y = 20;
 	}
 
 	public void update (float deltaTime) {

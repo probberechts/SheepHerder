@@ -20,7 +20,7 @@ public class GameScreen extends ScreenAdapter {
 	World world;
 	WorldRenderer renderer;
 	int lastScore;
-	String scoreString;
+	String sheepString;
 	String timeString;
 
 	public GameScreen (SheepHerder game) {
@@ -33,7 +33,7 @@ public class GameScreen extends ScreenAdapter {
 		world = new World();
 		renderer = new WorldRenderer(game.batcher, world);
 		lastScore = 0;
-		scoreString = "SHEEPS: 0";
+		sheepString = "SHEEPS: 0";
 		timeString = "TIME: 2:00";
 	}
 
@@ -77,17 +77,11 @@ public class GameScreen extends ScreenAdapter {
 
 		if (world.sheepsCollected != lastScore) {
 			lastScore = world.sheepsCollected;
-			scoreString = "SHEEPS: " + lastScore;
+			sheepString = "SHEEPS: " + lastScore;
 		}
 		
 		if (world.state == World.WORLD_STATE_GAME_OVER) {
 			state = GAME_OVER;
-			if (lastScore >= SavedData.highscore) {
-				scoreString = "NEW HIGHSCORE: " + lastScore;
-				SavedData.newHighscore(lastScore);
-
-			} else
-				scoreString = "SCORE: " + lastScore;
 		}
 	}
 
@@ -136,21 +130,28 @@ public class GameScreen extends ScreenAdapter {
 
 	private void presentRunning () {
 		Assets.font.draw(game.batcher, timeString, 480-170, 800 - 20);
-		Assets.font.draw(game.batcher, scoreString, 480-170, 800 - 50);
+		Assets.font.draw(game.batcher, sheepString, 480-170, 800 - 50);
 	}
 
 	private void presentPaused () {
 		Assets.font.draw(game.batcher, "--click to resume--", 140, 400);
 		Assets.font.draw(game.batcher, timeString, 480-170, 800 - 20);
-		Assets.font.draw(game.batcher, scoreString, 480-170, 800 - 50);
+		Assets.font.draw(game.batcher, sheepString, 480-170, 800 - 50);
 	}
 
 	private void presentGameOver () {
-		//game.batcher.draw(Assets.gameOver, 160 - 160 / 2, 240 - 96 / 2, 160, 96);
-		Assets.font.draw(game.batcher, "GAME OVER!", 20, 300);
-		Assets.font.draw(game.batcher, "--click to continue--", 140, 200);
-		float scoreWidth = Assets.font.getBounds(scoreString).width;
-		Assets.font.draw(game.batcher, scoreString, 160 - scoreWidth / 2, 800 - 120);
+		//TODO: zoek een deftige formule
+		int newScore = world.sheepsCollected + world.timeLeft;
+		if (newScore > SavedData.highscore) {
+			SavedData.newHighscore(newScore);
+			Assets.font.draw(game.batcher, "NEW HIGHSCORE!", 125, 450);
+		} else
+			Assets.font.draw(game.batcher, "GAME OVER!", 150, 450);
+		String score = String.format("SCORE: %d + %02d:%02d = %d", world.sheepsCollected, world.timeLeft/6000, (world.timeLeft%6000)/100, newScore);
+		float scoreWidth = Assets.font.getBounds(score).width;
+		Assets.font.draw(game.batcher, score, 240 - scoreWidth / 2, 400);
+		Assets.font.draw(game.batcher, "BEST: " + SavedData.highscore, 240 - scoreWidth / 2, 350);
+		Assets.font.draw(game.batcher, "--click to continue--", 120, 300);
 	}
 
 	@Override
