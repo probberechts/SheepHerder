@@ -142,6 +142,7 @@ public class GameScreen extends ScreenAdapter {
 	private void presentGameOver () {
 		//TODO: zoek een deftige formule
 		int newScore = world.sheepsCollected + world.timeLeft;
+		System.out.println(SavedData.highscore);
 		if (newScore > SavedData.highscore) {
 			SavedData.newHighscore(newScore);
 			Assets.font.draw(game.batcher, "NEW HIGHSCORE!", 125, 450);

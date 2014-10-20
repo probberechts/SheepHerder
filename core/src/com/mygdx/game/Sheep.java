@@ -5,6 +5,7 @@ public class Sheep extends DynamicGameObject {
 	public static final int SHEEP_STATE_FREE = 0;
 	public static final int SHEEP_STATE_CATCHED = 1;
 	public static final int SHEEP_STATE_DANGER = 2;
+	public static final int SHEEP_STATE_ESCAPED = 3;
 	public static final float SHEEP_MOVE_VELOCITY = 20;
 	public static final float SHEEP_WIDTH = 55;
 	public static final float SHEEP_HEIGHT = 50;
@@ -29,14 +30,17 @@ public class Sheep extends DynamicGameObject {
 		}
 		//Then determine the new position based on speed, direction and deltaTime
 		position.add(velocity.x * direction.x * deltaTime, velocity.y * direction.y * deltaTime);
+		//TODO: voeg hier wat random noise aan toe
 		
-		checkCloseToScreenBorder();				
+		if (state != SHEEP_STATE_CATCHED)
+			checkCloseToScreenBorder();				
 	}
 
 	public void checkCloseToScreenBorder () {
-		int danger = 20;
-		if (position.x < danger || position.x > World.WORLD_WIDTH - danger) state = SHEEP_STATE_DANGER;
-		if (position.y < danger || position.y > World.WORLD_HEIGHT - danger) state = SHEEP_STATE_DANGER;
+		int danger = 50;
+		if (position.x < danger && direction.x < 0 || position.x > World.WORLD_WIDTH - danger && direction.x > 0) state = SHEEP_STATE_DANGER;
+		else if (position.y < danger && direction.y < 0 || position.y > World.WORLD_HEIGHT - danger && direction.y > 0) state = SHEEP_STATE_DANGER;
+		else state = SHEEP_STATE_FREE;
 	}
 
 	public void setCatched() {

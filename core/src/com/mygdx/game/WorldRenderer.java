@@ -31,7 +31,8 @@ public class WorldRenderer {
 		renderSheeps();
 		renderPen();
 		renderTrees();
-		renderRiver();
+		renderRivers();
+		renderBridges();
 		batch.end();
 	}
 
@@ -45,6 +46,8 @@ public class WorldRenderer {
 					Sheep.SHEEP_WIDTH, Sheep.SHEEP_HEIGHT, 
 					1, 1, sheep.rotation, 0, 0, Assets.sheep.getWidth(), Assets.sheep.getHeight(),
 					false, false);
+			if(sheep.state == Sheep.SHEEP_STATE_DANGER)
+				batch.draw(Assets.alert, sheep.position.x - Assets.alert.getWidth() / 2, sheep.position.y - Assets.alert.getHeight() / 2);
 		}
 	}
 
@@ -65,8 +68,20 @@ public class WorldRenderer {
 		}
 	}
 
-	private void renderRiver () {
-		//TODO
+	private void renderRivers () {
+		int len = world.rivers.size();
+		for (int i = 0; i < len; i++) {
+			River river = world.rivers.get(i);
+			batch.draw(Assets.river, river.position.x, river.position.y);
+		}	
+	}
+	
+	private void renderBridges () {
+		int len = world.bridges.size();
+		for (int i = 0; i < len; i++) {
+			Bridge bridge = world.bridges.get(i);
+			batch.draw(Assets.bridge, bridge.position.x, bridge.position.y);
+		}	
 	}
 
 }

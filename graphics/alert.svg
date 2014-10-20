@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="100"
+   height="100"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="alert.svg"
+   inkscape:export-filename="/Users/probberechts/Desktop/HCI game art/alert.png"
+   inkscape:export-xdpi="18.918768"
+   inkscape:export-ydpi="18.918768">
+  <defs
+     id="defs4" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="91.952751"
+     inkscape:cy="4.7753643"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1092"
+     inkscape:window-height="695"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-952.3622)">
+    <path
+       sodipodi:type="arc"
+       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path2985"
+       sodipodi:cx="368.57144"
+       sodipodi:cy="455.21933"
+       sodipodi:rx="125.71429"
+       sodipodi:ry="131.42857"
+       d="m 494.28573,455.21933 a 125.71429,131.42857 0 1 1 -251.42858,0 125.71429,131.42857 0 1 1 251.42858,0 z"
+       transform="matrix(0.3784121,0,0,0.3619594,-89.149086,837.5836)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3755"
+       sodipodi:cx="357.14285"
+       sodipodi:cy="459.50504"
+       sodipodi:rx="57.142857"
+       sodipodi:ry="84.285713"
+       d="m 414.28571,459.50504 a 57.142857,84.285713 0 1 1 -114.28571,0 57.142857,84.285713 0 1 1 114.28571,0 z"
+       transform="matrix(0.73260583,0,0,0.49668194,-211.32214,774.1267)" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path3757"
+       sodipodi:cx="372.85715"
+       sodipodi:cy="462.36218"
+       sodipodi:rx="61.42857"
+       sodipodi:ry="72.85714"
+       d="m 434.28572,462.36218 a 61.42857,72.85714 0 1 1 -122.85714,0 61.42857,72.85714 0 1 1 122.85714,0 z"
+       transform="matrix(0.58856285,0,0,0.49623926,-169.12707,772.9123)" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3759"
+       width="13.048266"
+       height="30.445957"
+       x="43.798664"
+       y="977.29102" />
+    <rect
+       style="fill:#ffffff;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="rect3761"
+       width="11.960912"
+       height="10.873556"
+       x="44.342335"
+       y="1018.2844" />
+  </g>
+</svg>

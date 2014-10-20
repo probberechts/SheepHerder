@@ -15,6 +15,9 @@ public class World {
 	public Pen pen;
 	public final List<Sheep> sheeps;
 	public final List<Tree> trees;
+	public final List<River> rivers;
+	public final List<Bridge> bridges;
+
 
 	public int timeLeft;
 	public int sheepsCollected;
@@ -24,6 +27,8 @@ public class World {
 		this.pen = new Pen(5, 1);
 		this.sheeps = new ArrayList<Sheep>();
 		this.trees = new ArrayList<Tree>();
+		this.rivers = new ArrayList<River>();
+		this.bridges = new ArrayList<Bridge>();
 		generateLevel();
 
 		this.timeLeft = 12000;
@@ -32,18 +37,26 @@ public class World {
 	}
 
 	private void generateLevel () {
-		//TODO
+		//TODO: genereer random level
 		pen = new Pen(120, 680);
 		Sheep sheep1 = new Sheep(200, 400);
+		sheep1.rotation = 50;
 		Sheep sheep2 = new Sheep(10, 280);
+		sheep2.rotation = 5;
 		Sheep sheep3 = new Sheep(387, 356);
+		sheep3.rotation = 99;
 		Sheep sheep4 = new Sheep(56, 178);
+		sheep4.rotation = 140;
 		sheeps.add(sheep1);
 		sheeps.add(sheep2);
 		sheeps.add(sheep3);
 		sheeps.add(sheep4);
 		Tree tree = new Tree(200,100);
 		trees.add(tree);
+		River river = new River(0,400);
+		rivers.add(river);
+		Bridge bridge = new Bridge(300,435);
+		bridges.add(bridge);
 	}
 
 	public void update (float deltaTime) {
@@ -69,6 +82,27 @@ public class World {
 	}
 
 	private void checkCollisions () {
+		checkCollisionWorld();
+		checkCollisionSheep();
+		checkCollisionPen();
+		checkCollisionRiver();
+		checkCollisionTree();
+	}
+	
+	private void checkCollisionWorld () {
+		for (Sheep sheep : sheeps) 
+			if (sheep.bounds.x + sheep.bounds.width < 0 ||
+					sheep.bounds.x > WORLD_WIDTH ||
+					sheep.bounds.y + sheep.bounds.height < 0 ||
+					sheep.bounds.y > WORLD_HEIGHT)
+				sheep.state = Sheep.SHEEP_STATE_ESCAPED;
+	}
+	
+	private void checkCollisionSheep () {
+		//TODO: schapen kunnen niet onder of beven elkaar lopen
+	}
+	
+	private void checkCollisionPen () {
 		for (Sheep sheep : sheeps) {
 			if (sheep.state != Sheep.SHEEP_STATE_CATCHED) {
 				if (sheep.bounds.overlaps(pen.bounds) && 
@@ -91,9 +125,25 @@ public class World {
 			}
 		}
 	}
+	
+	private void checkCollisionRiver () {
+		// TODO: zorg ervoor dat een schaap niet over de riveier kan, 
+		// maar wel over de brug
+	}
+	
+	private void checkCollisionTree () {
+		// TODO: wat doet een schaap als het een boom tegenkomt?
+	}
+	
+	private boolean checkFreeSheepLeft () {
+		for (Sheep sheep : sheeps)
+			if (sheep.state == Sheep.SHEEP_STATE_FREE || sheep.state == Sheep.SHEEP_STATE_DANGER)
+				return true;
+		return false;
+	}
 
 	private void checkGameOver () {
-		if (timeLeft <= 0f) {
+		if (timeLeft <= 0f || !checkFreeSheepLeft()) {
 			state = WORLD_STATE_GAME_OVER;
 		}
 		

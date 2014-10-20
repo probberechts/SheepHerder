@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 public class SavedData {
-	public static boolean soundEnabled = true;
 	public static int highscore = 0;
 	public final static String file = ".sheepherder";
 

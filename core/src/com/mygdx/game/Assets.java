@@ -9,7 +9,10 @@ public class Assets {
 	public static Texture sheep;
 	public static Texture pen;
 	public static Texture tree;
+	public static Texture river;
+	public static Texture bridge;
 	public static Texture gameOver;
+	public static Texture alert;
 	public static BitmapFont font;
 
 
@@ -21,6 +24,9 @@ public class Assets {
 		sheep = loadTexture("sheep.png");
 		pen = loadTexture("pin.png");
 		tree = loadTexture("tree.png");
+		river = loadTexture("river.png");
+		bridge = loadTexture("bridge.png");
+		alert = loadTexture("alert.png");
 		
 		//gameOver = loadTexture("tree.png");
 		

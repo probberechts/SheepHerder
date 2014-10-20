@@ -13,6 +13,7 @@ public class Pen extends GameObject {
 	}
 	
 	public boolean canEnter(Rectangle object) {
+		//TODO: grenzen juist afstellen
 		Rectangle entryZone = new Rectangle(bounds.x + 100, bounds.y, 100, 5);
 		return object.overlaps(entryZone);
 	}
