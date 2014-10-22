@@ -2,7 +2,9 @@ package com.mygdx.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class World {
@@ -39,18 +41,15 @@ public class World {
 	private void generateLevel () {
 		//TODO: genereer random level
 		pen = new Pen(120, 680);
-		Sheep sheep1 = new Sheep(200, 400);
-		sheep1.rotation = 50;
-		Sheep sheep2 = new Sheep(10, 280);
-		sheep2.rotation = 5;
-		Sheep sheep3 = new Sheep(387, 356);
-		sheep3.rotation = 99;
-		Sheep sheep4 = new Sheep(56, 178);
-		sheep4.rotation = 140;
-		sheeps.add(sheep1);
-		sheeps.add(sheep2);
-		sheeps.add(sheep3);
-		sheeps.add(sheep4);
+		Random rand = new Random();
+		for(int i=0;i<3;++i) {
+			for(int j=0;j<3;++j) {
+				int randX = rand.nextInt()%40 - 20;
+				int randY = rand.nextInt()%40 - 20;
+				Sheep sheep1 = new Sheep(200 + i*50 + randX, 350 - j*50 + randY);
+				sheeps.add(sheep1);
+			}
+		}
 		Tree tree = new Tree(200,100);
 		trees.add(tree);
 		River river = new River(0,400);
@@ -67,10 +66,12 @@ public class World {
 	
 	public void updateRotationSheeps(Vector3 touchPos) {
 		for (Sheep sheep : sheeps) {
-			if (sheep.position.dst2(touchPos.x, touchPos.y) < 20000) {
+			if (sheep.position.dst2(touchPos.x, touchPos.y) < 10000) {
 				double angle = Math.atan2(touchPos.y - sheep.position.y, touchPos.x - sheep.position.x );
 				angle = angle * (180/Math.PI);
 				sheep.rotation = ((int) angle + 180)  % 360; 
+				sheep.velocity = new Vector2(100, 100);
+				sheep.timeToIdle = 100;
 			}
 		}
 	}

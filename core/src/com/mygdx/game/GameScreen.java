@@ -63,7 +63,7 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void updateRunning (float deltaTime) {
-		if (Gdx.input.justTouched()) {
+		if (Gdx.input.isTouched()) {
 			Vector3 touchPos = new Vector3();
 	        touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 	        camera.unproject(touchPos);

@@ -1,21 +1,25 @@
 package com.mygdx.game;
 
+import java.util.Random;
+
 
 public class Sheep extends DynamicGameObject {
 	public static final int SHEEP_STATE_FREE = 0;
 	public static final int SHEEP_STATE_CATCHED = 1;
 	public static final int SHEEP_STATE_DANGER = 2;
 	public static final int SHEEP_STATE_ESCAPED = 3;
-	public static final float SHEEP_MOVE_VELOCITY = 20;
+	public static final float SHEEP_MOVE_VELOCITY = 0;
 	public static final float SHEEP_WIDTH = 55;
 	public static final float SHEEP_HEIGHT = 50;
 
 	int state;
+	public int timeToIdle;
 
 	public Sheep (float x, float y) {
 		super(x, y, SHEEP_WIDTH, SHEEP_HEIGHT);
-		this.velocity.x = 20;
-		this.velocity.y = 20;
+		this.velocity.x = 0;
+		this.velocity.y = 0;
+		timeToIdle = 0;
 	}
 
 	public void update (float deltaTime) {
@@ -30,7 +34,22 @@ public class Sheep extends DynamicGameObject {
 		}
 		//Then determine the new position based on speed, direction and deltaTime
 		position.add(velocity.x * direction.x * deltaTime, velocity.y * direction.y * deltaTime);
-		//TODO: voeg hier wat random noise aan toe
+		
+		//reduce speed until sheep comes to a stop
+		this.velocity.x = (this.velocity.x*3 + SHEEP_MOVE_VELOCITY) / 4;
+		this.velocity.y = (this.velocity.y*3 + SHEEP_MOVE_VELOCITY) / 4;
+		if(this.velocity.x < 1) this.velocity.x = 0;
+		if(this.velocity.y < 1) this.velocity.y = 0;
+		
+		if(timeToIdle > 0) timeToIdle -= deltaTime;
+		else {
+			//random movement
+			Random rand = new Random();
+			this.velocity.x += rand.nextInt()%30 + 70;
+			this.velocity.y += rand.nextInt()%30 + 70;
+			this.rotation = rand.nextInt()%360;
+			timeToIdle = 90 + rand.nextInt()%50;
+		}
 		
 		if (state != SHEEP_STATE_CATCHED)
 			checkCloseToScreenBorder();				
