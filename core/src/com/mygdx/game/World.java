@@ -134,6 +134,14 @@ public class World {
 	
 	private void checkCollisionTree () {
 		// TODO: wat doet een schaap als het een boom tegenkomt?
+		for (Sheep sheep : sheeps) {
+			for(Tree tree : trees){
+				if(sheep.bounds.overlaps(tree.bounds)){
+					System.out.println(sheep.bounds+" "+tree.bounds);
+					sheep.position.add(-sheep.direction.x, -sheep.direction.y);
+				}
+			}
+		}
 	}
 	
 	private boolean checkFreeSheepLeft () {
