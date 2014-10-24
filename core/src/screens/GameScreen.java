@@ -1,10 +1,15 @@
-package com.mygdx.game;
+package screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
+import com.mygdx.game.Assets;
+import com.mygdx.game.SavedData;
+import com.mygdx.game.SheepHerder;
+import com.mygdx.game.World;
+import com.mygdx.game.WorldRenderer;
 
 public class GameScreen extends ScreenAdapter {
 	static final int GAME_READY = 0;
@@ -107,6 +112,7 @@ public class GameScreen extends ScreenAdapter {
 		game.batcher.setProjectionMatrix(camera.combined);
 		game.batcher.enableBlending();
 		game.batcher.begin();
+
 		switch (state) {
 		case GAME_READY:
 			presentReady();
@@ -142,7 +148,6 @@ public class GameScreen extends ScreenAdapter {
 	private void presentGameOver () {
 		//TODO: zoek een deftige formule
 		int newScore = world.sheepsCollected + world.timeLeft;
-		System.out.println(SavedData.highscore);
 		if (newScore > SavedData.highscore) {
 			SavedData.newHighscore(newScore);
 			Assets.font.draw(game.batcher, "NEW HIGHSCORE!", 125, 450);

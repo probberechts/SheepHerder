@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import objects.Pen;
+import objects.River;
+import objects.Sheep;
+import objects.Tree;
+
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -18,8 +23,6 @@ public class World {
 	public final List<Sheep> sheeps;
 	public final List<Tree> trees;
 	public final List<River> rivers;
-	public final List<Bridge> bridges;
-
 
 	public int timeLeft;
 	public int sheepsCollected;
@@ -30,7 +33,6 @@ public class World {
 		this.sheeps = new ArrayList<Sheep>();
 		this.trees = new ArrayList<Tree>();
 		this.rivers = new ArrayList<River>();
-		this.bridges = new ArrayList<Bridge>();
 		generateLevel();
 
 		this.timeLeft = 12000;
@@ -40,7 +42,7 @@ public class World {
 
 	private void generateLevel () {
 		//TODO: genereer random level
-		pen = new Pen(120, 680);
+		pen = new Pen(20, 565);
 		Random rand = new Random();
 		for(int i=0;i<3;++i) {
 			for(int j=0;j<3;++j) {
@@ -52,10 +54,9 @@ public class World {
 		}
 		Tree tree = new Tree(200,100);
 		trees.add(tree);
-		River river = new River(0,400);
+		//TODO: rivier in een bepaalde draaihoek platsen werkt nog niet
+		River river = new River(0,400,0,2);
 		rivers.add(river);
-		Bridge bridge = new Bridge(300,435);
-		bridges.add(bridge);
 	}
 
 	public void update (float deltaTime) {
@@ -70,8 +71,8 @@ public class World {
 				double angle = Math.atan2(touchPos.y - sheep.position.y, touchPos.x - sheep.position.x );
 				angle = angle * (180/Math.PI);
 				sheep.rotation = ((int) angle + 180)  % 360; 
-				sheep.velocity = new Vector2(100, 100);
-				sheep.timeToIdle = 100;
+				sheep.velocity = new Vector2(50, 50);
+				sheep.timeToIdle = 200;
 			}
 		}
 	}
@@ -87,7 +88,7 @@ public class World {
 		checkCollisionSheep();
 		checkCollisionPen();
 		checkCollisionRiver();
-		checkCollisionTree();
+		//checkCollisionTree();
 	}
 	
 	private void checkCollisionWorld () {
@@ -100,7 +101,7 @@ public class World {
 	}
 	
 	private void checkCollisionSheep () {
-		//TODO: schapen kunnen niet onder of beven elkaar lopen
+		//TODO: schapen kunnen niet onder of boven elkaar lopen
 	}
 	
 	private void checkCollisionPen () {
@@ -109,36 +110,41 @@ public class World {
 				if (sheep.bounds.overlaps(pen.bounds) && 
 						!pen.canEnter(sheep.bounds)) {
 						sheep.rotation += 180;
-						sheep.position.add(-sheep.direction.x, -sheep.direction.y);
+						sheep.position.add(-sheep.direction.x - 10, -sheep.direction.y - 10);
 				}
-				else if (pen.bounds.contains(sheep.bounds)) {
+				else if (pen.hasScored(sheep.bounds)) {
 					sheep.state = Sheep.SHEEP_STATE_CATCHED;
 					sheepsCollected++;
 				}
-			} else if (sheep.state == Sheep.SHEEP_STATE_CATCHED && !pen.bounds.contains(sheep.bounds)) {
+			} else if (sheep.state == Sheep.SHEEP_STATE_CATCHED && !pen.hasScored(sheep.bounds)) {
 				if (pen.canEnter(sheep.bounds)) {
 					sheep.state = Sheep.SHEEP_STATE_FREE;
 					sheepsCollected--;
 				} else {
 					sheep.rotation += 180;
-					sheep.position.add(-sheep.direction.x, -sheep.direction.y);
+					sheep.position.add(-sheep.direction.x - 10, -sheep.direction.y - 10);
 				}
 			}
 		}
 	}
 	
 	private void checkCollisionRiver () {
-		// TODO: zorg ervoor dat een schaap niet over de riveier kan, 
-		// maar wel over de brug
+		for (Sheep sheep : sheeps) {
+			for(River river : rivers) {
+				if(sheep.bounds.overlaps(river.bounds) && !river.canPass(sheep)) {
+					sheep.rotation += 180;
+					sheep.position.add(-sheep.direction.x - 10, -sheep.direction.y - 10);
+				}
+			}
+		}
 	}
 	
 	private void checkCollisionTree () {
-		// TODO: wat doet een schaap als het een boom tegenkomt?
 		for (Sheep sheep : sheeps) {
-			for(Tree tree : trees){
+			for(Tree tree : trees) {
 				if(sheep.bounds.overlaps(tree.bounds)){
-					System.out.println(sheep.bounds+" "+tree.bounds);
-					sheep.position.add(-sheep.direction.x, -sheep.direction.y);
+					sheep.rotation += 180;
+					sheep.position.add(-sheep.direction.x - 10, -sheep.direction.y - 10);
 				}
 			}
 		}
