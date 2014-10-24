@@ -60,7 +60,7 @@ public class World {
 		int numRivers = rand(MIN_RIVERS, MAX_RIVERS);
 		River river;
 		for (int i = 0; i < numRivers; i++) {
-			river = new River(0, rand(200, 500), 0, rand(1, 3));
+			river = new River(0, rand(200, 400), 0, rand(1, 3));
 			if (checkOverlapPen(river) || checkOverlapRiver(river)) i--;
 			else rivers.add(river);
 		}
@@ -79,7 +79,7 @@ public class World {
 		int numSheeps = rand(MIN_SHEEPS, MAX_SHEEPS);
 		Sheep sheep;
 		for (int i = 0; i < numSheeps; i++) {
-			sheep = new Sheep(rand(50, (int) WORLD_WIDTH - 50), rand(50, 200));
+			sheep = new Sheep(rand(50, (int) WORLD_WIDTH - 70), rand(50, 180));
 			sheep.rotation = rand(0, 360);
 			if (checkOverlapObject(sheep)) i--;
 			else sheeps.add(sheep);
@@ -136,7 +136,7 @@ public class World {
 				//double angle = Math.atan2(touchPos.y - sheep.position.y, touchPos.x - sheep.position.x );
 				//angle = angle * (180/Math.PI);
 				sheep.rotation = ((int) angle + 180)  % 360; 
-				sheep.velocity = new Vector2(50, 50);
+				sheep.velocity = new Vector2(100, 100);
 				sheep.timeToIdle = 200;
 			}
 		}
