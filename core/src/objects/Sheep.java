@@ -2,6 +2,7 @@ package objects;
 
 import java.util.Random;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.Assets;
 import com.mygdx.game.World;
@@ -18,11 +19,16 @@ public class Sheep extends DynamicGameObject {
 
 	public int state;
 	public int timeToIdle;
+	private Sprite sprite;
 
 	public Sheep (float x, float y) {
 		super(x, y, SHEEP_WIDTH, SHEEP_HEIGHT);
 		this.velocity.x = 0;
 		this.velocity.y = 0;
+		// Sprites make it easy to calculate the bounding box after rotation
+		this.sprite = new Sprite(Assets.sheep);
+		this.sprite.setRotation(rotation);
+		this.sprite.setPosition(position.x, position.y);
 		timeToIdle = 0;
 	}
 
@@ -35,9 +41,10 @@ public class Sheep extends DynamicGameObject {
 		}
 		
 		//Then determine the new position based on speed, direction and deltaTime
+		sprite.setRotation(rotation);
 		position.add(velocity.x * direction.x * deltaTime, velocity.y * direction.y * deltaTime);
-		bounds.x = position.x;
-		bounds.y = position.y;
+		sprite.setPosition(position.x, position.y);
+		bounds = sprite.getBoundingRectangle();
 		
 		//reduce speed until sheep comes to a stop
 		this.velocity.x = this.velocity.x * 0.98f;
@@ -72,15 +79,11 @@ public class Sheep extends DynamicGameObject {
 
 	@Override
 	public void render(SpriteBatch batch) {
-		batch.draw(Assets.sheep, 
-				position.x, position.y, 
-				center.x, center.y, 
-				SHEEP_WIDTH, SHEEP_HEIGHT, 
-				1, 1, rotation, 0, 0, Assets.sheep.getWidth(), Assets.sheep.getHeight(),
-				false, false);
+		sprite.draw(batch);
 		if(state == SHEEP_STATE_DANGER)
 			batch.draw(Assets.alert, 
-					position.x - Assets.alert.getWidth() / 2, position.y - Assets.alert.getHeight() / 2);
+					position.x + center.x - Assets.alert.getWidth() / 2, 
+					position.y + center.y - Assets.alert.getHeight() / 2);
 	}
 
 }

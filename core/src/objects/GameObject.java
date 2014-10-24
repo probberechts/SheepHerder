@@ -8,7 +8,7 @@ public abstract class GameObject {
 	public final Vector2 position;
 	public final Vector2 center;
 	public int rotation;
-	public final Rectangle bounds;
+	public Rectangle bounds;
 
 	public GameObject (float x, float y, float width, float height) {
 		// lower left point

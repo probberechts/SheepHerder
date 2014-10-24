@@ -12,7 +12,7 @@ public class River extends GameObject {
 	private int numBridges;
 	private Array<TextureRegion> regRiverParts;
     private Array<RiverPart> riverParts;
-    private Array<Bridge> bridges;
+    public Array<Bridge> bridges;
 	
 	private class RiverPart extends GameObject {
 

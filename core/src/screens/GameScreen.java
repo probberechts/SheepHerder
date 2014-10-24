@@ -1,9 +1,13 @@
 package screens;
 
+import objects.*;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Assets;
 import com.mygdx.game.SavedData;
@@ -112,7 +116,28 @@ public class GameScreen extends ScreenAdapter {
 		game.batcher.setProjectionMatrix(camera.combined);
 		game.batcher.enableBlending();
 		game.batcher.begin();
-
+		
+		// DEBUG: draw bounding boxes of objects
+//		ShapeRenderer sr = new ShapeRenderer();
+//		sr.setProjectionMatrix(camera.combined);
+//		sr.begin(ShapeType.Line);
+//		sr.setColor(1, 1, 0, 1);
+//		for (Sheep sheep : world.sheeps)
+//			sr.rect(sheep.bounds.x, sheep.bounds.y, sheep.bounds.width, sheep.bounds.height);
+//		sr.setColor(1, 0, 0, 1);
+//		for (River river : world.rivers) {
+//			sr.rect(river.bounds.x, river.bounds.y, river.bounds.width, river.bounds.height);
+//			sr.setColor(0, 1, 0, 0);
+//			for (Bridge bridge: river.bridges)
+//				sr.rect(bridge.bounds.x, bridge.bounds.y, bridge.bounds.width, bridge.bounds.height);
+//		}
+//		sr.setColor(0, 1, 0, 1);
+//		for (Tree tree : world.trees)
+//			sr.rect(tree.bounds.x, tree.bounds.y, tree.bounds.width, tree.bounds.height);
+//		sr.setColor(0, 0, 0, 1);
+//		sr.rect(world.pen.bounds.x, world.pen.bounds.y, world.pen.bounds.width, world.pen.bounds.height);
+//		sr.end();
+		 
 		switch (state) {
 		case GAME_READY:
 			presentReady();

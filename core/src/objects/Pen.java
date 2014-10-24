@@ -43,10 +43,6 @@ public class Pen extends GameObject {
 	}
 	
 	public boolean hasScored(Rectangle object) {
-		System.out.println("result: " + scoreZone.contains(object));
-		System.out.println("zone: " + scoreZone);
-		System.out.println("sheep: " + object);
-		System.out.println("--------------------");
 		return scoreZone.contains(object);
 	}
 

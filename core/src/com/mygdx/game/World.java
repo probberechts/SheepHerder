@@ -110,7 +110,7 @@ public class World {
 				if (sheep.bounds.overlaps(pen.bounds) && 
 						!pen.canEnter(sheep.bounds)) {
 						sheep.rotation += 180;
-						sheep.position.add(-sheep.direction.x - 10, -sheep.direction.y - 10);
+						sheep.position.add(-sheep.direction.x * 5, -sheep.direction.y * 5);
 				}
 				else if (pen.hasScored(sheep.bounds)) {
 					sheep.state = Sheep.SHEEP_STATE_CATCHED;
@@ -122,7 +122,7 @@ public class World {
 					sheepsCollected--;
 				} else {
 					sheep.rotation += 180;
-					sheep.position.add(-sheep.direction.x - 10, -sheep.direction.y - 10);
+					sheep.position.add(-sheep.direction.x * 5, -sheep.direction.y * 5);
 				}
 			}
 		}
@@ -133,7 +133,7 @@ public class World {
 			for(River river : rivers) {
 				if(sheep.bounds.overlaps(river.bounds) && !river.canPass(sheep)) {
 					sheep.rotation += 180;
-					sheep.position.add(-sheep.direction.x - 10, -sheep.direction.y - 10);
+					sheep.position.add(-sheep.direction.x * 5, -sheep.direction.y * 5);
 				}
 			}
 		}
@@ -144,7 +144,7 @@ public class World {
 			for(Tree tree : trees) {
 				if(sheep.bounds.overlaps(tree.bounds)){
 					sheep.rotation += 180;
-					sheep.position.add(-sheep.direction.x - 10, -sheep.direction.y - 10);
+					sheep.position.add(-sheep.direction.x * 5, -sheep.direction.y * 5);
 				}
 			}
 		}
