@@ -132,8 +132,9 @@ public class World {
 	public void updateRotationSheeps(Vector3 touchPos) {
 		for (Sheep sheep : sheeps) {
 			if (sheep.position.dst2(touchPos.x, touchPos.y) < 10000) {
-				double angle = Math.atan2(touchPos.y - sheep.position.y, touchPos.x - sheep.position.x );
-				angle = angle * (180/Math.PI);
+				float angle = new Vector2(touchPos.x,touchPos.y).sub(new Vector2(sheep.bounds.x+sheep.center.x, sheep.bounds.y+sheep.center.y)).angle();
+				//double angle = Math.atan2(touchPos.y - sheep.position.y, touchPos.x - sheep.position.x );
+				//angle = angle * (180/Math.PI);
 				sheep.rotation = ((int) angle + 180)  % 360; 
 				sheep.velocity = new Vector2(50, 50);
 				sheep.timeToIdle = 200;
