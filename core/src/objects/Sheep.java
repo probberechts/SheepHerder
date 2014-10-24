@@ -83,7 +83,7 @@ public class Sheep extends DynamicGameObject {
 		if(state == SHEEP_STATE_DANGER)
 			batch.draw(Assets.alert, 
 					position.x + Assets.alert.getWidth() / 2 + 10, 
-					position.y + 60);
+					position.y + 55);
 	}
 
 }

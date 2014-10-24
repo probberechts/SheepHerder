@@ -32,6 +32,8 @@ public class GameScreen extends ScreenAdapter {
 	int lastScore;
 	String sheepString;
 	String timeString;
+	int currentScore;
+	
 
 	public GameScreen (SheepHerder game) {
 		this.game = game;
@@ -89,6 +91,7 @@ public class GameScreen extends ScreenAdapter {
 			lastScore = world.sheepsCollected;
 			sheepString = "SHEEPS: " + lastScore;
 		}
+		currentScore = world.sheepsCollected == 0 ? 0 : (world.sheepsCollected*100+world.timeLeft/100);
 		
 		if (world.state == World.WORLD_STATE_GAME_OVER) {
 			state = GAME_OVER;
@@ -161,8 +164,12 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void presentRunning () {
-		Assets.font.draw(game.batcher, timeString, 480-170, 800 - 20);
-		Assets.font.draw(game.batcher, sheepString, 480-170, 800 - 50);
+		Assets.font.draw(game.batcher, timeString, 26, 800 - 20);
+		//Assets.font.draw(game.batcher, sheepString, 480-190, 800 - 50);
+		Assets.font.draw(game.batcher, "Score: "+currentScore, 26, 800-50);
+		Assets.font.draw(game.batcher, "Best score: "+SavedData.highscore, 26, 800-80);
+		//debug
+		//Assets.font.draw(game.batcher, Gdx.input.getX()+","+Gdx.input.getY(), 480-190, 800-110);
 	}
 
 	private void presentPaused () {
