@@ -169,10 +169,14 @@ public class GameScreen extends ScreenAdapter {
 		Assets.font.draw(game.batcher, timeString, 480-170, 800 - 20);
 		Assets.font.draw(game.batcher, sheepString, 480-170, 800 - 50);
 	}
+	
+	private int calculateScore(int sheepsCollected, int timeLeft) {
+		if (sheepsCollected == 0) return 0;
+		return sheepsCollected * 100 + timeLeft/100;
+	}
 
 	private void presentGameOver () {
-		//TODO: zoek een deftige formule
-		int newScore = world.sheepsCollected + world.timeLeft;
+		int newScore = calculateScore(world.sheepsCollected, world.timeLeft);
 		if (newScore > SavedData.highscore) {
 			SavedData.newHighscore(newScore);
 			Assets.font.draw(game.batcher, "NEW HIGHSCORE!", 125, 450);
