@@ -20,6 +20,7 @@ public class GameScreen extends ScreenAdapter {
 	static final int GAME_RUNNING = 1;
 	static final int GAME_PAUSED = 2;
 	static final int GAME_OVER = 3;
+	java.text.DecimalFormat nft = new java.text.DecimalFormat("#00.###");  
 
 	SheepHerder game;
 
@@ -82,7 +83,7 @@ public class GameScreen extends ScreenAdapter {
 		world.update(deltaTime);
 		
 		world.timeLeft -= deltaTime;
-		timeString = String.format("TIME: %02d:%02d",  world.timeLeft/6000, (world.timeLeft%6000)/100);
+		timeString = "TIME: " + nft.format(world.timeLeft/6000) + ":" + nft.format((world.timeLeft%6000)/100);
 
 		if (world.sheepsCollected != lastScore) {
 			lastScore = world.sheepsCollected;
@@ -182,7 +183,8 @@ public class GameScreen extends ScreenAdapter {
 			Assets.font.draw(game.batcher, "NEW HIGHSCORE!", 125, 450);
 		} else
 			Assets.font.draw(game.batcher, "GAME OVER!", 150, 450);
-		String score = String.format("SCORE: %d + %02d:%02d = %d", world.sheepsCollected, world.timeLeft/6000, (world.timeLeft%6000)/100, newScore);
+		String time = nft.format(world.timeLeft/6000) + ":" + nft.format((world.timeLeft%6000)/100);
+		String score = "SCORE: " + world.sheepsCollected + " + " + time + " = " + newScore;
 		float scoreWidth = Assets.font.getBounds(score).width;
 		Assets.font.draw(game.batcher, score, 240 - scoreWidth / 2, 400);
 		Assets.font.draw(game.batcher, "BEST: " + SavedData.highscore, 240 - scoreWidth / 2, 350);
