@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import objects.GameObject;
 import objects.Pen;
 import objects.River;
 import objects.Sheep;
@@ -41,24 +42,87 @@ public class World {
 	}
 
 	private void generateLevel () {
-		//TODO: genereer random level
-		pen = new Pen(20, 565);
+		// Variables
+		int MIN_SHEEPS = 10;
+		int MAX_SHEEPS = 10;
+		int MIN_TREES = 1;
+		int MAX_TREES = 3;
+		int MIN_RIVERS = 1;
+		int MAX_RIVERS = 1;
+		
 		Random rand = new Random();
-		for(int i=0;i<3;++i) {
-			for(int j=0;j<3;++j) {
-				int randX = rand.nextInt()%40 - 20;
-				int randY = rand.nextInt()%40 - 20;
-				Sheep sheep1 = new Sheep(200 + i*50 + randX, 350 - j*50 + randY);
-				sheeps.add(sheep1);
-			}
+
+		//Create the pen
+		pen = new Pen(20, 565);
+		
+		// Create some rivers
+		//TODO: rivier in een bepaalde draaihoek plaatsen werkt nog niet
+		int numRivers = rand(MIN_RIVERS, MAX_RIVERS);
+		River river;
+		for (int i = 0; i < numRivers; i++) {
+			river = new River(0, rand(200, 500), 0, rand(1, 3));
+			if (checkOverlapPen(river) || checkOverlapRiver(river)) i--;
+			else rivers.add(river);
 		}
-		Tree tree = new Tree(200,100);
-		trees.add(tree);
-		//TODO: rivier in een bepaalde draaihoek platsen werkt nog niet
-		River river = new River(0,400,0,2);
-		rivers.add(river);
+		
+		//Create some trees on random positions
+		int numTrees = rand(MIN_TREES, MAX_TREES);
+		Tree tree;
+		for (int i = 0; i < numTrees; i++) {
+			tree = new Tree(rand(0, (int) (WORLD_WIDTH - Tree.TREE_WIDTH/2)), rand(0, (int) (WORLD_HEIGHT - Tree.TREE_HEIGHT/2)));
+			if (checkOverlapPen(tree) || checkOverlapRiver(tree)) i--;
+			else trees.add(tree);
+		}
+		
+		
+		//Create some sheeps on random positions
+		int numSheeps = rand(MIN_SHEEPS, MAX_SHEEPS);
+		Sheep sheep;
+		for (int i = 0; i < numSheeps; i++) {
+			sheep = new Sheep(rand(50, (int) WORLD_WIDTH - 50), rand(50, 200));
+			sheep.rotation = rand(0, 360);
+			if (checkOverlapObject(sheep)) i--;
+			else sheeps.add(sheep);
+		}
 	}
 
+	private int rand(int min, int max) {
+		Random generator = new Random(); 
+		if (max == min)
+			return min;
+		return generator.nextInt(max - min) + min;
+	}
+	
+	private boolean checkOverlapPen(GameObject object) {
+		return pen.bounds.overlaps(object.bounds);
+	}
+	
+	private boolean checkOverlapTree(GameObject object) {
+		for (Tree tree : trees)
+			if (tree.bounds.overlaps(object.bounds))
+				return true;
+		return false;
+	}
+	
+	private boolean checkOverlapRiver(GameObject object) {
+		for (River river : rivers)
+			if (river.bounds.overlaps(object.bounds))
+				return true;
+		return false;
+	}
+	
+	private boolean checkOverlapSheep(GameObject object) {
+		for (Sheep sheep : sheeps)
+			if (sheep.bounds.overlaps(object.bounds))
+				return true;
+		return false;
+	}
+	
+	private boolean checkOverlapObject(GameObject object) {
+		return (checkOverlapPen(object) || checkOverlapTree(object) || 
+				checkOverlapRiver(object) || checkOverlapSheep(object));
+	}
+	
 	public void update (float deltaTime) {
 		updateSheeps(deltaTime);
 		checkCollisions();
@@ -101,7 +165,13 @@ public class World {
 	}
 	
 	private void checkCollisionSheep () {
-		//TODO: schapen kunnen niet onder of boven elkaar lopen
+//		for (int i = 0; i < sheeps.size(); i++) {
+//			for (int j = i+1; j < sheeps.size(); j++) {
+//			    if (sheeps.get(i).bounds.overlaps(sheeps.get(j).bounds)) {
+//			    	//ni gemakkelijk..
+//			    }
+//			}
+//		}
 	}
 	
 	private void checkCollisionPen () {
