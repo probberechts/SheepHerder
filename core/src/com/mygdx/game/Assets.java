@@ -13,6 +13,7 @@ public class Assets {
 	public static Texture bridge;
 	public static Texture gameOver;
 	public static Texture alert;
+	public static Texture touchmarker;
 	public static BitmapFont font;
 
 
@@ -27,6 +28,7 @@ public class Assets {
 		river = loadTexture("river.png");
 		bridge = loadTexture("bridge.png");
 		alert = loadTexture("alert.png");
+		touchmarker = loadTexture("touchmarker.png");
 		
 		//gameOver = loadTexture("tree.png");
 		
