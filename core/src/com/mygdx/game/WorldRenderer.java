@@ -34,15 +34,6 @@ public class WorldRenderer {
 	public void renderBackground () {
 		Gdx.gl.glClearColor(0.172f, 0.690f, 0.212f, 1);
 	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-	    
-//	    immediateRenderer.begin(batch.getProjectionMatrix(), GL20.GL_LINE_LOOP);
-//	    immediateRenderer.color(Color.BLACK);
-//	    immediateRenderer.vertex(World.WORLD_MARGIN, World.WORLD_MARGIN, 0);
-//	    immediateRenderer.vertex(World.WORLD_WIDTH-World.WORLD_MARGIN, World.WORLD_MARGIN, 0);
-//	    immediateRenderer.vertex(World.WORLD_WIDTH-World.WORLD_MARGIN, World.WORLD_HEIGHT-World.WORLD_MARGIN, 0);
-//	    immediateRenderer.vertex(World.WORLD_MARGIN, World.WORLD_HEIGHT-World.WORLD_MARGIN, 0);
-//	    immediateRenderer.vertex(World.WORLD_MARGIN, World.WORLD_MARGIN, 0);
-//	    immediateRenderer.end();
 
 	    renderRect(new Vector2(0, 0), new Vector2(World.WORLD_MARGIN, World.WORLD_HEIGHT), World.WORLD_MARGIN_COLOR);
 	    renderRect(new Vector2(World.WORLD_WIDTH-World.WORLD_MARGIN, 0), new Vector2(World.WORLD_WIDTH, World.WORLD_HEIGHT), World.WORLD_MARGIN_COLOR);
@@ -65,7 +56,6 @@ public class WorldRenderer {
 	    immediateRenderer.vertex(p1.x, p2.y, 0);
 	    immediateRenderer.color(color);
 	    immediateRenderer.vertex(p1.x, p1.y, 0);
-
 	    immediateRenderer.end();
 	}
 	
