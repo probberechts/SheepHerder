@@ -12,6 +12,7 @@ import objects.Sheep;
 import objects.Tree;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -21,6 +22,8 @@ public class World {
 	public static final float WORLD_HEIGHT = 800;
 	public static final int WORLD_STATE_RUNNING = 0;
 	public static final int WORLD_STATE_GAME_OVER = 1;
+	public static final int WORLD_MARGIN = 20;
+	public static final Color WORLD_MARGIN_COLOR = new Color(0x006400ff);
 
 	public Pen pen;
 	public final List<Sheep> sheeps;
@@ -31,7 +34,7 @@ public class World {
 	public int sheepsCollected;
 	public int state;
 
-	public World () {
+	public World() {
 		this.pen = new Pen(5, 1);
 		this.sheeps = new ArrayList<Sheep>();
 		this.trees = new ArrayList<Tree>();
@@ -85,58 +88,62 @@ public class World {
 			if (checkOverlapObject(sheep)) i--;
 			else sheeps.add(sheep);
 		}
+
 	}
 
 	private int rand(int min, int max) {
-		Random generator = new Random(); 
+		Random generator = new Random();
 		if (max == min)
 			return min;
 		return generator.nextInt(max - min) + min;
 	}
-	
+
 	private boolean checkOverlapPen(GameObject object) {
 		return pen.bounds.overlaps(object.bounds);
 	}
-	
+
 	private boolean checkOverlapTree(GameObject object) {
 		for (Tree tree : trees)
 			if (tree.bounds.overlaps(object.bounds))
 				return true;
 		return false;
 	}
-	
+
 	private boolean checkOverlapRiver(GameObject object) {
 		for (River river : rivers)
 			if (river.bounds.overlaps(object.bounds))
 				return true;
 		return false;
 	}
-	
+
 	private boolean checkOverlapSheep(GameObject object) {
 		for (Sheep sheep : sheeps)
 			if (sheep.bounds.overlaps(object.bounds))
 				return true;
 		return false;
 	}
-	
+
 	private boolean checkOverlapObject(GameObject object) {
-		return (checkOverlapPen(object) || checkOverlapTree(object) || 
-				checkOverlapRiver(object) || checkOverlapSheep(object));
+		return (checkOverlapPen(object) || checkOverlapTree(object)
+				|| checkOverlapRiver(object) || checkOverlapSheep(object));
 	}
-	
-	public void update (float deltaTime) {
+
+	public void update(float deltaTime) {
 		updateSheeps(deltaTime);
 		checkIfSheepsEscape();
 		checkGameOver();
 	}
-	
+
 	public void updateRotationSheeps(Vector3 touchPos) {
 		for (Sheep sheep : sheeps) {
 			if (sheep.position.dst2(touchPos.x, touchPos.y) < 10000) {
-				float angle = new Vector2(touchPos.x,touchPos.y).sub(new Vector2(sheep.bounds.x+sheep.center.x, sheep.bounds.y+sheep.center.y)).angle();
-				//double angle = Math.atan2(touchPos.y - sheep.position.y, touchPos.x - sheep.position.x );
-				//angle = angle * (180/Math.PI);
-				sheep.rotation = ((int) angle + 180)  % 360; 
+				float angle = new Vector2(touchPos.x, touchPos.y).sub(
+						new Vector2(sheep.bounds.x + sheep.center.x,
+								sheep.bounds.y + sheep.center.y)).angle();
+				// double angle = Math.atan2(touchPos.y - sheep.position.y,
+				// touchPos.x - sheep.position.x );
+				// angle = angle * (180/Math.PI);
+				sheep.rotation = ((int) angle + 180) % 360;
 				sheep.velocity = new Vector2(100, 100);
 				sheep.timeToIdle = 200;
 			}
@@ -179,17 +186,18 @@ public class World {
 	
 	private boolean checkFreeSheepLeft () {
 		for (Sheep sheep : sheeps)
-			if (sheep.state == Sheep.SHEEP_STATE_FREE || sheep.state == Sheep.SHEEP_STATE_DANGER)
+			if (sheep.state == Sheep.SHEEP_STATE_FREE
+					|| sheep.state == Sheep.SHEEP_STATE_DANGER)
 				return true;
 		return false;
 	}
 
-	private void checkGameOver () {
+	private void checkGameOver() {
 		if (timeLeft <= 0f || !checkFreeSheepLeft()) {
 			state = WORLD_STATE_GAME_OVER;
 		}
-		
-		for (Sheep sheep: sheeps)
+
+		for (Sheep sheep : sheeps)
 			if (sheep.state != Sheep.SHEEP_STATE_CATCHED)
 				return;
 		state = WORLD_STATE_GAME_OVER;
