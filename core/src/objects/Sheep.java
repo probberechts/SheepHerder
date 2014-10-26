@@ -15,7 +15,6 @@ public class Sheep extends DynamicGameObject {
 	public static final int SHEEP_STATE_FREE = 0;
 	public static final int SHEEP_STATE_CATCHED = 1;
 	public static final int SHEEP_STATE_DANGER = 2;
-	public static final int SHEEP_STATE_ESCAPED = 3;
 	public static final float SHEEP_MOVE_VELOCITY = 20;
 	public static final float SHEEP_WIDTH = 55;
 	public static final float SHEEP_HEIGHT = 50;

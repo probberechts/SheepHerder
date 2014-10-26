@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import objects.GameObject;
 import objects.Pen;
@@ -11,8 +12,8 @@ import objects.River;
 import objects.Sheep;
 import objects.Tree;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -26,7 +27,7 @@ public class World {
 	public static final Color WORLD_MARGIN_COLOR = new Color(0x006400ff);
 
 	public Pen pen;
-	public final List<Sheep> sheeps;
+	public final CopyOnWriteArrayList<Sheep> sheeps;
 	public final List<Tree> trees;
 	public final List<River> rivers;
 
@@ -36,7 +37,7 @@ public class World {
 
 	public World() {
 		this.pen = new Pen(5, 1);
-		this.sheeps = new ArrayList<Sheep>();
+		this.sheeps = new CopyOnWriteArrayList<Sheep>();
 		this.trees = new ArrayList<Tree>();
 		this.rivers = new ArrayList<River>();
 		generateLevel();
@@ -172,7 +173,6 @@ public class World {
 			}
 		}
 	}
-
 	
 	private void checkIfSheepsEscape () {
 		for (Sheep sheep : sheeps) 
@@ -180,20 +180,11 @@ public class World {
 					sheep.bounds.x > WORLD_WIDTH ||
 					sheep.bounds.y + sheep.bounds.height < 0 ||
 					sheep.bounds.y > WORLD_HEIGHT)
-				sheep.state = Sheep.SHEEP_STATE_ESCAPED;
-	}
-	
-	
-	private boolean checkFreeSheepLeft () {
-		for (Sheep sheep : sheeps)
-			if (sheep.state == Sheep.SHEEP_STATE_FREE
-					|| sheep.state == Sheep.SHEEP_STATE_DANGER)
-				return true;
-		return false;
+				sheeps.remove(sheep);
 	}
 
 	private void checkGameOver() {
-		if (timeLeft <= 0f || !checkFreeSheepLeft()) {
+		if (timeLeft <= 0f || sheeps.isEmpty()) {
 			state = WORLD_STATE_GAME_OVER;
 		}
 
