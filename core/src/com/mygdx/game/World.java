@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
@@ -10,6 +11,7 @@ import objects.River;
 import objects.Sheep;
 import objects.Tree;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -49,18 +51,17 @@ public class World {
 		int MAX_TREES = 3;
 		int MIN_RIVERS = 1;
 		int MAX_RIVERS = 1;
+		int MIN_BRIDGES = 1;
+		int MAX_BRIDGES = 3;
 		
-		Random rand = new Random();
-
 		//Create the pen
 		pen = new Pen(20, 565);
 		
 		// Create some rivers
-		//TODO: rivier in een bepaalde draaihoek plaatsen werkt nog niet
 		int numRivers = rand(MIN_RIVERS, MAX_RIVERS);
 		River river;
 		for (int i = 0; i < numRivers; i++) {
-			river = new River(0, rand(200, 400), 0, rand(1, 3));
+			river = new River(0, rand(200, 400), rand(MIN_BRIDGES, MAX_BRIDGES));
 			if (checkOverlapPen(river) || checkOverlapRiver(river)) i--;
 			else rivers.add(river);
 		}
@@ -125,7 +126,7 @@ public class World {
 	
 	public void update (float deltaTime) {
 		updateSheeps(deltaTime);
-		checkCollisions();
+		checkIfSheepsEscape();
 		checkGameOver();
 	}
 	
@@ -142,21 +143,31 @@ public class World {
 		}
 	}
 
-
-	private void updateSheeps (float deltaTime) {
-		for (Sheep sheep : sheeps)
-			sheep.update(deltaTime);
-	}
-
-	private void checkCollisions () {
-		checkCollisionWorld();
-		checkCollisionSheep();
-		checkCollisionPen();
-		checkCollisionRiver();
-		//checkCollisionTree();
+	public List<Rectangle> getCollisionAreas() {
+		List<Rectangle> result = new LinkedList<Rectangle>();
+		for (Tree tree : trees)
+			result.addAll(tree.collisionAreas);
+		for (River river : rivers)
+			result.addAll(river.collisionAreas);
+		result.addAll(pen.collisionAreas);
+		return result;
 	}
 	
-	private void checkCollisionWorld () {
+	private void updateSheeps (float deltaTime) {
+		for (Sheep sheep : sheeps) {
+			sheep.update(deltaTime, this);
+			if (sheep.state != Sheep.SHEEP_STATE_CATCHED && pen.hasScored(sheep.bounds)) {
+				sheep.state = Sheep.SHEEP_STATE_CATCHED;
+				sheepsCollected++;
+			} else if (sheep.state == Sheep.SHEEP_STATE_CATCHED && !pen.hasScored(sheep.bounds)) {
+				sheep.state = Sheep.SHEEP_STATE_FREE;
+				sheepsCollected--;
+			}
+		}
+	}
+
+	
+	private void checkIfSheepsEscape () {
 		for (Sheep sheep : sheeps) 
 			if (sheep.bounds.x + sheep.bounds.width < 0 ||
 					sheep.bounds.x > WORLD_WIDTH ||
@@ -165,61 +176,6 @@ public class World {
 				sheep.state = Sheep.SHEEP_STATE_ESCAPED;
 	}
 	
-	private void checkCollisionSheep () {
-//		for (int i = 0; i < sheeps.size(); i++) {
-//			for (int j = i+1; j < sheeps.size(); j++) {
-//			    if (sheeps.get(i).bounds.overlaps(sheeps.get(j).bounds)) {
-//			    	//ni gemakkelijk..
-//			    }
-//			}
-//		}
-	}
-	
-	private void checkCollisionPen () {
-		for (Sheep sheep : sheeps) {
-			if (sheep.state != Sheep.SHEEP_STATE_CATCHED) {
-				if (sheep.bounds.overlaps(pen.bounds) && 
-						!pen.canEnter(sheep.bounds)) {
-						sheep.rotation += 180;
-						sheep.position.add(-sheep.direction.x * 5, -sheep.direction.y * 5);
-				}
-				else if (pen.hasScored(sheep.bounds)) {
-					sheep.state = Sheep.SHEEP_STATE_CATCHED;
-					sheepsCollected++;
-				}
-			} else if (sheep.state == Sheep.SHEEP_STATE_CATCHED && !pen.hasScored(sheep.bounds)) {
-				if (pen.canEnter(sheep.bounds)) {
-					sheep.state = Sheep.SHEEP_STATE_FREE;
-					sheepsCollected--;
-				} else {
-					sheep.rotation += 180;
-					sheep.position.add(-sheep.direction.x * 5, -sheep.direction.y * 5);
-				}
-			}
-		}
-	}
-	
-	private void checkCollisionRiver () {
-		for (Sheep sheep : sheeps) {
-			for(River river : rivers) {
-				if(sheep.bounds.overlaps(river.bounds) && !river.canPass(sheep)) {
-					sheep.rotation += 180;
-					sheep.position.add(-sheep.direction.x * 5, -sheep.direction.y * 5);
-				}
-			}
-		}
-	}
-	
-	private void checkCollisionTree () {
-		for (Sheep sheep : sheeps) {
-			for(Tree tree : trees) {
-				if(sheep.bounds.overlaps(tree.bounds)){
-					sheep.rotation += 180;
-					sheep.position.add(-sheep.direction.x * 5, -sheep.direction.y * 5);
-				}
-			}
-		}
-	}
 	
 	private boolean checkFreeSheepLeft () {
 		for (Sheep sheep : sheeps)

@@ -2,7 +2,6 @@ package objects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.Assets;
 
 
@@ -11,7 +10,6 @@ public class Pen extends GameObject {
 	public static float PEN_HEIGHT = 225;
 
 	private Rectangle scoreZone;
-	private Array<Rectangle> collisionZones = new Array<Rectangle>();
 	
 	public Pen (float x, float y) {
 		super(x, y, PEN_WIDTH, PEN_HEIGHT);
@@ -21,23 +19,23 @@ public class Pen extends GameObject {
 	}
 	
 	private void initScoreZone() {
-		scoreZone = new Rectangle(bounds.x + 8, bounds.y + 23, bounds.getWidth() - 16, bounds.getHeight() - 34 - 8);
+		scoreZone = new Rectangle(bounds.x-10, bounds.y-10, bounds.getWidth()+10, bounds.getHeight()+10);
 	}
 	
 	private void initCollisionZones() {
 		Rectangle top = new Rectangle(bounds.x, bounds.y + 186, bounds.getWidth(), 17);
-		Rectangle left = new Rectangle(bounds.x, bounds.y, 8, bounds.getHeight() - 17);
+		Rectangle left = new Rectangle(bounds.x, bounds.y, 8, bounds.getHeight() - 10);
 		Rectangle bottom = new Rectangle(bounds.x, bounds.y, 100, 23);
-		Rectangle right = new Rectangle(bounds.x + 189, bounds.y, 8, bounds.getHeight() - 17);
-		collisionZones.add(top);
-		collisionZones.add(left);
-		collisionZones.add(right);
-		collisionZones.add(bottom);
+		Rectangle right = new Rectangle(bounds.x + 189, bounds.y, 10, bounds.getHeight() - 10);
+		collisionAreas.add(top);
+		collisionAreas.add(left);
+		collisionAreas.add(right);
+		collisionAreas.add(bottom);
 	}
 	
 	public boolean canEnter(Rectangle object) {
-		for (Rectangle collisionZone : collisionZones)
-			if (object.overlaps(collisionZone))
+		for (Rectangle collisionArea : collisionAreas)
+			if (object.overlaps(collisionArea))
 				return false;
 		return true;
 	}
