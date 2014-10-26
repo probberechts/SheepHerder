@@ -1,19 +1,15 @@
 package screens;
 
-import objects.*;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Assets;
 import com.mygdx.game.SavedData;
 import com.mygdx.game.SheepHerder;
 import com.mygdx.game.World;
+import com.mygdx.game.WorldGenerator;
 import com.mygdx.game.WorldRenderer;
 
 public class GameScreen extends ScreenAdapter {
@@ -21,19 +17,19 @@ public class GameScreen extends ScreenAdapter {
 	static final int GAME_RUNNING = 1;
 	static final int GAME_PAUSED = 2;
 	static final int GAME_OVER = 3;
-	java.text.DecimalFormat nft = new java.text.DecimalFormat("#00.###");  
+	
+	private java.text.DecimalFormat nft = new java.text.DecimalFormat("#00.###");  
 
-	SheepHerder game;
+	private SheepHerder game;
 
-	int state;
-	OrthographicCamera camera;
-	Vector3 touchPoint;
-	World world;
-	WorldRenderer renderer;
-	int lastScore;
-	String sheepString;
-	String timeString;
-	int currentScore;
+	private int state;
+	private OrthographicCamera camera;
+	private World world;
+	private WorldRenderer renderer;
+	private int lastScore;
+	private String sheepString;
+	private String timeString;
+	private int currentScore;
 	
 
 	public GameScreen (SheepHerder game) {
@@ -42,8 +38,7 @@ public class GameScreen extends ScreenAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 480, 800);
 		state = GAME_READY;
-		touchPoint = new Vector3();
-		world = new World();
+		world = (new WorldGenerator()).createWorld();
 		renderer = new WorldRenderer(game.batcher, world);
 		lastScore = 0;
 		sheepString = "SHEEPS: 0";

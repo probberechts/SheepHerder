@@ -29,9 +29,7 @@ public class Assets {
 		bridge = loadTexture("bridge.png");
 		alert = loadTexture("alert.png");
 		touchmarker = loadTexture("touchmarker.png");
-		
-		//gameOver = loadTexture("tree.png");
-		
+				
 		font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
 	}
 

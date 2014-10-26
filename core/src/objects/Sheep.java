@@ -180,10 +180,6 @@ public class Sheep extends DynamicGameObject {
 		else state = SHEEP_STATE_FREE;
 	}
 
-	public void setCatched() {
-		state = SHEEP_STATE_CATCHED;
-	}
-
 	@Override
 	public void render(SpriteBatch batch) {
 		sprite.draw(batch);

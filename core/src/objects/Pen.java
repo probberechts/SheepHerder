@@ -33,13 +33,6 @@ public class Pen extends GameObject {
 		collisionAreas.add(bottom);
 	}
 	
-	public boolean canEnter(Rectangle object) {
-		for (Rectangle collisionArea : collisionAreas)
-			if (object.overlaps(collisionArea))
-				return false;
-		return true;
-	}
-	
 	public boolean hasScored(Rectangle object) {
 		return scoreZone.contains(object);
 	}

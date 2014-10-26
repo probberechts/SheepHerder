@@ -14,11 +14,12 @@ import com.badlogic.gdx.graphics.glutils.ImmediateModeRenderer20;
 import com.badlogic.gdx.math.Vector2;
 
 public class WorldRenderer {
+	
 	static final float SCREEN_WIDTH = 480;
 	static final float SCREEN_HEIGHT = 800;
-	World world;
-	SpriteBatch batch;
-	ImmediateModeRenderer immediateRenderer;
+	private World world;
+	private SpriteBatch batch;
+	private ImmediateModeRenderer immediateRenderer;
 
 	public WorldRenderer (SpriteBatch batch, World world) {
 		this.world = world;
@@ -41,8 +42,8 @@ public class WorldRenderer {
 	    renderRect(new Vector2(0, World.WORLD_HEIGHT-World.WORLD_MARGIN), new Vector2(World.WORLD_WIDTH, World.WORLD_HEIGHT), World.WORLD_MARGIN_COLOR);
 	}
 
-	//bottom left & top right coords
-	private void renderRect(Vector2 p1, Vector2 p2, Color color){
+	private void renderRect(Vector2 p1, Vector2 p2, Color color) {
+		//bottom left & top right coords
 		immediateRenderer.begin(batch.getProjectionMatrix(), GL20.GL_TRIANGLE_STRIP);
 		immediateRenderer.color(color);
 	    immediateRenderer.vertex(p1.x, p1.y, 0);
