@@ -50,14 +50,17 @@ public class WorldGenerator {
 		}
 		
 		
-		//Create some sheeps on random positions
+		//Create some sheep on random positions
 		int numSheeps = rand(MIN_SHEEPS, MAX_SHEEPS);
 		Sheep sheep;
+		int trys = 0;
 		for (int i = 0; i < numSheeps; i++) {
 			sheep = new Sheep(rand(50, (int) World.WORLD_WIDTH - 70), rand(50, 180));
 			sheep.rotation = rand(0, 360);
-			if (checkOverlapObject(sheep)) i--;
-			else world.sheeps.add(sheep);
+			if (trys < 200 && checkOverlapObject(sheep)) {
+				i--;
+				trys++;
+			} else world.sheeps.add(sheep);
 		}
 		
 		return world;
