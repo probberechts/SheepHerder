@@ -8,9 +8,11 @@ import com.badlogic.gdx.math.Vector3;
 import com.mygdx.game.Assets;
 import com.mygdx.game.SavedData;
 import com.mygdx.game.SheepHerder;
+import com.mygdx.game.TimeFormatter;
 import com.mygdx.game.World;
 import com.mygdx.game.WorldGenerator;
 import com.mygdx.game.WorldRenderer;
+import com.google.gwt.i18n.client.NumberFormat;
 
 public class GameScreen extends ScreenAdapter {
 	static final int GAME_READY = 0;
@@ -18,7 +20,7 @@ public class GameScreen extends ScreenAdapter {
 	static final int GAME_PAUSED = 2;
 	static final int GAME_OVER = 3;
 	
-	private java.text.DecimalFormat nft = new java.text.DecimalFormat("#00.###");  
+	private TimeFormatter tfm = SheepHerder.timeFormatter;
 
 	private SheepHerder game;
 
@@ -79,9 +81,8 @@ public class GameScreen extends ScreenAdapter {
 		}
 		
 		world.update(deltaTime);
-		
 		world.timeLeft -= deltaTime;
-		timeString = "TIME: " + nft.format(world.timeLeft/6000) + ":" + nft.format((world.timeLeft%6000)/100);
+		timeString = "TIME: " + tfm.format(world.timeLeft/6000) + ":" + tfm.format((world.timeLeft%6000)/100);
 
 		if (world.sheepsCollected != lastScore) {
 			lastScore = world.sheepsCollected;
@@ -188,7 +189,7 @@ public class GameScreen extends ScreenAdapter {
 			Assets.font.draw(game.batcher, "NEW HIGHSCORE!", 125, 450);
 		} else
 			Assets.font.draw(game.batcher, "GAME OVER!", 150, 450);
-		String time = nft.format(world.timeLeft/6000) + ":" + nft.format((world.timeLeft%6000)/100);
+		String time = tfm.format(world.timeLeft/6000) + ":" + tfm.format((world.timeLeft%6000)/100);
 		String score = "SCORE: " + world.sheepsCollected + " + " + time + " = " + newScore;
 		float scoreWidth = Assets.font.getBounds(score).width;
 		Assets.font.draw(game.batcher, score, 240 - scoreWidth / 2, 400);

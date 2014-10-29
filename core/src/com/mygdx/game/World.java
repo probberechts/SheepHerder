@@ -3,7 +3,6 @@ package com.mygdx.game;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 import objects.Pen;
 import objects.River;

@@ -9,6 +9,12 @@ public class SheepHerder extends Game {
 	// used by all screens
 	public SpriteBatch batcher;
 	
+	public static TimeFormatter timeFormatter = null;
+
+	public SheepHerder(TimeFormatter floatFormatter) {
+		this.timeFormatter = floatFormatter;
+	}
+	   
 	@Override
 	public void create () {
 		batcher = new SpriteBatch();

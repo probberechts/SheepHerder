@@ -82,6 +82,8 @@ project(":html") {
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx:$gdxVersion:sources"
         compile "com.badlogicgames.gdx:gdx-backend-gwt:$gdxVersion:sources"
+        compile "com.google.gwt:gwt-user:2.6.0"
+        compile "com.google.web.bindery:requestfactory-server:2.6.0"
     }
 }
 
@@ -91,6 +93,8 @@ project(":core") {
 
     dependencies {
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile "com.google.gwt:gwt-user:2.6.0"
+        compile "com.google.web.bindery:requestfactory-server:2.6.0"
     }
 }
 
