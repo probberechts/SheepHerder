@@ -81,7 +81,7 @@ public class Sheep extends DynamicGameObject {
 			// paper' problem.
 			// ================================================================================
 			Rectangle intersection = intersect(movementBounds, object);
-			float newSafeMoveX = Math.max(Math.max(intersection.x - (movementBounds.x + movementBounds.width), movementBounds.x - (intersection.y + intersection.width)), 0);
+			float newSafeMoveX = Math.max(Math.max(intersection.x - (movementBounds.x + movementBounds.width), movementBounds.x - (intersection.x + intersection.width)), 0);
 			float newSafeMoveY = Math.max(Math.max(intersection.y + intersection.height - (movementBounds.y + movementBounds.height), movementBounds.y - intersection.y), 0);
 			float newSafeVecLen = (float) Math.sqrt(newSafeMoveX * newSafeMoveX + newSafeMoveY * newSafeMoveY);
 			if (newSafeVecLen < safeVecLen) {

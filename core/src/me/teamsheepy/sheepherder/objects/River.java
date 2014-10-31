@@ -30,12 +30,15 @@ public class River extends GameObject {
 			// construct collision area
 			Rectangle part;
 			if (i == 0)
-				part = new Rectangle(this.position.x, this.position.y, 
-						riverPartLength - MARGE / 2 - Bridge.BRIDGE_WIDTH / 2, bounds.height);
+				// first river part
+				part = new Rectangle(this.position.x - 50, this.position.y, 
+						riverPartLength - MARGE / 2 - Bridge.BRIDGE_WIDTH / 2 + 50, bounds.height);
 			else if (i == numRiverParts - 1)
+				// last river part
 				part = new Rectangle(this.position.x + i * riverPartLength + MARGE / 2 + Bridge.BRIDGE_WIDTH  / 2, this.position.y, 
-						riverPartLength, bounds.height);
+						riverPartLength + 50, bounds.height);
 			else
+				// other river parts
 				part = new Rectangle(this.position.x + i * riverPartLength + MARGE / 2 + Bridge.BRIDGE_WIDTH / 2, this.position.y, 
 						riverPartLength - MARGE - Bridge.BRIDGE_WIDTH, bounds.height);
 			collisionAreas.add(part);
