@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ImmediateModeRenderer;
 import com.badlogic.gdx.graphics.glutils.ImmediateModeRenderer20;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 
 public class WorldRenderer {
 	
@@ -27,9 +28,9 @@ public class WorldRenderer {
 		this.immediateRenderer = new ImmediateModeRenderer20(false, true, 0);
 	}
 
-	public void render () {
+	public void render (Vector3 touchPos) {
 		renderBackground();
-		renderObjects();
+		renderObjects(touchPos);
 	}
 
 	public void renderBackground () {
@@ -60,13 +61,14 @@ public class WorldRenderer {
 	    immediateRenderer.end();
 	}
 	
-	public void renderObjects () {
+	public void renderObjects (Vector3 touchPos) {
 		batch.enableBlending();
 		batch.begin();
 		renderRivers();
 		renderSheeps();
 		renderPen();
 		renderTrees();
+		renderTouchMarker(touchPos);
 		batch.end();
 	}
 
@@ -97,6 +99,18 @@ public class WorldRenderer {
 			River river = world.rivers.get(i);
 			river.render(batch);
 		}	
+	}
+	
+	private void renderTouchMarker(Vector3 touchPos) {
+		if (Gdx.input.isTouched()) {
+			batch.draw(Assets.touchmarker, 
+					touchPos.x - Assets.touchmarker.getRegionWidth()/2/10*7, // x position
+					touchPos.y - Assets.touchmarker.getRegionHeight()/2/10*7, // y position
+					0, 0, //origin
+					Assets.touchmarker.getRegionWidth(), Assets.touchmarker.getRegionHeight(), // width + height
+					0.7f, 0.7f,  //scale
+					0); //rotation
+		}
 	}
 
 }
