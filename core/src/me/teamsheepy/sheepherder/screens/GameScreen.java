@@ -209,27 +209,33 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void presentReady () {
-		Assets.font24.draw(game.batcher, "--click to play--", 140, 400);
 		if(SavedData.highscore <= 0) { //only show tutorial when there have been no sheep collected so far
-			Assets.font24.draw(game.batcher, "Drag your finger across the screen", 4, 460);
-			Assets.font24.draw(game.batcher, "sheep will run away from it.", 60, 430);
-			Assets.font24.draw(game.batcher, "Guide the sheep to the pen.", 66, 400);
+			String line1 = "Drag your finger across the screen,";
+			float line1W = Assets.font22.getBounds(line1).width;
+			String line2 = "sheep will run away from it.";
+			float line2W = Assets.font22.getBounds(line2).width;
+			String line3 = "Guide the sheep to the pen.";
+			float line3W = Assets.font22.getBounds(line3).width;
+			Assets.font22.draw(game.batcher, line1, World.WORLD_WIDTH / 2 - line1W / 2, 530);
+			Assets.font22.draw(game.batcher, line2, World.WORLD_WIDTH / 2 - line2W / 2, 500);
+			Assets.font22.draw(game.batcher, line3, World.WORLD_WIDTH / 2 - line3W / 2, 470);
 		}
+		Assets.font22.draw(game.batcher, "--click to play--", 140, 400);
 	}
 
 	private void presentRunning () {
-		Assets.font24.draw(game.batcher, timeString, 26, 800 - 20);
+		Assets.font22.draw(game.batcher, timeString, 26, 800 - 20);
 		//Assets.font.draw(game.batcher, sheepString, 480-190, 800 - 50);
-		Assets.font24.draw(game.batcher, "Score: "+currentScore, 26, 800-50);
-		Assets.font24.draw(game.batcher, "Best score: "+SavedData.highscore, 26, 800-80);
+		Assets.font22.draw(game.batcher, "Score: "+currentScore, 26, 800-50);
+		Assets.font22.draw(game.batcher, "Best score: "+SavedData.highscore, 26, 800-80);
 		//debug
 		//Assets.font.draw(game.batcher, Gdx.input.getX()+","+Gdx.input.getY(), 480-190, 800-110);
 	}
 
 	private void presentPaused () {
-		Assets.font24.draw(game.batcher, "--click to resume--", 140, 400);
-		Assets.font24.draw(game.batcher, timeString, 480-170, 800 - 20);
-		Assets.font24.draw(game.batcher, sheepString, 480-170, 800 - 50);
+		Assets.font22.draw(game.batcher, "--click to resume--", 140, 400);
+		Assets.font22.draw(game.batcher, timeString, 480-170, 800 - 20);
+		Assets.font22.draw(game.batcher, sheepString, 480-170, 800 - 50);
 	}
 	
 	private int calculateScore(int sheepsCollected, int timeLeft) {

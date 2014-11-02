@@ -52,7 +52,7 @@ public class World {
 
 	public void updateRotationSheeps(Vector3 touchPos) {
 		for (Sheep sheep : sheeps) {
-			Vector2 sheepPosition = new Vector2(sheep.position.x + sheep.SHEEP_WIDTH/2, sheep.position.y + sheep.SHEEP_HEIGHT/2);
+			Vector2 sheepPosition = new Vector2(sheep.position.x + Sheep.SHEEP_WIDTH/2, sheep.position.y + Sheep.SHEEP_HEIGHT/2);
 			if (sheepPosition.dst2(touchPos.x, touchPos.y) < 10000) {
 				float angle = new Vector2(touchPos.x, touchPos.y).sub(
 						new Vector2(sheep.bounds.x + sheep.center.x,
