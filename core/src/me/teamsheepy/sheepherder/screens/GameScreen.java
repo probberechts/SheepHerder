@@ -30,7 +30,8 @@ public class GameScreen extends ScreenAdapter {
 	private WorldRenderer renderer;
 	private int lastScore;
 	private String sheepString;
-	private String timeString;	
+	private String timeString;
+	private Vector3 touchPos;
 
 	public GameScreen (SheepHerder game) {
 		this.game = game;
@@ -43,6 +44,7 @@ public class GameScreen extends ScreenAdapter {
 		lastScore = 0;
 		sheepString = "SHEEPS: 0";
 		timeString = "TIME: 2:00";
+		touchPos = new Vector3(-500, -500, 0); //hide offscreen at start
 	}
 
 	public void update (float deltaTime) {
@@ -72,7 +74,6 @@ public class GameScreen extends ScreenAdapter {
 
 	private void updateRunning (float deltaTime) {
 		if (Gdx.input.isTouched()) {
-			Vector3 touchPos = new Vector3();
 	        touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 	        camera.unproject(touchPos);
 	        world.updateRotationSheeps(touchPos);
@@ -108,7 +109,7 @@ public class GameScreen extends ScreenAdapter {
 		GL20 gl = Gdx.gl;
 		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		renderer.render();
+		renderer.render(touchPos);
 
 		camera.update();
 		game.batcher.setProjectionMatrix(camera.combined);
@@ -156,7 +157,12 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void presentReady () {
-		Assets.font.draw(game.batcher, "--click to play--", 140, 400);
+		Assets.font.draw(game.batcher, "--Press to play--", 140, 520);
+		if(SavedData.highscore <= 0) { //only show tutorial when there have been no sheep collected so far
+			Assets.font.draw(game.batcher, "Drag your finger across the screen", 4, 460);
+			Assets.font.draw(game.batcher, "sheep will run away from it.", 60, 430);
+			Assets.font.draw(game.batcher, "Guide the sheep to the pen.", 66, 400);
+		}
 	}
 
 	private void presentRunning () {

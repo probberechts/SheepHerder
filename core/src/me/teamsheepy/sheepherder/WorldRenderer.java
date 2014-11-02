@@ -8,6 +8,7 @@ import me.teamsheepy.sheepherder.objects.Tree;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 
 public class WorldRenderer {
 	
@@ -21,9 +22,9 @@ public class WorldRenderer {
 		this.batch = batch;
 	}
 
-	public void render () {
+	public void render (Vector3 touchPos) {
 		renderBackground();
-		renderObjects();
+		renderObjects(touchPos);
 	}
 
 	public void renderBackground () {
@@ -31,13 +32,14 @@ public class WorldRenderer {
 	    Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 	}
 	
-	public void renderObjects () {
+	public void renderObjects (Vector3 touchPos) {
 		batch.enableBlending();
 		batch.begin();
 		renderRivers();
 		renderSheeps();
 		renderPen();
 		renderTrees();
+		renderTouchMarker(touchPos);
 		batch.end();
 	}
 
@@ -68,6 +70,14 @@ public class WorldRenderer {
 			River river = world.rivers.get(i);
 			river.render(batch);
 		}	
+	}
+	
+	private void renderTouchMarker(Vector3 touchPos) {
+		if (Gdx.input.isTouched()) {
+			batch.draw(Assets.touchmarker, touchPos.x - Assets.touchmarker.getWidth()/2/10*7, touchPos.y - Assets.touchmarker.getHeight()/2/10*7, 
+					0, 0, Assets.touchmarker.getWidth(), Assets.touchmarker.getHeight(), 0.7f, 0.7f, 0, 0, 0, 
+					Assets.touchmarker.getWidth(), Assets.touchmarker.getHeight(), false, false);
+		}
 	}
 
 }
