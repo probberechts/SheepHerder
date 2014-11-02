@@ -179,8 +179,8 @@ public class Sheep extends DynamicGameObject {
 		
 	public void checkCloseToScreenBorder () {
 		int danger = 50;
-		if (position.x < danger && direction.x < 0 || position.x > World.WORLD_WIDTH - danger && direction.x > 0) state = SHEEP_STATE_DANGER;
-		else if (position.y < danger && direction.y < 0 || position.y > World.WORLD_HEIGHT - danger && direction.y > 0) state = SHEEP_STATE_DANGER;
+		if (position.x + bounds.width / 2 < danger && direction.x < 0 || position.x + bounds.width / 2 > World.WORLD_WIDTH - danger && direction.x > 0) state = SHEEP_STATE_DANGER;
+		else if (position.y + bounds.height / 2 < danger && direction.y < 0 || center.y + bounds.height / 2 > World.WORLD_HEIGHT - danger && direction.y > 0) state = SHEEP_STATE_DANGER;
 		else state = SHEEP_STATE_FREE;
 	}
 
@@ -189,8 +189,8 @@ public class Sheep extends DynamicGameObject {
 		sprite.draw(batch);
 		if(state == SHEEP_STATE_DANGER)
 			batch.draw(Assets.alert, 
-					position.x + Assets.alert.getRegionWidth() / 2 + 10, 
-					position.y + 55);
+					bounds.x + bounds.width / 2 - Assets.alert.getRegionWidth() / 2, 
+					bounds.y + bounds.height / 2 - Assets.alert.getRegionHeight() / 2);
 	}
 
 }
