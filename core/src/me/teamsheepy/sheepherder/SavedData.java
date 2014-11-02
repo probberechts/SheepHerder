@@ -1,33 +1,26 @@
 package me.teamsheepy.sheepherder;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.Preferences;
 
 public class SavedData {
-	public static int highscore = 0;
-	public final static String file = ".sheepherder";
+	public static int highscore;
+	public static int gamesPlayed;
+	public static boolean questionnaireFilled;
+	static Preferences prefs;
 
 	public static void load () {
-		try {
-			FileHandle filehandle = Gdx.files.external(file);
-			
-			String[] strings = filehandle.readString().split("\n");
-			
-			highscore = Integer.parseInt(strings[0]);
-			
-		} catch (Throwable e) {
-			// without highscores is fine too ...
-		}
+		prefs = Gdx.app.getPreferences("SheepHerder");
+		highscore = prefs.getInteger("highscore", 0);
+		gamesPlayed = prefs.getInteger("gamesPlayed", 0);
+		questionnaireFilled = prefs.getBoolean("questionnaireFilled", false);
 	}
 
-	public static void save () {
-		try {
-			FileHandle filehandle = Gdx.files.external(file);
-			
-			filehandle.writeString(Integer.toString(highscore)+"\n", false);
-		} catch (Throwable e) {
-			// highscore didn't save
-		}
+	private static void save () {
+		prefs.putInteger("highscore", highscore);
+		prefs.putInteger("gamesPlayed", gamesPlayed);
+		prefs.putBoolean("questionnaireFilled", questionnaireFilled);
+		prefs.flush();
 	}
 
 	public static void newHighscore (int score) {
@@ -35,4 +28,16 @@ public class SavedData {
 			highscore = score;
 		save();
 	}
+	
+	public static void filledInQuestionaire() {
+		questionnaireFilled = true;
+		save();
+	}
+	
+	
+	public static void addGamePlayed () {
+		gamesPlayed++;
+		save();
+	}
+	
 }

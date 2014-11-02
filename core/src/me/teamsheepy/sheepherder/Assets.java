@@ -20,6 +20,7 @@ public class Assets {
 	public static TextureRegion touchmarker;
 	public static Texture gameover;
 	public static Texture newbest;
+	public static Texture questionnaire;
 	public static BitmapFont font32white;
 	public static BitmapFont font32black;
 	public static BitmapFont font28black;
@@ -48,6 +49,8 @@ public class Assets {
 		gameover.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		newbest = loadTexture("newbest.png");
 		newbest.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		questionnaire = loadTexture("questionnaire.png");
+		questionnaire.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 				
 		font32white = new BitmapFont(Gdx.files.internal("font32white.fnt"), Gdx.files.internal("font32white.png"), false);
 		font32black = new BitmapFont(Gdx.files.internal("font32black.fnt"), Gdx.files.internal("font32black.png"), false);

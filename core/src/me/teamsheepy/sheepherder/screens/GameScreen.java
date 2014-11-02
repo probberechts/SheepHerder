@@ -20,6 +20,7 @@ public class GameScreen extends ScreenAdapter {
 	static final int GAME_PAUSED = 2;
 	static final int GAME_OVER = 3;
 	static final int NEW_BEST = 4;
+	static final int QUESTIONNAIRE = 5;
 	
 	private TimeFormatter tfm = SheepHerder.timeFormatter;
 
@@ -39,12 +40,18 @@ public class GameScreen extends ScreenAdapter {
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 480, 800);
-		state = GAME_READY;
 		world = (new WorldGenerator()).createWorld();
 		renderer = new WorldRenderer(game.batcher, world);
 		lastScore = 0;
 		sheepString = "SHEEPS: 0";
 		timeString = "TIME: 2:00";
+		
+		if (!SavedData.questionnaireFilled 
+				&& SavedData.gamesPlayed != 0 
+				&& SavedData.gamesPlayed % 5 == 0)
+			state = QUESTIONNAIRE;
+		else
+			state = GAME_READY;
 	}
 
 	public void update (float deltaTime) {
@@ -63,6 +70,9 @@ public class GameScreen extends ScreenAdapter {
 		case GAME_OVER:
 		case NEW_BEST:
 			updateGameOver();
+			break;
+		case QUESTIONNAIRE:
+			updateQuestionnaire();
 			break;
 		}
 	}
@@ -92,6 +102,7 @@ public class GameScreen extends ScreenAdapter {
 		currentScore = world.sheepsCollected == 0 ? 0 : (world.sheepsCollected*100+world.timeLeft/100);
 
 		if (world.state == World.WORLD_STATE_GAME_OVER) {
+			SavedData.addGamePlayed();
 			int newScore = calculateScore(world.sheepsCollected, world.timeLeft);
 			if (newScore > SavedData.highscore) {
 				SavedData.newHighscore(newScore);
@@ -117,6 +128,24 @@ public class GameScreen extends ScreenAdapter {
 	        		&& touchPos.y > 285 && touchPos.y < 285+55) {
 	        	// play again button touched
 				game.setScreen(new GameScreen(game));
+	        }
+		}
+	}
+	
+	private void updateQuestionnaire() {
+		if (Gdx.input.justTouched()) {
+			Vector3 touchPos = new Vector3();
+	        touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+	        camera.unproject(touchPos);
+	        if (touchPos.x > 88 && touchPos.x < 88+95
+	        		&& touchPos.y > 283 && touchPos.y < 283+55) {
+	        	// answered yes
+	    		Gdx.net.openURI("https://docs.google.com/forms/d/1eLUKnRGSiimqk4Mzr7ArOWwbGUMii8vZ7PagRqbDVe4/viewform?usp=send_form");
+	    		state = GAME_READY;
+	        } else if (touchPos.x > 203 && touchPos.x < 203+200
+	        		&& touchPos.y > 283 && touchPos.y < 283+55) {
+	        	// answered later
+	    		state = GAME_READY;
 	        }
 		}
 	}
@@ -147,6 +176,9 @@ public class GameScreen extends ScreenAdapter {
 			break;
 		case NEW_BEST:
 			presentGameOver(true);
+			break;
+		case QUESTIONNAIRE:
+			presentQuestionnaire();
 			break;
 		}
 		game.batcher.end();
@@ -211,6 +243,10 @@ public class GameScreen extends ScreenAdapter {
 		float bestWidth = Assets.font28black.getBounds(best).width;
 		Assets.font32black.draw(game.batcher, score, 240 - scoreWidth / 2, 435);
 		Assets.font28black.draw(game.batcher, best, 240 - bestWidth / 2, 395);
+	}
+	
+	private void presentQuestionnaire() {
+		game.batcher.draw(Assets.questionnaire, 50, 263, 380, 274);
 	}
 
 	@Override
