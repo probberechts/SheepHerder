@@ -49,11 +49,7 @@ public class River extends GameObject {
 
 	@Override
 	public void render(SpriteBatch batch) {
-		batch.draw(Assets.river, position.x, position.y, 
-				center.x, center.y,
-				RIVER_WIDTH, RIVER_HEIGHT, 
-				1, 1, 0, 0, 0, Assets.river.getWidth(), Assets.river.getHeight(),
-				false, false);
+		batch.draw(Assets.river, position.x, position.y);
 		for (Bridge bridge : bridges)
 			bridge.render(batch);
 	}

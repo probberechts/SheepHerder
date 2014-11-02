@@ -46,6 +46,7 @@ public class World {
 	
 	public void update(float deltaTime) {
 		updateSheeps(deltaTime);
+		updateTrees();
 		checkGameOver();
 	}
 
@@ -80,6 +81,20 @@ public class World {
 			checkIfSheepHasEscaped(sheep);
 			// check if a sheep has entered or left the pen
 			checkIfSheepsIsInPen(sheep);
+		}
+	}
+	
+	public void updateTrees() {
+		for (Tree tree : trees) {
+			boolean shouldBeAnimated = false;
+			for (Sheep sheep : sheeps) {
+				if (tree.bounds.contains(sheep.bounds)) {
+					shouldBeAnimated = true;
+					break;
+				}
+			}
+			if (shouldBeAnimated) 	tree.startAnimation();
+			else 					tree.stopAnimation();
 		}
 	}
 	

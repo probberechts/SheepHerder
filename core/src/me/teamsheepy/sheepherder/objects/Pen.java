@@ -40,10 +40,6 @@ public class Pen extends GameObject {
 
 	@Override
 	public void render(SpriteBatch batch) {
-		batch.draw(Assets.pen, position.x, position.y, 
-				center.x, center.y,
-				PEN_WIDTH, PEN_HEIGHT, 
-				1, 1, 0, 0, 0, Assets.pen.getWidth(), Assets.pen.getHeight(),
-				false, false);
+		batch.draw(Assets.pen, position.x, position.y);
 	}
 }

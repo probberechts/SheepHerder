@@ -1,0 +1,97 @@
+
+pack.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+alert
+  rotate: false
+  xy: 204, 174
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+bridge
+  rotate: false
+  xy: 229, 231
+  size: 51, 48
+  orig: 51, 48
+  offset: 0, 0
+  index: -1
+font
+  rotate: false
+  xy: 2, 463
+  size: 512, 512
+  orig: 512, 512
+  offset: 0, 0
+  index: -1
+pen
+  rotate: false
+  xy: 516, 750
+  size: 200, 225
+  orig: 200, 225
+  offset: 0, 0
+  index: -1
+river
+  rotate: false
+  xy: 2, 423
+  size: 584, 38
+  orig: 584, 38
+  offset: 0, 0
+  index: -1
+sheep
+  rotate: false
+  xy: 2, 2
+  size: 55, 50
+  orig: 55, 50
+  offset: 0, 0
+  index: -1
+touchmarker
+  rotate: false
+  xy: 2, 196
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: -1
+tree
+  rotate: false
+  xy: 2, 54
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
+tree1
+  rotate: false
+  xy: 2, 54
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
+tree2
+  rotate: false
+  xy: 229, 281
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
+tree3
+  rotate: false
+  xy: 516, 608
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
+tree5
+  rotate: false
+  xy: 516, 608
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
+tree4
+  rotate: false
+  xy: 718, 835
+  size: 200, 140
+  orig: 200, 140
+  offset: 0, 0
+  index: -1
