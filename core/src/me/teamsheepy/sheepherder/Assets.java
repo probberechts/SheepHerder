@@ -2,6 +2,7 @@ package me.teamsheepy.sheepherder;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -17,7 +18,11 @@ public class Assets {
 	public static TextureRegion bridge;
 	public static TextureRegion alert;
 	public static TextureRegion touchmarker;
-	public static BitmapFont font;
+	public static Texture gameover;
+	public static Texture newbest;
+	public static BitmapFont font32white;
+	public static BitmapFont font32black;
+	public static BitmapFont font28black;
 
 
 	public static Texture loadTexture (String file) {
@@ -39,8 +44,14 @@ public class Assets {
 		bridge = atlas.findRegion("bridge");
 		alert = atlas.findRegion("alert");
 		touchmarker = atlas.findRegion("touchmarker");
+		gameover = loadTexture("gameover.png");
+		gameover.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		newbest = loadTexture("newbest.png");
+		newbest.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 				
-		font = new BitmapFont(Gdx.files.internal("font.fnt"), Gdx.files.internal("font.png"), false);
+		font32white = new BitmapFont(Gdx.files.internal("font32white.fnt"), Gdx.files.internal("font32white.png"), false);
+		font32black = new BitmapFont(Gdx.files.internal("font32black.fnt"), Gdx.files.internal("font32black.png"), false);
+		font28black = new BitmapFont(Gdx.files.internal("font28black.fnt"), Gdx.files.internal("font28black.png"), false);
 	}
 
 }

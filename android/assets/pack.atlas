@@ -6,91 +6,105 @@ filter: Nearest,Nearest
 repeat: none
 alert
   rotate: false
-  xy: 204, 174
+  xy: 384, 346
   size: 20, 20
   orig: 20, 20
   offset: 0, 0
   index: -1
 bridge
   rotate: false
-  xy: 229, 231
+  xy: 229, 2
   size: 51, 48
   orig: 51, 48
   offset: 0, 0
   index: -1
 font
   rotate: false
-  xy: 2, 463
+  xy: 2, 510
   size: 512, 512
   orig: 512, 512
   offset: 0, 0
   index: -1
+gameover
+  rotate: false
+  xy: 2, 234
+  size: 380, 274
+  orig: 380, 274
+  offset: 0, 0
+  index: -1
+newbest
+  rotate: false
+  xy: 516, 748
+  size: 380, 274
+  orig: 380, 274
+  offset: 0, 0
+  index: -1
 pen
   rotate: false
-  xy: 516, 750
+  xy: 516, 521
   size: 200, 225
   orig: 200, 225
   offset: 0, 0
   index: -1
 river
   rotate: false
-  xy: 2, 423
+  xy: 229, 52
   size: 584, 38
   orig: 584, 38
   offset: 0, 0
   index: -1
 sheep
   rotate: false
-  xy: 2, 2
+  xy: 898, 972
   size: 55, 50
   orig: 55, 50
   offset: 0, 0
   index: -1
 touchmarker
   rotate: false
-  xy: 2, 196
+  xy: 2, 7
   size: 225, 225
   orig: 225, 225
   offset: 0, 0
   index: -1
 tree
   rotate: false
-  xy: 2, 54
+  xy: 718, 606
   size: 200, 140
   orig: 200, 140
   offset: 0, 0
   index: -1
 tree1
   rotate: false
-  xy: 2, 54
+  xy: 718, 606
   size: 200, 140
   orig: 200, 140
   offset: 0, 0
   index: -1
 tree2
   rotate: false
-  xy: 229, 281
+  xy: 229, 92
   size: 200, 140
   orig: 200, 140
   offset: 0, 0
   index: -1
 tree3
   rotate: false
-  xy: 516, 608
+  xy: 718, 464
   size: 200, 140
   orig: 200, 140
   offset: 0, 0
   index: -1
 tree5
   rotate: false
-  xy: 516, 608
+  xy: 718, 464
   size: 200, 140
   orig: 200, 140
   offset: 0, 0
   index: -1
 tree4
   rotate: false
-  xy: 718, 835
+  xy: 384, 368
   size: 200, 140
   orig: 200, 140
   offset: 0, 0
