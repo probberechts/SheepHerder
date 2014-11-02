@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
@@ -18,12 +19,12 @@ public class Assets {
 	public static TextureRegion bridge;
 	public static TextureRegion alert;
 	public static TextureRegion touchmarker;
-	public static Texture gameover;
-	public static Texture newbest;
-	public static Texture questionnaire;
-	public static BitmapFont font32white;
-	public static BitmapFont font32black;
-	public static BitmapFont font28black;
+	public static AtlasRegion gameover;
+	public static AtlasRegion newbest;
+	public static AtlasRegion questionnaire;
+	public static BitmapFont font28;
+	public static BitmapFont font24;
+	public static BitmapFont font22;
 
 
 	public static Texture loadTexture (String file) {
@@ -31,7 +32,7 @@ public class Assets {
 	}
 
 	public static void load () {
-        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("pack.atlas"));
+        TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("game.atlas"));
         
         TextureRegion[] animationFrames = new TextureRegion[5];
         for (int i = 1; i < 6; i++)
@@ -45,16 +46,17 @@ public class Assets {
 		bridge = atlas.findRegion("bridge");
 		alert = atlas.findRegion("alert");
 		touchmarker = atlas.findRegion("touchmarker");
-		gameover = loadTexture("gameover.png");
-		gameover.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		newbest = loadTexture("newbest.png");
-		newbest.setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		questionnaire = loadTexture("questionnaire.png");
-		questionnaire.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		touchmarker.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		gameover = atlas.findRegion("gameover");
+		gameover.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		newbest = atlas.findRegion("newbest");
+		newbest.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		questionnaire = atlas.findRegion("questionnaire");
+		questionnaire.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 				
-		font32white = new BitmapFont(Gdx.files.internal("font32white.fnt"), Gdx.files.internal("font32white.png"), false);
-		font32black = new BitmapFont(Gdx.files.internal("font32black.fnt"), Gdx.files.internal("font32black.png"), false);
-		font28black = new BitmapFont(Gdx.files.internal("font28black.fnt"), Gdx.files.internal("font28black.png"), false);
+		font28 = new BitmapFont(Gdx.files.internal("ArchitectsDaughter-28.fnt"), atlas.findRegion("font"), false);
+		font24 = new BitmapFont(Gdx.files.internal("ArchitectsDaughter-24.fnt"), atlas.findRegion("font"), false);
+		font22 = new BitmapFont(Gdx.files.internal("ArchitectsDaughter-22.fnt"), atlas.findRegion("font"), false);
 	}
 
 }

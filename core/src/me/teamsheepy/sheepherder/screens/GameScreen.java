@@ -10,6 +10,7 @@ import me.teamsheepy.sheepherder.utils.TimeFormatter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector3;
@@ -208,27 +209,27 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void presentReady () {
-		Assets.font32white.draw(game.batcher, "--click to play--", 140, 400);
+		Assets.font24.draw(game.batcher, "--click to play--", 140, 400);
 		if(SavedData.highscore <= 0) { //only show tutorial when there have been no sheep collected so far
-			Assets.font32white.draw(game.batcher, "Drag your finger across the screen", 4, 460);
-			Assets.font32white.draw(game.batcher, "sheep will run away from it.", 60, 430);
-			Assets.font32white.draw(game.batcher, "Guide the sheep to the pen.", 66, 400);
+			Assets.font24.draw(game.batcher, "Drag your finger across the screen", 4, 460);
+			Assets.font24.draw(game.batcher, "sheep will run away from it.", 60, 430);
+			Assets.font24.draw(game.batcher, "Guide the sheep to the pen.", 66, 400);
 		}
 	}
 
 	private void presentRunning () {
-		Assets.font32white.draw(game.batcher, timeString, 26, 800 - 20);
+		Assets.font24.draw(game.batcher, timeString, 26, 800 - 20);
 		//Assets.font.draw(game.batcher, sheepString, 480-190, 800 - 50);
-		Assets.font32white.draw(game.batcher, "Score: "+currentScore, 26, 800-50);
-		Assets.font32white.draw(game.batcher, "Best score: "+SavedData.highscore, 26, 800-80);
+		Assets.font24.draw(game.batcher, "Score: "+currentScore, 26, 800-50);
+		Assets.font24.draw(game.batcher, "Best score: "+SavedData.highscore, 26, 800-80);
 		//debug
 		//Assets.font.draw(game.batcher, Gdx.input.getX()+","+Gdx.input.getY(), 480-190, 800-110);
 	}
 
 	private void presentPaused () {
-		Assets.font32white.draw(game.batcher, "--click to resume--", 140, 400);
-		Assets.font32white.draw(game.batcher, timeString, 480-170, 800 - 20);
-		Assets.font32white.draw(game.batcher, sheepString, 480-170, 800 - 50);
+		Assets.font24.draw(game.batcher, "--click to resume--", 140, 400);
+		Assets.font24.draw(game.batcher, timeString, 480-170, 800 - 20);
+		Assets.font24.draw(game.batcher, sheepString, 480-170, 800 - 50);
 	}
 	
 	private int calculateScore(int sheepsCollected, int timeLeft) {
@@ -244,10 +245,14 @@ public class GameScreen extends ScreenAdapter {
 		String time = tfm.format(world.timeLeft/6000) + ":" + tfm.format((world.timeLeft%6000)/100);
 		String score = "SCORE: " + world.sheepsCollected + " + " + time + " = " + calculateScore(world.sheepsCollected, world.timeLeft);
 		String best = "BEST: " + SavedData.highscore;
-		float scoreWidth = Assets.font32black.getBounds(score).width;
-		float bestWidth = Assets.font28black.getBounds(best).width;
-		Assets.font32black.draw(game.batcher, score, 240 - scoreWidth / 2, 435);
-		Assets.font28black.draw(game.batcher, best, 240 - bestWidth / 2, 395);
+		Assets.font24.setColor(Color.BLACK);
+		Assets.font22.setColor(Color.BLACK);
+		float scoreWidth = Assets.font24.getBounds(score).width;
+		float bestWidth = Assets.font22.getBounds(best).width;
+		Assets.font24.draw(game.batcher, score, 240 - scoreWidth / 2, 435);
+		Assets.font22.draw(game.batcher, best, 240 - bestWidth / 2, 395);
+		Assets.font24.setColor(Color.WHITE);
+		Assets.font22.setColor(Color.WHITE);
 	}
 	
 	private void presentQuestionnaire() {
