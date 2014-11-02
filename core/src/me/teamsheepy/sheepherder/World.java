@@ -38,7 +38,7 @@ public class World {
 		this.trees = new ArrayList<Tree>();
 		this.rivers = new ArrayList<River>();
 
-		this.timeLeft = 12000;
+		this.timeLeft = 6000;
 		this.sheepsCollected = 0;
 		this.state = WORLD_STATE_RUNNING;
 	}
