@@ -34,6 +34,7 @@ public class Sheep extends DynamicGameObject {
 		this.sprite = new Sprite(Assets.sheep);
 		this.sprite.setRotation(rotation);
 		this.sprite.setPosition(position.x, position.y);
+		collisionAreas.add(new Rectangle(this.bounds.x + 20, this.bounds.y + 20, this.bounds.width - 40, this.bounds.height - 40));
 		timeToIdle = 0;
 	}
 
@@ -60,17 +61,27 @@ public class Sheep extends DynamicGameObject {
 				);
 		
 		// Check each object to see whether it intersects with the sheep's bounding box
-		Array<Rectangle> collisionObjects = new Array<Rectangle>();
-		for(Rectangle object : world.getCollisionAreas())
-			if(object.overlaps(movementBounds))
-				collisionObjects.add(object);
-
+		Array<Rectangle> collisions = new Array<Rectangle>();
+		for (GameObject object : world.getWorldObjects()) {
+			for (Rectangle collisionArea : object.collisionAreas) {
+				if(collisionArea.overlaps(movementBounds)) {
+					if (!object.equals(this))
+						collisions.add(collisionArea);
+					if (object instanceof Sheep) {
+						//object.rotation = this.rotation;
+						((Sheep) object).velocity.x = this.velocity.x;
+						((Sheep) object).velocity.y = this.velocity.y;
+					}
+				}
+			}
+		}
+	
 		// Iterate over each object whose bounding box intersects with the player's bounding box
 		// until a collision is found
 		float safeMoveX = nextMoveX, safeMoveY = nextMoveY;
 		float safeVecLen = (float) Math.sqrt(safeMoveX * safeMoveX + safeMoveY * safeMoveY);
 		Rectangle firstCollisonObject = null;
-		for (Rectangle object : collisionObjects) {
+		for (Rectangle area : collisions) {
 			// ================================================================================
 			// Speculative contacts section
 			//
@@ -80,14 +91,14 @@ public class Sheep extends DynamicGameObject {
 			// with the sheep's movement vector. This solves the so-called 'bullet through
 			// paper' problem.
 			// ================================================================================
-			Rectangle intersection = intersect(movementBounds, object);
+			Rectangle intersection = intersect(movementBounds, area);
 			float newSafeMoveX = Math.max(Math.max(intersection.x - (movementBounds.x + movementBounds.width), movementBounds.x - (intersection.x + intersection.width)), 0);
 			float newSafeMoveY = Math.max(Math.max(intersection.y + intersection.height - (movementBounds.y + movementBounds.height), movementBounds.y - intersection.y), 0);
 			float newSafeVecLen = (float) Math.sqrt(newSafeMoveX * newSafeMoveX + newSafeMoveY * newSafeMoveY);
 			if (newSafeVecLen < safeVecLen) {
 				safeMoveX = newSafeMoveX;
 				safeMoveY = newSafeMoveY;
-				firstCollisonObject = object;
+				firstCollisonObject = area;
 			}
 
 		}	
@@ -97,7 +108,7 @@ public class Sheep extends DynamicGameObject {
 		// Maar na enkele uren erop te zitten zoeken heb ik niets beter kunnen vinden. Iemand een betere oplossing?
 		// Bovendien bewegen de schaapjes zijdelings, maar als je hun richting gaat omzetten in graden en je ze draait, 
 		// zorgen afrondingsfouten ervoor dat de schaapjes beginnen trillen.
-		if (collisionObjects.size == 1 && firstCollisonObject != null && safeMoveX == 0 && safeMoveY == 0) {
+		if (collisions.size == 1 && firstCollisonObject != null && safeMoveX == 0 && safeMoveY == 0) {
 			Vector2 nextMove = new Vector2(nextMoveX, nextMoveY);
 			if (getCollisionSide(this.bounds, firstCollisonObject) == 0 || getCollisionSide(this.bounds, firstCollisonObject) == 2)
 				safeMoveX = (float) (nextMove.len() * Math.cos(Math.toRadians(nextMove.angle())));
@@ -110,6 +121,8 @@ public class Sheep extends DynamicGameObject {
 		sprite.setRotation(rotation);
 		sprite.setPosition(position.x, position.y);
 		bounds = sprite.getBoundingRectangle();
+		collisionAreas.clear();
+		collisionAreas.add(new Rectangle(this.bounds.x + 20, this.bounds.y + 20, this.bounds.width - 40, this.bounds.height - 40));
 		
 		// Reduce speed until sheep comes to a stop
 		this.velocity.x = this.velocity.x * 0.98f;
@@ -178,6 +191,8 @@ public class Sheep extends DynamicGameObject {
 	}
 		
 	public void checkCloseToScreenBorder () {
+		if (state == SHEEP_STATE_CATCHED)	return;
+		
 		int danger = 50;
 		if (position.x + bounds.width / 2 < danger && direction.x < 0 || position.x + bounds.width / 2 > World.WORLD_WIDTH - danger && direction.x > 0) state = SHEEP_STATE_DANGER;
 		else if (position.y + bounds.height / 2 < danger && direction.y < 0 || center.y + bounds.height / 2 > World.WORLD_HEIGHT - danger && direction.y > 0) state = SHEEP_STATE_DANGER;
@@ -186,6 +201,8 @@ public class Sheep extends DynamicGameObject {
 
 	@Override
 	public void render(SpriteBatch batch) {
+		sprite.setPosition(position.x, position.y);
+		sprite.setRotation(rotation);
 		sprite.draw(batch);
 		if(state == SHEEP_STATE_DANGER)
 			batch.draw(Assets.alert, 

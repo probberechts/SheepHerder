@@ -77,13 +77,6 @@ public class WorldGenerator {
 		return world.pen.bounds.overlaps(object.bounds);
 	}
 
-	private boolean checkOverlapTree(GameObject object) {
-		for (Tree tree : world.trees)
-			if (tree.bounds.overlaps(object.bounds))
-				return true;
-		return false;
-	}
-
 	private boolean checkOverlapRiver(GameObject object) {
 		for (River river : world.rivers)
 			if (river.bounds.overlaps(object.bounds))
@@ -99,8 +92,9 @@ public class WorldGenerator {
 	}
 
 	private boolean checkOverlapObject(GameObject object) {
-		return (checkOverlapPen(object) || checkOverlapTree(object)
-				|| checkOverlapRiver(object) || checkOverlapSheep(object));
+		return (checkOverlapPen(object) 
+				|| checkOverlapRiver(object) 
+				|| checkOverlapSheep(object));
 	}
 
 }

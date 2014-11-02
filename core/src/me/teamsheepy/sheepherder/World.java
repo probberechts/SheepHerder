@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import me.teamsheepy.sheepherder.objects.GameObject;
 import me.teamsheepy.sheepherder.objects.Pen;
 import me.teamsheepy.sheepherder.objects.River;
 import me.teamsheepy.sheepherder.objects.Sheep;
 import me.teamsheepy.sheepherder.objects.Tree;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
@@ -64,13 +64,12 @@ public class World {
 		}
 	}
 
-	public List<Rectangle> getCollisionAreas() {
-		List<Rectangle> result = new LinkedList<Rectangle>();
-		for (Tree tree : trees)
-			result.addAll(tree.collisionAreas);
-		for (River river : rivers)
-			result.addAll(river.collisionAreas);
-		result.addAll(pen.collisionAreas);
+	public List<GameObject> getWorldObjects() {
+		List<GameObject> result = new LinkedList<GameObject>();
+		result.addAll(sheeps);
+		result.addAll(trees);
+		result.addAll(rivers);
+		result.add(pen);
 		return result;
 	}
 	
