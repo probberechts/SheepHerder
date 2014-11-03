@@ -30,6 +30,6 @@ public class DesktopLauncher {
 		config.title = "Sheep Herder";
 		config.width = 480;
 		config.height = 800;
-		new LwjglApplication(new SheepHerder(new DesktopTimeFormatter()), config);
+		new LwjglApplication(new SheepHerder(new DesktopGoogleServices(), new DesktopTimeFormatter()), config);
 	}
 }
