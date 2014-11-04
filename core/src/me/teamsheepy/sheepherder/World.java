@@ -111,8 +111,10 @@ public class World {
 		if (sheep.bounds.x + sheep.bounds.width < 0 
 				|| sheep.bounds.x > WORLD_WIDTH 
 				|| sheep.bounds.y + sheep.bounds.height < 0 
-				|| sheep.bounds.y > WORLD_HEIGHT)
+				|| sheep.bounds.y > WORLD_HEIGHT) {
 			sheep.state = Sheep.SHEEP_STATE_ESCAPED;
+			sheep.collisionAreas.clear();
+		}
 	}
 	
 	private void checkIfSheepsIsInPen(Sheep sheep) {
