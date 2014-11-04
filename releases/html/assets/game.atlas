@@ -1,0 +1,118 @@
+
+game.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+alert
+  rotate: false
+  xy: 377, 478
+  size: 20, 20
+  orig: 20, 20
+  offset: 0, 0
+  index: -1
+bridge
+  rotate: false
+  xy: 229, 179
+  size: 51, 48
+  orig: 51, 48
+  offset: 0, 0
+  index: -1
+font
+  rotate: false
+  xy: 2, 500
+  size: 510, 509
+  orig: 512, 512
+  offset: 1, 2
+  index: -1
+gameover
+  rotate: false
+  xy: 2, 229
+  size: 373, 269
+  orig: 380, 274
+  offset: 4, 2
+  index: -1
+newbest
+  rotate: false
+  xy: 514, 740
+  size: 373, 269
+  orig: 380, 274
+  offset: 4, 2
+  index: -1
+pen
+  rotate: false
+  xy: 377, 202
+  size: 200, 225
+  orig: 200, 225
+  offset: 0, 0
+  index: -1
+questionnaire
+  rotate: false
+  xy: 514, 469
+  size: 373, 269
+  orig: 380, 274
+  offset: 4, 2
+  index: -1
+river
+  rotate: false
+  xy: 377, 429
+  size: 584, 38
+  orig: 584, 38
+  offset: 0, 0
+  index: -1
+sheep
+  rotate: false
+  xy: 889, 959
+  size: 55, 50
+  orig: 55, 50
+  offset: 0, 0
+  index: -1
+touchmarker
+  rotate: false
+  xy: 2, 2
+  size: 225, 225
+  orig: 225, 225
+  offset: 0, 0
+  index: -1
+tree
+  rotate: false
+  xy: 579, 290
+  size: 195, 137
+  orig: 200, 140
+  offset: 4, 2
+  index: -1
+tree1
+  rotate: false
+  xy: 579, 290
+  size: 195, 137
+  orig: 200, 140
+  offset: 4, 2
+  index: -1
+tree2
+  rotate: false
+  xy: 776, 290
+  size: 195, 137
+  orig: 200, 140
+  offset: 4, 2
+  index: -1
+tree3
+  rotate: false
+  xy: 579, 151
+  size: 195, 137
+  orig: 200, 140
+  offset: 4, 2
+  index: -1
+tree5
+  rotate: false
+  xy: 579, 151
+  size: 195, 137
+  orig: 200, 140
+  offset: 4, 2
+  index: -1
+tree4
+  rotate: false
+  xy: 776, 151
+  size: 195, 137
+  orig: 200, 140
+  offset: 4, 2
+  index: -1
