@@ -102,7 +102,7 @@ public class WorldRenderer {
 	}
 	
 	private void renderTouchMarker(Vector3 touchPos) {
-		if (Gdx.input.isTouched()) {
+		if (Gdx.input.isTouched() && world.state == World.WORLD_STATE_RUNNING) {
 			batch.draw(Assets.touchmarker, 
 					touchPos.x - Assets.touchmarker.getRegionWidth()/2/10*7, // x position
 					touchPos.y - Assets.touchmarker.getRegionHeight()/2/10*7, // y position
