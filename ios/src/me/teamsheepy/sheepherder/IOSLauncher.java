@@ -12,7 +12,7 @@ public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new SheepHerder(new IosTimeFormatter()), config);
+        return new IOSApplication(new SheepHerder(new IosTimeFormatter(), new IosAnalyticsEngine()), config);
     }
 
     public static void main(String[] argv) {

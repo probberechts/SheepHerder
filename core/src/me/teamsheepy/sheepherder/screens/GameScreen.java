@@ -38,6 +38,8 @@ public class GameScreen extends ScreenAdapter {
 	private Vector3 touchPos;
 
 	public GameScreen (SheepHerder game) {
+		SheepHerder.analytics.trackPageView("game");
+
 		this.game = game;
 
 		camera = new OrthographicCamera();

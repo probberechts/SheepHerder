@@ -1,6 +1,7 @@
 package me.teamsheepy.sheepherder;
 
 import me.teamsheepy.sheepherder.screens.GameScreen;
+import me.teamsheepy.sheepherder.utils.AnalyticsEngine;
 import me.teamsheepy.sheepherder.utils.TimeFormatter;
 
 import com.badlogic.gdx.Game;
@@ -11,9 +12,11 @@ public class SheepHerder extends Game {
 	public SpriteBatch batcher;
 	
 	public static TimeFormatter timeFormatter = null;
+	public static AnalyticsEngine analytics = null;
 
-	public SheepHerder(TimeFormatter timeFormatter) {
+	public SheepHerder(TimeFormatter timeFormatter, AnalyticsEngine analytics) {
 		SheepHerder.timeFormatter = timeFormatter;
+		SheepHerder.analytics = analytics;
 	}
 	   
 	@Override

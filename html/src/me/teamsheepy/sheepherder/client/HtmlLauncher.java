@@ -6,6 +6,7 @@ import me.teamsheepy.sheepherder.SheepHerder;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
+import me.teamsheepy.sheepherder.utils.AnalyticsEngine;
 
 public class HtmlLauncher extends GwtApplication {
 
@@ -16,6 +17,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener getApplicationListener () {
-                return new SheepHerder(new HtmlTimeFormatter());
+                return new SheepHerder(new HtmlTimeFormatter(), new HtmlAnalyticsEngine());
         }
 }

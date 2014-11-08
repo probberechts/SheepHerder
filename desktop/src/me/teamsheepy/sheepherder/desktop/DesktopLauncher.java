@@ -5,7 +5,11 @@ import me.teamsheepy.sheepherder.SheepHerder;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
+import java.util.logging.Logger;
+
 public class DesktopLauncher {
+	private final static Logger LOGGER = Logger.getLogger("Desktop");
+
 	public static void main (String[] arg) {
 		// Automatic texture packing
 //		Settings settings = new Settings();
@@ -27,6 +31,6 @@ public class DesktopLauncher {
 		config.title = "Sheep Herder";
 		config.width = 480;
 		config.height = 800;
-		new LwjglApplication(new SheepHerder(new DesktopTimeFormatter()), config);
+		new LwjglApplication(new SheepHerder(new DesktopTimeFormatter(), new DesktopAnalyticsEngine()), config);
 	}
 }
