@@ -42,17 +42,6 @@
       ga('create', 'UA-56280744-2', 'auto');
       ga('require', 'displayfeatures');
       ga('send', 'pageview');
-
-      $('#desktop').on('click', function() {
-        ga('send', 'event', 'downloads', 'click', "desktop");
-      });
-      $('#android').on('click', function() {
-        ga('send', 'event', 'downloads', 'click', "android");
-      });
-      $('#html5').on('click', function() {
-        ga('send', 'event', 'downloads', 'click', "HTML5");
-      });
-
     </script>
 
 </head>
@@ -69,9 +58,9 @@
                 <div class="col-lg-12">
                     <img class="img-responsive" src="/img/banner.png" alt="">
                     <h4>v1.0 <br/>(release date: 30/10/2014)</h4>
-                    <a id="html5" href="html/index.html"><button class="btn-outline" value="Play online"><span class="glyphicon glyphicon-play"></span> Play it online</button></a>
-                    <a id="android" href="SheepHerder.apk" target="_blank"><button class="btn-outline" value="Get for desktop"><span class="glyphicon glyphicon-download"></span> Get it for Android</button></a>
-                    <a id="desktop" href="SheepHerder.jar" target="_blank"><button class="btn-outline" value="Get for desktop"><span class="glyphicon glyphicon-download"></span> Get it for desktop</button></a>
+                    <a onClick="ga('send', 'event', { eventCategory: 'download', eventAction: 'html5', eventLabel: 'v1.0'});" href="html/index.html"><button class="btn-outline" value="Play online"><span class="glyphicon glyphicon-play"></span> Play it online</button></a>
+                    <a onClick="ga('send', 'event', { eventCategory: 'download', eventAction: 'android', eventLabel: 'v1.0'});" href="SheepHerder.apk" target="_blank"><button class="btn-outline" value="Get for desktop"><span class="glyphicon glyphicon-download"></span> Get it for Android</button></a>
+                    <a onClick="ga('send', 'event', { eventCategory: 'download', eventAction: 'desktop', eventLabel: 'v1.0'});" href="SheepHerder.jar" target="_blank"><button class="btn-outline" value="Get for desktop"><span class="glyphicon glyphicon-download"></span> Get it for desktop</button></a>
                 </div>
             </div>
         </div>
