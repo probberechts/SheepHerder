@@ -6,6 +6,8 @@ import me.teamsheepy.sheepherder.SheepHerder;
 import me.teamsheepy.sheepherder.World;
 import me.teamsheepy.sheepherder.WorldGenerator;
 import me.teamsheepy.sheepherder.WorldRenderer;
+import me.teamsheepy.sheepherder.objects.Sheep;
+import me.teamsheepy.sheepherder.utils.SwipeDetector;
 import me.teamsheepy.sheepherder.utils.TimeFormatter;
 
 import com.badlogic.gdx.Gdx;
@@ -13,6 +15,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class GameScreen extends ScreenAdapter {
@@ -22,7 +25,8 @@ public class GameScreen extends ScreenAdapter {
 	static final int GAME_OVER = 3;
 	static final int NEW_BEST = 4;
 	static final int QUESTIONNAIRE = 5;
-	
+	static final int SWIPE_SUGGESTION = 6;
+
 	private TimeFormatter tfm = SheepHerder.timeFormatter;
 
 	private SheepHerder game;
@@ -33,11 +37,12 @@ public class GameScreen extends ScreenAdapter {
 	private WorldRenderer renderer;
 	private int lastScore;
 	private String sheepString;
-	private String timeString;	
+	private String timeString;
 	private int currentScore;
 	private Vector3 touchPos;
+	private boolean swipeCheckboxTicked;
 
-	public GameScreen (SheepHerder game) {
+	public GameScreen(SheepHerder game) {
 		SheepHerder.analytics.trackPageView("game");
 
 		this.game = game;
@@ -48,18 +53,19 @@ public class GameScreen extends ScreenAdapter {
 		renderer = new WorldRenderer(game.batcher, world);
 		lastScore = 0;
 		sheepString = "SHEEPS: 0";
-		timeString = "TIME: 2:00";		
-		if (!SavedData.questionnaireFilled 
-				&& SavedData.gamesPlayed != 0 
+		timeString = "TIME: 2:00";
+		if (!SavedData.questionnaireFilled && SavedData.gamesPlayed != 0
 				&& SavedData.gamesPlayed % 5 == 0)
 			state = QUESTIONNAIRE;
 		else
 			state = GAME_READY;
-		touchPos = new Vector3(-500, -500, 0); //hide offscreen at start
+		touchPos = new Vector3(-500, -500, 0); // hide offscreen at start
+		Gdx.input.setInputProcessor(new SwipeDetector(world));
 	}
 
-	public void update (float deltaTime) {
-		if (deltaTime > 0.1f) deltaTime = 0.1f;
+	public void update(float deltaTime) {
+		if (deltaTime > 0.1f)
+			deltaTime = 0.1f;
 
 		switch (state) {
 		case GAME_READY:
@@ -78,34 +84,51 @@ public class GameScreen extends ScreenAdapter {
 		case QUESTIONNAIRE:
 			updateQuestionnaire();
 			break;
+		case SWIPE_SUGGESTION:
+			updateSwipeSuggestion();
+			break;
 		}
 	}
 
-	private void updateReady () {
+	private void updateReady() {
 		if (Gdx.input.justTouched()) {
 			state = GAME_RUNNING;
 		}
 	}
 
-	private void updateRunning (float deltaTime) {
+	private void updateRunning(float deltaTime) {
 		if (Gdx.input.isTouched()) {
-	        touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-	        camera.unproject(touchPos);
-	        world.updateRotationSheeps(touchPos);
+			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+			camera.unproject(touchPos);
+			world.updateRotationSheeps(touchPos);
 		}
-		
+
 		world.update(deltaTime);
 		world.timeLeft -= deltaTime;
-		timeString = "TIME: " + tfm.format(world.timeLeft/6000) + ":" + tfm.format((world.timeLeft%6000)/100);
+		timeString = "TIME: " + tfm.format(world.timeLeft / 6000) + ":"
+				+ tfm.format((world.timeLeft % 6000) / 100);
 
 		if (world.sheepsCollected != lastScore) {
 			lastScore = world.sheepsCollected;
 			sheepString = "SHEEPS: " + lastScore;
 		}
-		currentScore = world.sheepsCollected == 0 ? 0 : (world.sheepsCollected*100+world.timeLeft/100);
+		currentScore = world.sheepsCollected == 0 ? 0
+				: (world.sheepsCollected * 100 + world.timeLeft / 100);
 
 		if (world.state == World.WORLD_STATE_GAME_OVER) {
 			SavedData.addGamePlayed();
+			SheepHerder.analytics.trackEvent("gameEvent", "gameOver",
+					"gameTime", World.GAME_TIME - world.timeLeft);
+			SheepHerder.analytics.trackEvent("gameEvent", "gameOver",
+					"sheepCollected", world.sheepsCollected);
+			int escapedSheep = 0;
+			for (Sheep s : world.sheeps) {
+				if (s.state == Sheep.SHEEP_STATE_ESCAPED)
+					escapedSheep++;
+			}
+			SheepHerder.analytics.trackEvent("gameEvent", "gameOver",
+					"escapedSheep", escapedSheep);
+
 			int newScore = calculateScore(world.sheepsCollected, world.timeLeft);
 			if (newScore > SavedData.highscore) {
 				SavedData.newHighscore(newScore);
@@ -113,47 +136,70 @@ public class GameScreen extends ScreenAdapter {
 			} else {
 				state = GAME_OVER;
 			}
-		}
+		} 
+		//TODO when to show? needs extra condition
+//		else if (world.swipeTime < 0
+//				&& !SavedData.neverShowSwipeSuggestion) {
+//			state = SWIPE_SUGGESTION;
+//		}
 	}
 
-	private void updatePaused () {
+	private void updatePaused() {
 		if (Gdx.input.justTouched()) {
 			state = GAME_RUNNING;
 		}
 	}
 
-	private void updateGameOver () {
+	private void updateGameOver() {
 		if (Gdx.input.justTouched()) {
 			Vector3 touchPos = new Vector3();
-	        touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-	        camera.unproject(touchPos);
-	        if (touchPos.x > 120 && touchPos.x < 120+240 
-	        		&& touchPos.y > 285 && touchPos.y < 285+55) {
-	        	// play again button touched
+			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+			camera.unproject(touchPos);
+			if (touchPos.x > 120 && touchPos.x < 120 + 240 && touchPos.y > 285
+					&& touchPos.y < 285 + 55) {
+				// play again button touched
 				game.setScreen(new GameScreen(game));
-	        }
-		}
-	}
-	
-	private void updateQuestionnaire() {
-		if (Gdx.input.justTouched()) {
-			Vector3 touchPos = new Vector3();
-	        touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-	        camera.unproject(touchPos);
-	        if (touchPos.x > 88 && touchPos.x < 88+95
-	        		&& touchPos.y > 283 && touchPos.y < 283+55) {
-	        	// answered yes
-	    		Gdx.net.openURI("https://docs.google.com/forms/d/1eLUKnRGSiimqk4Mzr7ArOWwbGUMii8vZ7PagRqbDVe4/viewform?usp=send_form");
-	    		state = GAME_READY;
-	        } else if (touchPos.x > 203 && touchPos.x < 203+200
-	        		&& touchPos.y > 283 && touchPos.y < 283+55) {
-	        	// answered later
-	    		state = GAME_READY;
-	        }
+			}
 		}
 	}
 
-	public void draw () {
+	private void updateQuestionnaire() {
+		if (Gdx.input.justTouched()) {
+			Vector3 touchPos = new Vector3();
+			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+			camera.unproject(touchPos);
+			if (touchPos.x > 88 && touchPos.x < 88 + 95 && touchPos.y > 283
+					&& touchPos.y < 283 + 55) {
+				// answered yes
+				Gdx.net.openURI("https://docs.google.com/forms/d/1eLUKnRGSiimqk4Mzr7ArOWwbGUMii8vZ7PagRqbDVe4/viewform?usp=send_form");
+				state = GAME_READY;
+			} else if (touchPos.x > 203 && touchPos.x < 203 + 200
+					&& touchPos.y > 283 && touchPos.y < 283 + 55) {
+				// answered later
+				state = GAME_READY;
+			}
+		}
+	}
+
+	private void updateSwipeSuggestion() {
+		if (Gdx.input.justTouched()) {
+			Vector3 touchPos = new Vector3();
+			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+			camera.unproject(touchPos);
+			System.out.println("touched at " + touchPos);
+			if (touchPos.x > 380 && touchPos.x < 420 && touchPos.y > 490
+					&& touchPos.y < 530) {
+				if(swipeCheckboxTicked)
+					SavedData.neverShowSwipeSuggestion();
+				state = GAME_READY;
+			} else if (touchPos.x > 110 && touchPos.x < 160 && touchPos.y > 285
+					&& touchPos.y < 318) {
+				swipeCheckboxTicked = !swipeCheckboxTicked;
+			}
+		}
+	}
+
+	public void draw() {
 		GL20 gl = Gdx.gl;
 		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -163,7 +209,7 @@ public class GameScreen extends ScreenAdapter {
 		game.batcher.setProjectionMatrix(camera.combined);
 		game.batcher.enableBlending();
 		game.batcher.begin();
-	 
+
 		switch (state) {
 		case GAME_READY:
 			presentReady();
@@ -183,75 +229,100 @@ public class GameScreen extends ScreenAdapter {
 		case QUESTIONNAIRE:
 			presentQuestionnaire();
 			break;
+		case SWIPE_SUGGESTION:
+			presentSwipeSuggestion();
+			break;
 		}
 		game.batcher.end();
-		
+
 		// DEBUG: draw bounding boxes of objects
-//		ShapeRenderer sr = new ShapeRenderer();
-//		sr.setProjectionMatrix(camera.combined);
-//		sr.begin(ShapeType.Line);
-//		sr.setColor(1, 1, 0, 1);
-//		for (Sheep sheep : world.sheeps)
-//			sr.rect(sheep.bounds.x, sheep.bounds.y, sheep.bounds.width, sheep.bounds.height);
-//		sr.setColor(1, 0, 0, 1);
-//		for (River river : world.rivers) {
-//			for (Rectangle col : river.collisionAreas)
-//				sr.rect(col.x, col.y, col.width, col.height);
-//			sr.setColor(0, 1, 0, 0);
-//			for (Bridge bridge: river.bridges)
-//				sr.rect(bridge.bounds.x, bridge.bounds.y, bridge.bounds.width, bridge.bounds.height);
-//		}
-//		sr.setColor(0, 1, 0, 1);
-//		for (Tree tree : world.trees)
-//			sr.rect(tree.bounds.x, tree.bounds.y, tree.bounds.width, tree.bounds.height);
-//		sr.setColor(1, 0, 0, 1);
-//		for (Rectangle col : world.pen.collisionAreas)
-//			sr.rect(col.x, col.y, col.width, col.height);
-//		sr.end();
+		// ShapeRenderer sr = new ShapeRenderer();
+		// sr.setProjectionMatrix(camera.combined);
+		// sr.begin(ShapeType.Line);
+		// sr.setColor(1, 1, 0, 1);
+		// for (Sheep sheep : world.sheeps)
+		// sr.rect(sheep.bounds.x, sheep.bounds.y, sheep.bounds.width,
+		// sheep.bounds.height);
+		// sr.setColor(1, 0, 0, 1);
+		// for (River river : world.rivers) {
+		// for (Rectangle col : river.collisionAreas)
+		// sr.rect(col.x, col.y, col.width, col.height);
+		// sr.setColor(0, 1, 0, 0);
+		// for (Bridge bridge: river.bridges)
+		// sr.rect(bridge.bounds.x, bridge.bounds.y, bridge.bounds.width,
+		// bridge.bounds.height);
+		// }
+		// sr.setColor(0, 1, 0, 1);
+		// for (Tree tree : world.trees)
+		// sr.rect(tree.bounds.x, tree.bounds.y, tree.bounds.width,
+		// tree.bounds.height);
+		// sr.setColor(1, 0, 0, 1);
+		// for (Rectangle col : world.pen.collisionAreas)
+		// sr.rect(col.x, col.y, col.width, col.height);
+		// sr.end();
 	}
 
-	private void presentReady () {
-		if(SavedData.highscore <= 0) { //only show tutorial when there have been no sheep collected so far
+	private void presentReady() {
+		if (SavedData.highscore <= 0) { // only show tutorial when there have
+										// been no sheep collected so far
 			String line1 = "Drag your finger across the screen,";
 			float line1W = Assets.font22.getBounds(line1).width;
 			String line2 = "sheep will run away from it.";
 			float line2W = Assets.font22.getBounds(line2).width;
 			String line3 = "Guide the sheep to the pen.";
 			float line3W = Assets.font22.getBounds(line3).width;
-			Assets.font22.draw(game.batcher, line1, World.WORLD_WIDTH / 2 - line1W / 2, 530);
-			Assets.font22.draw(game.batcher, line2, World.WORLD_WIDTH / 2 - line2W / 2, 500);
-			Assets.font22.draw(game.batcher, line3, World.WORLD_WIDTH / 2 - line3W / 2, 470);
+			Assets.font22.draw(game.batcher, line1, World.WORLD_WIDTH / 2
+					- line1W / 2, 530);
+			Assets.font22.draw(game.batcher, line2, World.WORLD_WIDTH / 2
+					- line2W / 2, 500);
+			Assets.font22.draw(game.batcher, line3, World.WORLD_WIDTH / 2
+					- line3W / 2, 470);
 		}
 		Assets.font22.draw(game.batcher, "--click to play--", 140, 400);
 	}
 
-	private void presentRunning () {
+	private void presentRunning() {
 		Assets.font22.draw(game.batcher, timeString, 26, 800 - 20);
-		//Assets.font.draw(game.batcher, sheepString, 480-190, 800 - 50);
-		Assets.font22.draw(game.batcher, "Score: "+currentScore, 26, 800-50);
-		Assets.font22.draw(game.batcher, "Best score: "+SavedData.highscore, 26, 800-80);
-		//debug
-		//Assets.font.draw(game.batcher, Gdx.input.getX()+","+Gdx.input.getY(), 480-190, 800-110);
+		// Assets.font.draw(game.batcher, sheepString, 480-190, 800 - 50);
+		Assets.font22
+				.draw(game.batcher, "Score: " + currentScore, 26, 800 - 50);
+		Assets.font22.draw(game.batcher, "Best score: " + SavedData.highscore,
+				26, 800 - 80);
+		// debug
+		Assets.font22
+				.draw(game.batcher, Gdx.input.getX() + "," + Gdx.input.getY(),
+						480 - 190, 800 - 110);
 	}
 
-	private void presentPaused () {
+	private void presentSwipeSuggestion() {
+		if (swipeCheckboxTicked) {
+			game.batcher.draw(Assets.fullCheckBox, 50, 263);
+		} else {
+			game.batcher.draw(Assets.emptyCheckBox, 50, 263);
+		}
+	}
+
+	private void presentPaused() {
 		Assets.font22.draw(game.batcher, "--click to resume--", 140, 400);
-		Assets.font22.draw(game.batcher, timeString, 480-170, 800 - 20);
-		Assets.font22.draw(game.batcher, sheepString, 480-170, 800 - 50);
-	}
-	
-	private int calculateScore(int sheepsCollected, int timeLeft) {
-		if (sheepsCollected == 0) return 0;
-		return sheepsCollected * 100 + timeLeft/100;
+		Assets.font22.draw(game.batcher, timeString, 480 - 170, 800 - 20);
+		Assets.font22.draw(game.batcher, sheepString, 480 - 170, 800 - 50);
 	}
 
-	private void presentGameOver (boolean newBest) {
+	private int calculateScore(int sheepsCollected, int timeLeft) {
+		if (sheepsCollected == 0)
+			return 0;
+		return sheepsCollected * 100 + timeLeft / 100;
+	}
+
+	private void presentGameOver(boolean newBest) {
 		if (newBest) {
 			game.batcher.draw(Assets.newbest, 50, 263, 380, 274);
 		} else
 			game.batcher.draw(Assets.gameover, 50, 263, 380, 274);
-		String time = tfm.format(world.timeLeft/6000) + ":" + tfm.format((world.timeLeft%6000)/100);
-		String score = "SCORE: " + world.sheepsCollected + " + " + time + " = " + calculateScore(world.sheepsCollected, world.timeLeft);
+		String time = tfm.format(world.timeLeft / 6000) + ":"
+				+ tfm.format((world.timeLeft % 6000) / 100);
+		String score = "SCORE: " + world.sheepsCollected + " + " + time + " = "
+				+ calculateScore(world.sheepsCollected, world.timeLeft);
 		String best = "BEST: " + SavedData.highscore;
 		Assets.font24.setColor(Color.BLACK);
 		Assets.font22.setColor(Color.BLACK);
@@ -262,19 +333,20 @@ public class GameScreen extends ScreenAdapter {
 		Assets.font24.setColor(Color.WHITE);
 		Assets.font22.setColor(Color.WHITE);
 	}
-	
+
 	private void presentQuestionnaire() {
 		game.batcher.draw(Assets.questionnaire, 50, 263, 380, 274);
 	}
 
 	@Override
-	public void render (float delta) {
+	public void render(float delta) {
 		update(delta);
 		draw();
 	}
 
 	@Override
-	public void pause () {
-		if (state == GAME_RUNNING) state = GAME_PAUSED;
+	public void pause() {
+		if (state == GAME_RUNNING)
+			state = GAME_PAUSED;
 	}
 }

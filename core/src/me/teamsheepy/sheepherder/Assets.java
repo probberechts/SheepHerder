@@ -25,6 +25,8 @@ public class Assets {
 	public static BitmapFont font28;
 	public static BitmapFont font24;
 	public static BitmapFont font22;
+	public static TextureRegion emptyCheckBox;
+	public static TextureRegion fullCheckBox;
 
 
 	public static Texture loadTexture (String file) {
@@ -53,6 +55,8 @@ public class Assets {
 		newbest.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		questionnaire = atlas.findRegion("questionnaire");
 		questionnaire.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+		emptyCheckBox = atlas.findRegion("tip_notap_v2");
+		fullCheckBox = atlas.findRegion("tip_notap_v2_checked");
 				
 		font28 = new BitmapFont(Gdx.files.internal("ArchitectsDaughter-28.fnt"), atlas.findRegion("font"), false);
 		font24 = new BitmapFont(Gdx.files.internal("ArchitectsDaughter-24.fnt"), atlas.findRegion("font"), false);

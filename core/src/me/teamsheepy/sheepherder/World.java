@@ -22,6 +22,7 @@ public class World {
 	public static final int WORLD_STATE_GAME_OVER = 1;
 	public static final int WORLD_MARGIN = 20;
 	public static final Color WORLD_MARGIN_COLOR = new Color(0x006400ff);
+	public static final int GAME_TIME = 6000;
 
 	public Pen pen;
 	public final List<Sheep> sheeps;
@@ -31,6 +32,7 @@ public class World {
 	public int timeLeft;
 	public int sheepsCollected;
 	public int state;
+	public int swipeTime = -1;
 
 	public World() {
 		this.pen = new Pen(5, 1);
@@ -38,7 +40,7 @@ public class World {
 		this.trees = new ArrayList<Tree>();
 		this.rivers = new ArrayList<River>();
 
-		this.timeLeft = 6000;
+		this.timeLeft = GAME_TIME;
 		this.sheepsCollected = 0;
 		this.state = WORLD_STATE_RUNNING;
 	}
@@ -119,6 +121,8 @@ public class World {
 	
 	private void checkIfSheepsIsInPen(Sheep sheep) {
 		if (sheep.state != Sheep.SHEEP_STATE_CATCHED && pen.hasScored(sheep.bounds)) {
+			if(sheepsCollected == 0)
+				SheepHerder.analytics.trackEvent("gameEvent", "firstSheepInPen", "firstSheepInPen", World.GAME_TIME-timeLeft);
 			sheep.state = Sheep.SHEEP_STATE_CATCHED;
 			sheepsCollected++;
 		} else if (sheep.state == Sheep.SHEEP_STATE_CATCHED && !pen.hasScored(sheep.bounds)) {
