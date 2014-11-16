@@ -11,6 +11,10 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SheepHerder extends Game {
+	
+	public static final String VERSION = "3";
+	public static final String TRACKER_ID = "UA-56280744-1";
+	
 	// used by all screens
 	public SpriteBatch batcher;
 	
@@ -26,6 +30,7 @@ public class SheepHerder extends Game {
 	public void create () {
 		batcher = new SpriteBatch();
 		SavedData.load();
+		SavedData.createId();
 		Assets.load();
 		setScreen(new GameScreen(this));
 	}
