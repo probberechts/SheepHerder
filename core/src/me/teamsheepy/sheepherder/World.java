@@ -25,23 +25,23 @@ public class World {
 	public static final int GAME_TIME = 6000;
 
 	public Pen pen;
-	public final List<Sheep> sheeps;
+	public final List<Sheep> sheep;
 	public final List<Tree> trees;
 	public final List<River> rivers;
 
 	public int timeLeft;
-	public int sheepsCollected;
+	public int sheepCollected;
 	public int state;
 	public int swipeTime = -1;
 
 	public World() {
 		this.pen = new Pen(5, 1);
-		this.sheeps = new ArrayList<Sheep>();
+		this.sheep = new ArrayList<Sheep>();
 		this.trees = new ArrayList<Tree>();
 		this.rivers = new ArrayList<River>();
 
 		this.timeLeft = GAME_TIME;
-		this.sheepsCollected = 0;
+		this.sheepCollected = 0;
 		this.state = WORLD_STATE_RUNNING;
 	}
 
@@ -53,7 +53,7 @@ public class World {
 	}
 
 	public void updateRotationSheeps(Vector3 touchPos) {
-		for (Sheep sheep : sheeps) {
+		for (Sheep sheep : this.sheep) {
 			if (sheep.position.dst2(touchPos.x, touchPos.y) < 10000) {
 				float angle;
 				if (touchPos.x < World.WORLD_MARGIN
@@ -77,7 +77,7 @@ public class World {
 
 	public List<GameObject> getWorldObjects() {
 		List<GameObject> result = new LinkedList<GameObject>();
-		result.addAll(sheeps);
+		result.addAll(sheep);
 		result.addAll(trees);
 		result.addAll(rivers);
 		result.add(pen);
@@ -85,20 +85,20 @@ public class World {
 	}
 	
 	private void updateSheeps (float deltaTime) {
-		for (Sheep sheep : sheeps) {
+		for (Sheep sheep : this.sheep) {
 			// update sheep's position
 			sheep.update(deltaTime, this);
 			// check if a sheep has escape
 			checkIfSheepHasEscaped(sheep);
 			// check if a sheep has entered or left the pen
-			checkIfSheepsIsInPen(sheep);
+			checkIfSheepIsInPen(sheep);
 		}
 	}
 	
 	public void updateTrees() {
 		for (Tree tree : trees) {
 			boolean shouldBeAnimated = false;
-			for (Sheep sheep : sheeps) {
+			for (Sheep sheep : this.sheep) {
 				if (tree.bounds.contains(sheep.bounds)) {
 					shouldBeAnimated = true;
 					break;
@@ -119,25 +119,25 @@ public class World {
 		}
 	}
 	
-	private void checkIfSheepsIsInPen(Sheep sheep) {
-		if (sheep.state != Sheep.SHEEP_STATE_CATCHED && pen.hasScored(sheep.bounds)) {
-			if(sheepsCollected == 0)
+	private void checkIfSheepIsInPen(Sheep sheep) {
+		if (sheep.state != Sheep.SHEEP_STATE_CAUGHT && pen.hasScored(sheep.bounds)) {
+			if(sheepCollected == 0)
 				SheepHerder.analytics.trackEvent("gameEvent", "firstSheepInPen", "firstSheepInPen", World.GAME_TIME-timeLeft);
-			sheep.state = Sheep.SHEEP_STATE_CATCHED;
-			sheepsCollected++;
-		} else if (sheep.state == Sheep.SHEEP_STATE_CATCHED && !pen.hasScored(sheep.bounds)) {
+			sheep.state = Sheep.SHEEP_STATE_CAUGHT;
+			sheepCollected++;
+		} else if (sheep.state == Sheep.SHEEP_STATE_CAUGHT && !pen.hasScored(sheep.bounds)) {
 			sheep.state = Sheep.SHEEP_STATE_FREE;
-			sheepsCollected--;
+			sheepCollected--;
 		}
 	}
 	
 	private void checkGameOver() {
-		if (timeLeft <= 0f || sheeps.isEmpty()) {
+		if (timeLeft <= 0f || sheep.isEmpty()) {
 			state = WORLD_STATE_GAME_OVER;
 		}
 
-		for (Sheep sheep : sheeps)
-			if (sheep.state != Sheep.SHEEP_STATE_CATCHED
+		for (Sheep sheep : this.sheep)
+			if (sheep.state != Sheep.SHEEP_STATE_CAUGHT
 					&& sheep.state != Sheep.SHEEP_STATE_ESCAPED)  
 				return;
 		state = WORLD_STATE_GAME_OVER;

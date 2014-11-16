@@ -73,9 +73,9 @@ public class WorldRenderer {
 	}
 
 	private void renderSheeps () {
-		int len = world.sheeps.size();
+		int len = world.sheep.size();
 		for (int i = 0; i < len; i++) {
-			Sheep sheep = world.sheeps.get(i);
+			Sheep sheep = world.sheep.get(i);
 			sheep.render(batch);
 		}
 	}

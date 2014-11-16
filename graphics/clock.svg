@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="250"
+   height="250"
+   id="svg4716"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   inkscape:export-filename="/Users/probberechts/Development/SheepHerder/graphics/png/time.png"
+   inkscape:export-xdpi="10.118761"
+   inkscape:export-ydpi="10.118761"
+   sodipodi:docname="New document 5">
+  <defs
+     id="defs4718" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1"
+     inkscape:cx="-5"
+     inkscape:cy="160"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer5"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="711"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata4721">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="grass"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-802.36218)"
+     style="display:inline">
+    <path
+       sodipodi:type="arc"
+       style="fill:#2cb036;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       id="path4724"
+       sodipodi:cx="146.5"
+       sodipodi:cy="141.5"
+       sodipodi:rx="174.5"
+       sodipodi:ry="162.5"
+       d="m 321,141.5 a 174.5,162.5 0 1 1 -349,0 174.5,162.5 0 1 1 349,0 z"
+       transform="translate(-17,789.36218)" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="clock"
+     style="display:inline">
+    <path
+       sodipodi:type="arc"
+       style="fill:none;stroke:#ffffff;stroke-width:14.50513935;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
+       id="path5235"
+       sodipodi:cx="84"
+       sodipodi:cy="100"
+       sodipodi:rx="53"
+       sodipodi:ry="48"
+       d="m 137,100 a 53,48 0 1 1 -106,0 53,48 0 1 1 106,0 z"
+       transform="matrix(1.968258,0,0,2.1732849,-40.333674,-92.328489)"
+       inkscape:export-filename="/Users/probberechts/Development/SheepHerder/graphics/png/clock.png"
+       inkscape:export-xdpi="14.724256"
+       inkscape:export-ydpi="14.724256" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer6"
+     inkscape:label="time"
+     style="display:inline">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke:none"
+       id="rect5238"
+       width="20"
+       height="73.26355"
+       x="-135"
+       y="53"
+       ry="11.400483"
+       transform="scale(-1,1)" />
+  </g>
+</svg>
