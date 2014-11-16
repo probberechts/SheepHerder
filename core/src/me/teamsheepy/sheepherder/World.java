@@ -32,7 +32,7 @@ public class World {
 	public int timeLeft;
 	public int sheepsCollected;
 	public int state;
-	public int swipeTime = -1;
+	public int swipeTime = 0;
 
 	public World() {
 		this.pen = new Pen(5, 1);
