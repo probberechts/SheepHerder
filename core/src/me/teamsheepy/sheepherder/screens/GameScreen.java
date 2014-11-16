@@ -100,6 +100,12 @@ public class GameScreen extends ScreenAdapter {
 		if (Gdx.input.isTouched()) {
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
+			
+			if (touchPos.x > 26 && touchPos.x < 26 + 50 && touchPos.y > 640 && touchPos.y < 640 + 50) {
+				// retry button touched
+				game.setScreen(new GameScreen(game));
+			}
+			
 			world.updateRotationSheeps(touchPos);
 		}
 
