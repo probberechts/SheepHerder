@@ -138,12 +138,10 @@ public class GameScreen extends ScreenAdapter {
 			} else {
 				state = GAME_OVER;
 			}
-		} 
-		//TODO when to show? needs extra condition
-//		else if (world.swipeTime < 0
-//				&& !SavedData.neverShowSwipeSuggestion) {
-//			state = SWIPE_SUGGESTION;
-//		}
+		} else if (world.swipeTime == 0 && world.timeLeft < World.GAME_TIME-30000 && !SavedData.neverShowSwipeSuggestion && SavedData.gamesPlayed % 4 == 3) {
+			world.swipeTime = -1;
+			state = SWIPE_SUGGESTION;
+		}
 	}
 
 	private void updatePaused() {
@@ -188,7 +186,7 @@ public class GameScreen extends ScreenAdapter {
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			System.out.println("touched at " + touchPos);
+
 			if (touchPos.x > 380 && touchPos.x < 420
 					&& touchPos.y > 490 && touchPos.y < 530) {
 				if(swipeCheckboxTicked)
@@ -286,14 +284,14 @@ public class GameScreen extends ScreenAdapter {
 
 	private void presentRunning() {
 		Assets.font22.setScale(0.9f);
-		game.batcher.draw(Assets.clock, 480 - 225, 800 - 53);
+		game.batcher.draw(Assets.clock, 480 - 230, 800 - 53);
 		game.batcher.draw(Assets.time,
-							480 - 213, 800 - 40,
+							480 - 218, 800 - 40,
 							Assets.time.getRegionWidth() / 2f, 0,
 							Assets.time.getRegionWidth(), Assets.time.getRegionHeight(),
 							1f, 1f,
 							world.timeLeft / 16.666f, false);
-		Assets.font22.draw(game.batcher, timeString, 480 - 188, 800 - 30);
+		Assets.font22.draw(game.batcher, timeString, 480 - 193, 800 - 30);
 		game.batcher.draw(Assets.score, 480 - 113, 800 - 53);
 		Assets.font22.draw(game.batcher, scoreString, 480 - 75, 800 - 30);
 		Assets.font22.setScale(0.7f);

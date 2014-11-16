@@ -1,5 +1,6 @@
 package me.teamsheepy.sheepherder.desktop;
 
+import me.teamsheepy.sheepherder.SavedData;
 import me.teamsheepy.sheepherder.SheepHerder;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
