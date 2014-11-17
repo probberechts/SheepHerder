@@ -99,6 +99,12 @@ public class GameScreen extends ScreenAdapter {
 		if (Gdx.input.isTouched()) {
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
+			
+			if (touchPos.x > 26 && touchPos.x < 26 + 50 && touchPos.y > 640 && touchPos.y < 640 + 50) {
+				// retry button touched
+				game.setScreen(new GameScreen(game));
+			}
+			
 			world.updateRotationSheeps(touchPos);
 		}
 
@@ -138,7 +144,8 @@ public class GameScreen extends ScreenAdapter {
 			} else {
 				state = GAME_OVER;
 			}
-		} else if (world.swipeTime == 0 && world.timeLeft < World.GAME_TIME-30000 && !SavedData.neverShowSwipeSuggestion && SavedData.gamesPlayed % 4 == 0) {
+
+		} else if (world.swipeTime == 0 && world.timeLeft < World.GAME_TIME-3000 && !SavedData.neverShowSwipeSuggestion) {
 			world.swipeTime = -1;
 			state = SWIPE_SUGGESTION;
 		}
