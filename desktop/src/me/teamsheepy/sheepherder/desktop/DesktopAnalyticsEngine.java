@@ -18,7 +18,7 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 
 	public DesktopAnalyticsEngine() {
 		try {
-			FileHandler fh = new FileHandler("sheepherderlogs.txt", true);
+			FileHandler fh = new FileHandler("sheepherderlogs.log", true);
 			LOGGER.addHandler(fh);
 			fh.setFormatter(new SimpleFormatter());
 			
