@@ -2,3 +2,87 @@ nov 17, 2014 1:17:36 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine
 INFO: SheepHerder version 3
 nov 17, 2014 1:17:38 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
 INFO: pageView game
+nov 17, 2014 3:01:18 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:01:21 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:05:46 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:05:48 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:05:52 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
+INFO: event: category=gameEvent;action=firstSwipe;label=swipeTime;value=127
+nov 17, 2014 3:06:14 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:06:16 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:06:19 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
+INFO: event: category=gameEvent;action=firstSwipe;label=swipeTime;value=87
+nov 17, 2014 3:13:58 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:14:00 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:15:57 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:15:59 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:16:14 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
+INFO: event: category=gameEvent;action=firstSheepInPen;label=firstSheepInPen;value=753
+nov 17, 2014 3:18:41 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:18:43 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:19:12 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
+INFO: event: category=gameEvent;action=gameOver;label=gameTime;value=1632
+nov 17, 2014 3:19:12 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
+INFO: event: category=gameEvent;action=gameOver;label=sheepCollected;value=0
+nov 17, 2014 3:19:12 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
+INFO: event: category=gameEvent;action=gameOver;label=escapedSheep;value=10
+nov 17, 2014 3:26:58 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:27:00 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:31:31 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:31:33 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:33:06 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:33:09 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:34:57 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:34:59 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:35:03 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
+INFO: event: category=gameEvent;action=firstSwipe;label=swipeTime;value=49
+nov 17, 2014 3:35:31 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:35:33 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:37:01 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:37:03 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:37:06 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
+INFO: event: category=gameEvent;action=firstSwipe;label=swipeTime;value=54
+nov 17, 2014 3:37:11 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:37:13 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:39:03 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:39:05 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:39:19 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
+INFO: event: category=gameEvent;action=firstSwipe;label=swipeTime;value=501
+nov 17, 2014 3:39:52 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:39:54 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:41:54 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+nov 17, 2014 3:41:56 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game
+nov 17, 2014 3:42:18 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
+INFO: event: category=gameEvent;action=firstSwipe;label=swipeTime;value=588
