@@ -18,9 +18,10 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 
 	public DesktopAnalyticsEngine() {
 		try {
-			FileHandler fh = new FileHandler("sheepherderlogs.txt");
+			FileHandler fh = new FileHandler("sheepherderlogs.txt", true);
 			LOGGER.addHandler(fh);
 			fh.setFormatter(new SimpleFormatter());
+			
 			LOGGER.info("SheepHerder version "+SheepHerder.VERSION);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
