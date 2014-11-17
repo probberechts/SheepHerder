@@ -1,6 +1,5 @@
 package me.teamsheepy.sheepherder.android;
 
-import android.content.Context;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -58,6 +57,7 @@ public class AndroidLauncher extends AndroidApplication implements AnalyticsEngi
 				.setCategory(category)
 				.setAction(subCategory)
 				.setLabel(label)
+				.setValue(value)
 				.build());
 	}
 
