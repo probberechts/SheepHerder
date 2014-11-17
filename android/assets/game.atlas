@@ -20,7 +20,7 @@ bridge
   index: -1
 clock
   rotate: false
-  xy: 892, 781
+  xy: 892, 751
   size: 27, 27
   orig: 27, 27
   offset: 0, 0
@@ -44,6 +44,13 @@ pen
   xy: 223, 2
   size: 200, 225
   orig: 200, 225
+  offset: 0, 0
+  index: -1
+retry
+  rotate: false
+  xy: 892, 780
+  size: 27, 28
+  orig: 27, 28
   offset: 0, 0
   index: -1
 river
@@ -208,36 +215,15 @@ filter: Nearest,Nearest
 repeat: none
 newbest
   rotate: false
-  xy: 2, 129
+  xy: 2, 2
   size: 373, 269
   orig: 380, 274
   offset: 4, 2
   index: -1
 questionnaire
   rotate: false
-  xy: 377, 129
+  xy: 377, 2
   size: 373, 269
   orig: 380, 274
   offset: 4, 2
-  index: -1
-tree_middle
-  rotate: false
-  xy: 752, 144
-  size: 183, 127
-  orig: 200, 140
-  offset: 4, 2
-  index: -1
-tree_shadow
-  rotate: false
-  xy: 2, 2
-  size: 187, 125
-  orig: 200, 140
-  offset: 12, 14
-  index: -1
-tree_top
-  rotate: false
-  xy: 752, 273
-  size: 187, 125
-  orig: 200, 140
-  offset: 5, 8
   index: -1

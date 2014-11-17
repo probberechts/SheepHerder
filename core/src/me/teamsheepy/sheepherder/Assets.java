@@ -22,6 +22,7 @@ public class Assets {
 	public static TextureRegion clock;
 	public static TextureRegion time;
 	public static TextureRegion score;
+	public static TextureRegion retry;
 	public static TextureRegion touchmarker;
 	public static AtlasRegion gameover;
 	public static AtlasRegion newbest;
@@ -61,6 +62,8 @@ public class Assets {
 		time = atlas.findRegion("time");
 		time.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		score = atlas.findRegion("score");
+		retry = atlas.findRegion("retry");
+		retry.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		touchmarker = atlas.findRegion("touchmarker");
 		touchmarker.getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		gameover = atlas.findRegion("gameover");

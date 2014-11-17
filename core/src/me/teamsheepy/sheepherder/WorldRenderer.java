@@ -68,7 +68,6 @@ public class WorldRenderer {
 		renderSheeps();
 		renderPen();
 		renderTrees();
-		renderRetry();
 		renderTouchMarker(touchPos);
 		batch.end();
 	}
@@ -102,8 +101,8 @@ public class WorldRenderer {
 		}	
 	}
 	
-	private void renderRetry () {
-		batch.draw(Assets.sheep, 26, 640);
+	public void renderRetry () {
+		batch.draw(Assets.retry, 26, 800-53);
 	}
 	
 	private void renderTouchMarker(Vector3 touchPos) {

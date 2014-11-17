@@ -1,5 +1,6 @@
 package me.teamsheepy.sheepherder.screens;
 
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import me.teamsheepy.sheepherder.Assets;
 import me.teamsheepy.sheepherder.SavedData;
 import me.teamsheepy.sheepherder.SheepHerder;
@@ -104,8 +105,8 @@ public class GameScreen extends ScreenAdapter {
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
 
-			if (touchPos.x > 26 && touchPos.x < 26 + 50 && touchPos.y > 640
-					&& touchPos.y < 640 + 50) {
+			if (touchPos.x > 25 && touchPos.x < 25 + 30
+					&& touchPos.y > 800-52 && touchPos.y < 800-52 + 30) {
 				// retry button touched
 				game.setScreen(new GameScreen(game));
 			}
@@ -253,9 +254,9 @@ public class GameScreen extends ScreenAdapter {
 		game.batcher.end();
 
 		// DEBUG: draw bounding boxes of objects
-		// ShapeRenderer sr = new ShapeRenderer();
-		// sr.setProjectionMatrix(camera.combined);
-		// sr.begin(ShapeType.Line);
+//		ShapeRenderer sr = new ShapeRenderer();
+//		sr.setProjectionMatrix(camera.combined);
+//		sr.begin(ShapeRenderer.ShapeType.Line);
 		// sr.setColor(1, 1, 0, 1);
 		// for (Sheep sheep : world.sheep)
 		// sr.rect(sheep.bounds.x, sheep.bounds.y, sheep.bounds.width,
@@ -276,7 +277,8 @@ public class GameScreen extends ScreenAdapter {
 		// sr.setColor(1, 0, 0, 1);
 		// for (Rectangle col : world.pen.collisionAreas)
 		// sr.rect(col.x, col.y, col.width, col.height);
-		// sr.end();
+//		sr.rect(26, 800-53, 30, 30);
+//		sr.end();
 	}
 
 	private void presentReady() {
@@ -299,6 +301,7 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void presentRunning() {
+		renderer.renderRetry();
 		Assets.font22.setScale(0.9f);
 		game.batcher.draw(Assets.clock, 480 - 230, 800 - 53);
 		game.batcher.draw(Assets.time, 480 - 218, 800 - 40,
