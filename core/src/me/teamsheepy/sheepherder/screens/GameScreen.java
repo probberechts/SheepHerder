@@ -15,7 +15,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
 public class GameScreen extends ScreenAdapter {
@@ -35,10 +34,11 @@ public class GameScreen extends ScreenAdapter {
 	private OrthographicCamera camera;
 	private World world;
 	private WorldRenderer renderer;
-	private int lastScore;
-	private String sheepString;
+	private String scoreString;
 	private String timeString;
-	private int currentScore;
+	private boolean playScoreAnimation;
+	private float scoreAnimationTime;
+	private int lastScore;
 	private Vector3 touchPos;
 	private boolean swipeCheckboxTicked;
 
@@ -51,9 +51,8 @@ public class GameScreen extends ScreenAdapter {
 		camera.setToOrtho(false, 480, 800);
 		world = (new WorldGenerator()).createWorld();
 		renderer = new WorldRenderer(game.batcher, world);
-		lastScore = 0;
-		sheepString = "SHEEPS: 0";
-		timeString = "TIME: 2:00";
+		scoreString = "0";
+		timeString = "1:00";
 		if (!SavedData.questionnaireFilled && SavedData.gamesPlayed != 0
 				&& SavedData.gamesPlayed % 5 == 0)
 			state = QUESTIONNAIRE;
@@ -100,36 +99,45 @@ public class GameScreen extends ScreenAdapter {
 		if (Gdx.input.isTouched()) {
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
+			
+			if (touchPos.x > 26 && touchPos.x < 26 + 50 && touchPos.y > 640 && touchPos.y < 640 + 50) {
+				// retry button touched
+				game.setScreen(new GameScreen(game));
+			}
+			
 			world.updateRotationSheeps(touchPos);
 		}
 
 		world.update(deltaTime);
 		world.timeLeft -= deltaTime;
-		timeString = "TIME: " + tfm.format(world.timeLeft / 6000) + ":"
-				+ tfm.format((world.timeLeft % 6000) / 100);
+		timeString = tfm.format(world.timeLeft / 6000) + ":"
+						+ tfm.format((world.timeLeft % 6000) / 100);
 
-		if (world.sheepsCollected != lastScore) {
-			lastScore = world.sheepsCollected;
-			sheepString = "SHEEPS: " + lastScore;
+		if (world.sheepCollected > lastScore) {
+			playScoreAnimation = true;
+			scoreAnimationTime = 0;
 		}
-		currentScore = world.sheepsCollected == 0 ? 0
-				: (world.sheepsCollected * 100 + world.timeLeft / 100);
+		lastScore = world.sheepCollected;
+
+		int currentScore = world.sheepCollected == 0 ? 0
+				: (world.sheepCollected * 100 + world.timeLeft / 100);
+		scoreString = "" + currentScore;
 
 		if (world.state == World.WORLD_STATE_GAME_OVER) {
 			SavedData.addGamePlayed();
 			SheepHerder.analytics.trackEvent("gameEvent", "gameOver",
 					"gameTime", World.GAME_TIME - world.timeLeft);
 			SheepHerder.analytics.trackEvent("gameEvent", "gameOver",
-					"sheepCollected", world.sheepsCollected);
+					"sheepCollected", world.sheepCollected);
 			int escapedSheep = 0;
-			for (Sheep s : world.sheeps) {
+			for (Sheep s : world.sheep) {
 				if (s.state == Sheep.SHEEP_STATE_ESCAPED)
 					escapedSheep++;
 			}
 			SheepHerder.analytics.trackEvent("gameEvent", "gameOver",
 					"escapedSheep", escapedSheep);
 
-			int newScore = calculateScore(world.sheepsCollected, world.timeLeft);
+			int newScore = calculateScore(world.sheepCollected, world.timeLeft);
 			if (newScore > SavedData.highscore) {
 				SavedData.newHighscore(newScore);
 				state = NEW_BEST;
@@ -153,8 +161,8 @@ public class GameScreen extends ScreenAdapter {
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			if (touchPos.x > 120 && touchPos.x < 120 + 240 && touchPos.y > 285
-					&& touchPos.y < 285 + 55) {
+			if (touchPos.x > 120 && touchPos.x < 120 + 240
+					&& touchPos.y > 285 && touchPos.y < 285 + 55) {
 				// play again button touched
 				game.setScreen(new GameScreen(game));
 			}
@@ -166,13 +174,13 @@ public class GameScreen extends ScreenAdapter {
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			if (touchPos.x > 88 && touchPos.x < 88 + 95 && touchPos.y > 283
-					&& touchPos.y < 283 + 55) {
+			if (touchPos.x > 88 && touchPos.x < 88 + 95
+					&& touchPos.y > 283 && touchPos.y < 283 + 55) {
 				// answered yes
 				Gdx.net.openURI("https://docs.google.com/forms/d/1eLUKnRGSiimqk4Mzr7ArOWwbGUMii8vZ7PagRqbDVe4/viewform?usp=send_form");
 				state = GAME_READY;
 			} else if (touchPos.x > 203 && touchPos.x < 203 + 200
-					&& touchPos.y > 283 && touchPos.y < 283 + 55) {
+						&& touchPos.y > 283 && touchPos.y < 283 + 55) {
 				// answered later
 				state = GAME_READY;
 			}
@@ -184,13 +192,14 @@ public class GameScreen extends ScreenAdapter {
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			if (touchPos.x > 380 && touchPos.x < 420 && touchPos.y > 490
-					&& touchPos.y < 530) {
-				if (swipeCheckboxTicked)
+
+			if (touchPos.x > 380 && touchPos.x < 420
+					&& touchPos.y > 490 && touchPos.y < 530) {
+				if(swipeCheckboxTicked)
 					SavedData.neverShowSwipeSuggestion();
 				state = GAME_READY;
-			} else if (touchPos.x > 110 && touchPos.x < 160 && touchPos.y > 285
-					&& touchPos.y < 318) {
+			} else if (touchPos.x > 110 && touchPos.x < 160
+					&& touchPos.y > 285 && touchPos.y < 318) {
 				swipeCheckboxTicked = !swipeCheckboxTicked;
 			}
 		}
@@ -213,6 +222,7 @@ public class GameScreen extends ScreenAdapter {
 			break;
 		case GAME_RUNNING:
 			presentRunning();
+			if (playScoreAnimation) playScoreAnimation();
 			break;
 		case GAME_PAUSED:
 			presentPaused();
@@ -237,7 +247,7 @@ public class GameScreen extends ScreenAdapter {
 		// sr.setProjectionMatrix(camera.combined);
 		// sr.begin(ShapeType.Line);
 		// sr.setColor(1, 1, 0, 1);
-		// for (Sheep sheep : world.sheeps)
+		// for (Sheep sheep : world.sheep)
 		// sr.rect(sheep.bounds.x, sheep.bounds.y, sheep.bounds.width,
 		// sheep.bounds.height);
 		// sr.setColor(1, 0, 0, 1);
@@ -279,16 +289,20 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void presentRunning() {
-		Assets.font22.draw(game.batcher, timeString, 26, 800 - 20);
-		// Assets.font.draw(game.batcher, sheepString, 480-190, 800 - 50);
-		Assets.font22
-				.draw(game.batcher, "Score: " + currentScore, 26, 800 - 50);
-		Assets.font22.draw(game.batcher, "Best score: " + SavedData.highscore,
-				26, 800 - 80);
-		// debug
-//		Assets.font22
-//				.draw(game.batcher, Gdx.input.getX() + "," + Gdx.input.getY(),
-//						480 - 190, 800 - 110);
+		Assets.font22.setScale(0.9f);
+		game.batcher.draw(Assets.clock, 480 - 230, 800 - 53);
+		game.batcher.draw(Assets.time,
+							480 - 218, 800 - 40,
+							Assets.time.getRegionWidth() / 2f, 0,
+							Assets.time.getRegionWidth(), Assets.time.getRegionHeight(),
+							1f, 1f,
+							world.timeLeft / 16.666f, false);
+		Assets.font22.draw(game.batcher, timeString, 480 - 193, 800 - 30);
+		game.batcher.draw(Assets.score, 480 - 113, 800 - 53);
+		Assets.font22.draw(game.batcher, scoreString, 480 - 75, 800 - 30);
+		Assets.font22.setScale(0.7f);
+		Assets.font22.draw(game.batcher, "Best: " + SavedData.highscore, 480 - 113, 800 - 60);
+		Assets.font22.setScale(1);
 	}
 
 	private void presentSwipeSuggestion() {
@@ -301,14 +315,12 @@ public class GameScreen extends ScreenAdapter {
 
 	private void presentPaused() {
 		Assets.font22.draw(game.batcher, "--click to resume--", 140, 400);
-		Assets.font22.draw(game.batcher, timeString, 480 - 170, 800 - 20);
-		Assets.font22.draw(game.batcher, sheepString, 480 - 170, 800 - 50);
 	}
 
-	private int calculateScore(int sheepsCollected, int timeLeft) {
-		if (sheepsCollected == 0)
+	private int calculateScore(int sheepCollected, int timeLeft) {
+		if (sheepCollected == 0)
 			return 0;
-		return sheepsCollected * 100 + timeLeft / 100;
+		return sheepCollected * 100 + timeLeft / 100;
 	}
 
 	private void presentGameOver(boolean newBest) {
@@ -318,8 +330,8 @@ public class GameScreen extends ScreenAdapter {
 			game.batcher.draw(Assets.gameover, 50, 263, 380, 274);
 		String time = tfm.format(world.timeLeft / 6000) + ":"
 				+ tfm.format((world.timeLeft % 6000) / 100);
-		String score = "SCORE: " + world.sheepsCollected + " + " + time + " = "
-				+ calculateScore(world.sheepsCollected, world.timeLeft);
+		String score = "SCORE: " + world.sheepCollected + " + " + time + " = "
+				+ calculateScore(world.sheepCollected, world.timeLeft);
 		String best = "BEST: " + SavedData.highscore;
 		Assets.font24.setColor(Color.BLACK);
 		Assets.font22.setColor(Color.BLACK);
@@ -333,6 +345,27 @@ public class GameScreen extends ScreenAdapter {
 
 	private void presentQuestionnaire() {
 		game.batcher.draw(Assets.questionnaire, 50, 263, 380, 274);
+	}
+
+
+	private void playScoreAnimation() {
+		int END_TIME = 100; //in ms
+		String ANIMATION_TEXT = "+100";
+		int START_POS_X = 130;
+		int END_POS_X = 405;
+		int START_POS_Y = 660;
+		int END_POS_Y = 770;
+		int START_SCALE = 3;
+		int END_SCALE = 0;
+		scoreAnimationTime += Gdx.graphics.getDeltaTime();
+		float posX = START_POS_X + (END_POS_X - START_POS_X) * (scoreAnimationTime * 100 / END_TIME);
+		float posY = START_POS_Y + (END_POS_Y - START_POS_Y) * (scoreAnimationTime * 100 / END_TIME);
+		float scale = START_SCALE + (END_SCALE - START_SCALE) * (scoreAnimationTime * 100 / END_TIME);
+		Assets.font22.setScale(scale);
+		Assets.font22.draw(game.batcher, ANIMATION_TEXT, posX, posY);
+		Assets.font22.setScale(1);
+		if (scoreAnimationTime >= END_TIME)
+			playScoreAnimation = false;
 	}
 
 	@Override

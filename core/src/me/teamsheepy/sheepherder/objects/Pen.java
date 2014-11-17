@@ -20,7 +20,7 @@ public class Pen extends GameObject {
 	}
 	
 	private void initScoreZone() {
-		scoreZone = new Rectangle(bounds.x-10, bounds.y-10, bounds.getWidth()+10, bounds.getHeight()+10);
+		scoreZone = new Rectangle(bounds.x-10, bounds.y-10, bounds.getWidth()+10, bounds.getHeight()+15);
 	}
 	
 	private void initCollisionZones() {

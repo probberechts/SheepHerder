@@ -68,14 +68,15 @@ public class WorldRenderer {
 		renderSheeps();
 		renderPen();
 		renderTrees();
+		renderRetry();
 		renderTouchMarker(touchPos);
 		batch.end();
 	}
 
 	private void renderSheeps () {
-		int len = world.sheeps.size();
+		int len = world.sheep.size();
 		for (int i = 0; i < len; i++) {
-			Sheep sheep = world.sheeps.get(i);
+			Sheep sheep = world.sheep.get(i);
 			sheep.render(batch);
 		}
 	}
@@ -99,6 +100,10 @@ public class WorldRenderer {
 			River river = world.rivers.get(i);
 			river.render(batch);
 		}	
+	}
+	
+	private void renderRetry () {
+		batch.draw(Assets.sheep, 26, 640);
 	}
 	
 	private void renderTouchMarker(Vector3 touchPos) {
