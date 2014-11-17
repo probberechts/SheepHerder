@@ -1,5 +1,6 @@
 package me.teamsheepy.sheepherder.desktop;
 
+import me.teamsheepy.sheepherder.SavedData;
 import me.teamsheepy.sheepherder.SheepHerder;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
@@ -27,7 +28,7 @@ public class DesktopLauncher {
 //	    settings.filterMag = TextureFilter.Nearest;
 //	    settings.filterMin = TextureFilter.Nearest;
 //	    settings.flattenPaths = true;
-//        TexturePacker.process(settings, "../graphics/png", "../android/assets", "game");
+//        TexturePacker.process(settings, "/users/probberechts/Development/SheepHerder/graphics/png", "/users/probberechts/Development/SheepHerder/android/assets", "game");
 
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();

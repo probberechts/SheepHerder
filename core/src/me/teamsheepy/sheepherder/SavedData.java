@@ -1,5 +1,7 @@
 package me.teamsheepy.sheepherder;
 
+import java.util.UUID;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
@@ -46,5 +48,16 @@ public class SavedData {
 	public static void neverShowSwipeSuggestion(){
 		neverShowSwipeSuggestion = true;
 		save();
+	}
+
+	public static void createId(){
+		String id = prefs.getString("cid");
+		if(id == null){
+			prefs.putString("cid", UUID.randomUUID().toString());
+			prefs.flush();
+		}
+	}
+	public static String getClientId() {
+		return prefs.getString("cid");
 	}
 }

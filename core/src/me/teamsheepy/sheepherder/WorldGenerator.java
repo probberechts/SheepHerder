@@ -60,7 +60,7 @@ public class WorldGenerator {
 			if (trys < 200 && checkOverlapObject(sheep)) {
 				i--;
 				trys++;
-			} else world.sheeps.add(sheep);
+			} else world.sheep.add(sheep);
 		}
 		
 		return world;
@@ -85,7 +85,7 @@ public class WorldGenerator {
 	}
 
 	private boolean checkOverlapSheep(GameObject object) {
-		for (Sheep sheep : world.sheeps)
+		for (Sheep sheep : world.sheep)
 			if (sheep.bounds.overlaps(object.bounds))
 				return true;
 		return false;
