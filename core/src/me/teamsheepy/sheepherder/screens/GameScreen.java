@@ -136,7 +136,7 @@ public class GameScreen extends ScreenAdapter {
 			} else {
 				state = GAME_OVER;
 			}
-		} else if (world.swipeTime == 0 && world.timeLeft < World.GAME_TIME-30000 && !SavedData.neverShowSwipeSuggestion && SavedData.gamesPlayed % 4 == 3) {
+		} else if (world.swipeTime == 0 && world.timeLeft < World.GAME_TIME-3000 && !SavedData.neverShowSwipeSuggestion) {
 			world.swipeTime = -1;
 			state = SWIPE_SUGGESTION;
 		}
