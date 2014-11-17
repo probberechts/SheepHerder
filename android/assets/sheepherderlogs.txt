@@ -1,10 +1,4 @@
-Nov 17, 2014 12:32:10 AM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+Nov 17, 2014 1:05:21 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
 INFO: SheepHerder version 3
-Nov 17, 2014 12:32:13 AM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+Nov 17, 2014 1:05:28 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
 INFO: pageView game
-Nov 17, 2014 12:32:14 AM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
-INFO: event: category=gameEvent;action=firstSwipe;label=swipeTime;value=0
-Nov 17, 2014 12:32:14 AM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
-INFO: event: category=gameEvent;action=firstSwipe;label=swipeTime;value=9
-Nov 17, 2014 12:32:20 AM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackEvent
-INFO: event: category=gameEvent;action=firstSheepInPen;label=firstSheepInPen;value=363
