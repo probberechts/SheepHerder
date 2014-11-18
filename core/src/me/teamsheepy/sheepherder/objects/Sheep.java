@@ -360,15 +360,16 @@ public class Sheep extends DynamicGameObject {
 			animationStateTime += Gdx.graphics.getDeltaTime() * 4;
 		TextureRegion frame = Assets.sheepAnimation.getKeyFrame(animationStateTime, true);
 		
-		Texture myTexture = new Texture((TextureData) frame.getTexture());
-		sprite.setTexture(myTexture);
-		sprite.draw(batch);
+		Sprite newSprite = new Sprite(frame);
+		newSprite.setRotation(rotation);
+		newSprite.setPosition(sprite.getX(), sprite.getY());
+		newSprite.draw(batch);
 		
-		batch.draw(frame,sprite.getX(), sprite.getY(),
-					sprite.getWidth() / 2f , sprite.getHeight() / 2f,
-					sprite.getWidth(), sprite.getHeight(),
-					1f, 1f,
-					sprite.getRotation() - 90, false);
+//		batch.draw(frame,sprite.getX(), sprite.getY(),
+//					sprite.getWidth() / 2f , sprite.getHeight() / 2f,
+//					sprite.getWidth(), sprite.getHeight(),
+//					1f, 1f,
+//					sprite.getRotation() - 90, false);
 
 		if(state == SHEEP_STATE_DANGER)
 			batch.draw(Assets.alert, 

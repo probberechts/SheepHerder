@@ -25,8 +25,8 @@ public class WorldGenerator {
 	
 	public SheepWorld createWorld () {
 		// Variables
-		int MIN_SHEEPS = 3;
-		int MAX_SHEEPS = 3;
+		int MIN_SHEEPS = 10;
+		int MAX_SHEEPS = 10;
 		int MIN_TREES = 1;
 		int MAX_TREES = 3;
 		int MIN_RIVERS = 1;
