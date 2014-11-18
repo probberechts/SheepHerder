@@ -29,8 +29,10 @@ public class SheepWorld {
 	public static final float WORLD_HEIGHT = 800;
 	public static final int WORLD_STATE_RUNNING = 0;
 	public static final int WORLD_STATE_GAME_OVER = 1;
+	public static final int WORLD_STATE_SWIPE_SUGGESTION = 2;
 	public static final int WORLD_MARGIN = 20;
 	public static final Color WORLD_MARGIN_COLOR = new Color(0x006400ff);
+	public static final int GAME_TIME = 6000;
 
 	public Pen pen;
 	public final List<Sheep> sheeps;
@@ -40,6 +42,7 @@ public class SheepWorld {
 	public int timeLeft;
 	public int sheepsCollected;
 	public int state;
+	public int swipeTime = 0;
 	
 	public World world;
 
@@ -172,10 +175,10 @@ public class SheepWorld {
 	
 	private void checkIfSheepsIsInPen(Sheep sheep) {
 		Rectangle sheepBounds = new Rectangle(sheep.body.getPosition().x, sheep.body.getPosition().y, sheep.bounds.width, sheep.bounds.height);
-		if (sheep.state != Sheep.SHEEP_STATE_CATCHED && pen.hasScored(sheepBounds)) {
-			sheep.state = Sheep.SHEEP_STATE_CATCHED;
+		if (sheep.state != Sheep.SHEEP_STATE_CAUGHT && pen.hasScored(sheepBounds)) {
+			sheep.state = Sheep.SHEEP_STATE_CAUGHT;
 			sheepsCollected++;
-		} else if (sheep.state == Sheep.SHEEP_STATE_CATCHED && !pen.hasScored(sheepBounds)) {
+		} else if (sheep.state == Sheep.SHEEP_STATE_CAUGHT && !pen.hasScored(sheepBounds)) {
 			sheep.state = Sheep.SHEEP_STATE_FREE;
 			sheepsCollected--;
 		}
@@ -187,7 +190,7 @@ public class SheepWorld {
 		}
 
 		for (Sheep sheep : sheeps)
-			if (sheep.state != Sheep.SHEEP_STATE_CATCHED
+			if (sheep.state != Sheep.SHEEP_STATE_CAUGHT
 					&& sheep.state != Sheep.SHEEP_STATE_ESCAPED)  
 				return;
 		state = WORLD_STATE_GAME_OVER;

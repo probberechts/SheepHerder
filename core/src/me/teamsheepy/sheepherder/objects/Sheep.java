@@ -2,6 +2,10 @@ package me.teamsheepy.sheepherder.objects;
 
 import java.util.Random;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import me.teamsheepy.sheepherder.Assets;
 import me.teamsheepy.sheepherder.SheepWorld;
 
@@ -17,10 +21,9 @@ import com.badlogic.gdx.utils.Array;
 
 public class Sheep extends DynamicGameObject {
 	public static final int SHEEP_STATE_FREE = 0;
-	public static final int SHEEP_STATE_CATCHED = 1;
+	public static final int SHEEP_STATE_CAUGHT = 1;
 	public static final int SHEEP_STATE_DANGER = 2;
 	public static final int SHEEP_STATE_ESCAPED = 3;
-	public static final float SHEEP_MOVE_VELOCITY = 20;
 	public static final float SHEEP_WIDTH = 55;
 	public static final float SHEEP_HEIGHT = 50;
 
@@ -29,6 +32,7 @@ public class Sheep extends DynamicGameObject {
 	public Sprite sprite;
 	public float safeMoveX, safeMoveY;
 	public Body body;
+	private float animationStateTime = 0;
 
 
 	public Sheep (float x, float y) {
@@ -251,13 +255,21 @@ public class Sheep extends DynamicGameObject {
 		else {
 			Random rand = new Random();
 			this.velocity.x += rand.nextInt()%30 + 10;
-			this.velocity.y += rand.nextInt()%30 + 10;
+			if (this.velocity.x < 0)	this.velocity.x = 0;
+			this.velocity.y = this.velocity.x;
 			if (rand.nextInt()%5 == 3) this.rotation = rand.nextInt()%360;
 			timeToIdle = 90 + rand.nextInt()%50;
 		}
+
+		// Remove the velocity if sheep is colliding
+		// this is necessary for the animation
+		if (safeMoveX == 0 && safeMoveY == 0) {
+			this.velocity.x = 0;
+			this.velocity.y = 0;
+		}
 		
 		// Check if sheep is escaping
-		if (state != SHEEP_STATE_CATCHED)
+		if (state != SHEEP_STATE_CAUGHT)
 			checkCloseToScreenBorder();				
 	}
 	
@@ -278,7 +290,7 @@ public class Sheep extends DynamicGameObject {
 		}
 		
 		// Check if sheep is escaping
-		if (state != SHEEP_STATE_CATCHED)
+		if (state != SHEEP_STATE_CAUGHT)
 			checkCloseToScreenBorder();
 	}
 
@@ -328,7 +340,7 @@ public class Sheep extends DynamicGameObject {
 	}
 		
 	public void checkCloseToScreenBorder () {
-		if (state == SHEEP_STATE_CATCHED)	return;
+		if (state == SHEEP_STATE_CAUGHT)	return;
 		
 		int danger = 50;
 		if (body.getPosition().x < danger || body.getPosition().x > SheepWorld.WORLD_WIDTH - danger) state = SHEEP_STATE_DANGER;
@@ -341,14 +353,23 @@ public class Sheep extends DynamicGameObject {
 		//sprite.setPosition(position.x, position.y);
 		sprite.setPosition(body.getPosition().x - sprite.getWidth()/2, body.getPosition().y - sprite.getHeight()/2);
 		sprite.setRotation(rotation);
+		
+		if(this.velocity.x > 10 || this.velocity.y > 10)
+			animationStateTime += Gdx.graphics.getDeltaTime();
+		if(this.velocity.x > 30 || this.velocity.y > 30)
+			animationStateTime += Gdx.graphics.getDeltaTime() * 4;
+		TextureRegion frame = Assets.sheepAnimation.getKeyFrame(animationStateTime, true);
+		
+		Texture myTexture = new Texture((TextureData) frame.getTexture());
+		sprite.setTexture(myTexture);
 		sprite.draw(batch);
-//		batch.draw(Assets.sheep, 
-//				body.getPosition().x, // x position
-//				body.getPosition().y, // y position
-//				0, 0, //origin
-//				Assets.sheep.getRegionWidth(), Assets.sheep.getRegionHeight(), // width + height
-//				1f, 1f,  //scale
-//				rotation); //rotation
+		
+		batch.draw(frame,sprite.getX(), sprite.getY(),
+					sprite.getWidth() / 2f , sprite.getHeight() / 2f,
+					sprite.getWidth(), sprite.getHeight(),
+					1f, 1f,
+					sprite.getRotation() - 90, false);
+
 		if(state == SHEEP_STATE_DANGER)
 			batch.draw(Assets.alert, 
 					body.getPosition().x - Assets.alert.getRegionWidth() / 2, 

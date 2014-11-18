@@ -1,0 +1,4 @@
+Nov 17, 2014 1:05:21 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine <init>
+INFO: SheepHerder version 3
+Nov 17, 2014 1:05:28 PM me.teamsheepy.sheepherder.desktop.DesktopAnalyticsEngine trackPageView
+INFO: pageView game

@@ -107,6 +107,10 @@ public class WorldRenderer {
 		}	
 	}
 	
+	public void renderRetry () {
+		batch.draw(Assets.retry, 26, 800-53);
+	}
+	
 	private void renderTouchMarker(Vector3 touchPos) {
 		if (Gdx.input.isTouched() && world.state == SheepWorld.WORLD_STATE_RUNNING) {
 			batch.draw(Assets.touchmarker, 
