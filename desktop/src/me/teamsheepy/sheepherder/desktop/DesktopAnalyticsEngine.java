@@ -12,17 +12,26 @@ import java.util.logging.SimpleFormatter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.HttpRequest;
+import com.badlogic.gdx.Preferences;
 
 public class DesktopAnalyticsEngine implements AnalyticsEngine {
 	private final static Logger LOGGER = Logger.getLogger("Desktop");
 
+	private String clientId;
+	
 	public DesktopAnalyticsEngine() {
 		try {
 			FileHandler fh = new FileHandler("sheepherderlogs.log", true);
 			LOGGER.addHandler(fh);
 			fh.setFormatter(new SimpleFormatter());
-			
 			LOGGER.info("SheepHerder version "+SheepHerder.VERSION);
+			Preferences pref = Gdx.app.getPreferences("SheepHerder");
+			clientId = pref.getString("clientId", null);
+			if(clientId == null){
+				clientId = UUID.randomUUID().toString();
+				pref.putString("clientId", clientId);
+				pref.flush();
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -74,6 +83,6 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 	private StringBuilder defaultParams() {
 		return new StringBuilder("v=").append(SheepHerder.VERSION)
 				.append("&tid=").append(SheepHerder.TRACKER_ID).append("&cid=")
-				.append(SavedData.getClientId()).append("&je=1");
+				.append(clientId).append("&je=1");
 	}
 }

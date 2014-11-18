@@ -7,6 +7,13 @@ import me.teamsheepy.sheepherder.utils.AnalyticsEngine;
 
 
 public class IosAnalyticsEngine implements AnalyticsEngine {
+	
+	private int clientId;
+	
+	public IosAnalyticsEngine() {
+		clientId = (int) (Math.random()*1000000D);
+	}
+	
 	@Override
     public void initialize() {
     }
@@ -46,7 +53,8 @@ public class IosAnalyticsEngine implements AnalyticsEngine {
     	.append("&tid=")
     	.append(SheepHerder.TRACKER_ID)
     	.append("&cid=")
-    	.append(SavedData.getClientId())
+    	.append(clientId)
     	.append("&je=0");
     }
+    
 }

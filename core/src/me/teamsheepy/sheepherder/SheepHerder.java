@@ -30,7 +30,6 @@ public class SheepHerder extends Game {
 	public void create () {
 		batcher = new SpriteBatch();
 		SavedData.load();
-		SavedData.createId();
 		Assets.load();
 		setScreen(new GameScreen(this));
 	}

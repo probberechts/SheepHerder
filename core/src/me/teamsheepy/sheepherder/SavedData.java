@@ -49,15 +49,4 @@ public class SavedData {
 		neverShowSwipeSuggestion = true;
 		save();
 	}
-
-	public static void createId(){
-		String id = prefs.getString("cid");
-		if(id == null){
-			prefs.putString("cid", UUID.randomUUID().toString());
-			prefs.flush();
-		}
-	}
-	public static String getClientId() {
-		return prefs.getString("cid");
-	}
 }
