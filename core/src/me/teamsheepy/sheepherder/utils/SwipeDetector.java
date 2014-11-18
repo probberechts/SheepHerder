@@ -1,16 +1,16 @@
 package me.teamsheepy.sheepherder.utils;
 
 import me.teamsheepy.sheepherder.SheepHerder;
-import me.teamsheepy.sheepherder.World;
+import me.teamsheepy.sheepherder.SheepWorld;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.input.GestureDetector.GestureAdapter;
 
 public class SwipeDetector implements InputProcessor{
 
-	private World world;
+	private SheepWorld world;
 	
-	public SwipeDetector(World world){
+	public SwipeDetector(SheepWorld world){
 		this.world = world;
 	}
 	
@@ -43,7 +43,7 @@ public class SwipeDetector implements InputProcessor{
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
 		if(world.swipeTime == 0){
 			System.out.println("swiped "+screenX+" "+screenY+" "+pointer);
-			world.swipeTime = World.GAME_TIME-world.timeLeft;
+			world.swipeTime = SheepWorld.GAME_TIME-world.timeLeft;
 			SheepHerder.analytics.trackEvent("gameEvent", "firstSwipe", "swipeTime", world.swipeTime);
 		}
 		return false;
