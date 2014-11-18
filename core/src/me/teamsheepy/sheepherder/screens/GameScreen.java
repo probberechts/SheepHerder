@@ -3,9 +3,10 @@ package me.teamsheepy.sheepherder.screens;
 import me.teamsheepy.sheepherder.Assets;
 import me.teamsheepy.sheepherder.SavedData;
 import me.teamsheepy.sheepherder.SheepHerder;
-import me.teamsheepy.sheepherder.World;
+import me.teamsheepy.sheepherder.SheepWorld;
 import me.teamsheepy.sheepherder.WorldGenerator;
 import me.teamsheepy.sheepherder.WorldRenderer;
+import me.teamsheepy.sheepherder.objects.*;
 import me.teamsheepy.sheepherder.utils.TimeFormatter;
 
 import com.badlogic.gdx.Gdx;
@@ -13,6 +14,9 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 public class GameScreen extends ScreenAdapter {
@@ -29,7 +33,7 @@ public class GameScreen extends ScreenAdapter {
 
 	private int state;
 	private OrthographicCamera camera;
-	private World world;
+	private SheepWorld world;
 	private WorldRenderer renderer;
 	private int lastScore;
 	private String sheepString;
@@ -104,7 +108,7 @@ public class GameScreen extends ScreenAdapter {
 		}
 		currentScore = world.sheepsCollected == 0 ? 0 : (world.sheepsCollected*100+world.timeLeft/100);
 
-		if (world.state == World.WORLD_STATE_GAME_OVER) {
+		if (world.state == SheepWorld.WORLD_STATE_GAME_OVER) {
 			SavedData.addGamePlayed();
 			int newScore = calculateScore(world.sheepsCollected, world.timeLeft);
 			if (newScore > SavedData.highscore) {
@@ -157,7 +161,7 @@ public class GameScreen extends ScreenAdapter {
 		GL20 gl = Gdx.gl;
 		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		renderer.render(touchPos);
+		renderer.render(touchPos, camera);
 
 		camera.update();
 		game.batcher.setProjectionMatrix(camera.combined);
@@ -218,9 +222,9 @@ public class GameScreen extends ScreenAdapter {
 			float line2W = Assets.font22.getBounds(line2).width;
 			String line3 = "Guide the sheep to the pen.";
 			float line3W = Assets.font22.getBounds(line3).width;
-			Assets.font22.draw(game.batcher, line1, World.WORLD_WIDTH / 2 - line1W / 2, 530);
-			Assets.font22.draw(game.batcher, line2, World.WORLD_WIDTH / 2 - line2W / 2, 500);
-			Assets.font22.draw(game.batcher, line3, World.WORLD_WIDTH / 2 - line3W / 2, 470);
+			Assets.font22.draw(game.batcher, line1, SheepWorld.WORLD_WIDTH / 2 - line1W / 2, 530);
+			Assets.font22.draw(game.batcher, line2, SheepWorld.WORLD_WIDTH / 2 - line2W / 2, 500);
+			Assets.font22.draw(game.batcher, line3, SheepWorld.WORLD_WIDTH / 2 - line3W / 2, 470);
 		}
 		Assets.font22.draw(game.batcher, "--click to play--", 140, 400);
 	}
@@ -230,8 +234,19 @@ public class GameScreen extends ScreenAdapter {
 		//Assets.font.draw(game.batcher, sheepString, 480-190, 800 - 50);
 		Assets.font22.draw(game.batcher, "Score: "+currentScore, 26, 800-50);
 		Assets.font22.draw(game.batcher, "Best score: "+SavedData.highscore, 26, 800-80);
+		
 		//debug
 		//Assets.font.draw(game.batcher, Gdx.input.getX()+","+Gdx.input.getY(), 480-190, 800-110);
+		int i = 1;
+		for(Sheep s : world.sheeps) {
+			String xSpeed = s.body.getPosition().x + "";
+			String ySpeed = s.body.getPosition().y + "";
+			xSpeed = xSpeed.substring(0, xSpeed.indexOf('.'));
+			ySpeed = ySpeed.substring(0, ySpeed.indexOf('.'));
+			Assets.font22.draw(game.batcher, i + ": x:" + xSpeed + " y:" + ySpeed + " rot:" + s.rotation, 10, 10 + i*30);
+			//Assets.font22.draw(game.batcher, "c: " + Math.cos(Math.toRadians(30)) + " s:" + Math.sin(Math.toRadians(30)), 10, 10 + i*30);
+			i++;
+		}
 	}
 
 	private void presentPaused () {

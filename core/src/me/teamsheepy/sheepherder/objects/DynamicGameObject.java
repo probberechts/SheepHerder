@@ -1,6 +1,6 @@
 package me.teamsheepy.sheepherder.objects;
 
-import me.teamsheepy.sheepherder.World;
+import me.teamsheepy.sheepherder.SheepWorld;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -16,5 +16,5 @@ public abstract class DynamicGameObject extends GameObject {
 		accel = new Vector2();
 	}
 	
-	public abstract void update (float deltaTime, World world);
+	public abstract void update (float deltaTime);
 }
