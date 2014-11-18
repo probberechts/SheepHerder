@@ -351,25 +351,25 @@ public class Sheep extends DynamicGameObject {
 	@Override
 	public void render(SpriteBatch batch) {
 		//sprite.setPosition(position.x, position.y);
-		sprite.setPosition(body.getPosition().x - sprite.getWidth()/2, body.getPosition().y - sprite.getHeight()/2);
+		sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getHeight() / 2);
 		sprite.setRotation(rotation);
 		
-		if(this.velocity.x > 10 || this.velocity.y > 10)
+		if(body.getLinearVelocity().x > 10 || body.getLinearVelocity().y > 10)
 			animationStateTime += Gdx.graphics.getDeltaTime();
-		if(this.velocity.x > 30 || this.velocity.y > 30)
+		if(body.getLinearVelocity().x > 30 || body.getLinearVelocity().y > 30)
 			animationStateTime += Gdx.graphics.getDeltaTime() * 4;
 		TextureRegion frame = Assets.sheepAnimation.getKeyFrame(animationStateTime, true);
 		
-		Sprite newSprite = new Sprite(frame);
-		newSprite.setRotation(rotation);
-		newSprite.setPosition(sprite.getX(), sprite.getY());
-		newSprite.draw(batch);
+//		Sprite newSprite = new Sprite(frame);
+//		newSprite.setRotation(rotation);
+//		newSprite.setPosition(sprite.getX(), sprite.getY());
+//		newSprite.draw(batch);
 		
-//		batch.draw(frame,sprite.getX(), sprite.getY(),
-//					sprite.getWidth() / 2f , sprite.getHeight() / 2f,
-//					sprite.getWidth(), sprite.getHeight(),
-//					1f, 1f,
-//					sprite.getRotation() - 90, false);
+		batch.draw(frame,sprite.getX(), sprite.getY(),
+					sprite.getWidth() / 2f , sprite.getHeight() / 2f,
+					sprite.getWidth(), sprite.getHeight(),
+					1f, 1f,
+					sprite.getRotation() - 90, false);
 
 		if(state == SHEEP_STATE_DANGER)
 			batch.draw(Assets.alert, 
