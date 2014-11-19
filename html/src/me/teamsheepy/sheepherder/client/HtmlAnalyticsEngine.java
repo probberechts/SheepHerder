@@ -15,7 +15,7 @@ public class HtmlAnalyticsEngine implements AnalyticsEngine {
 
     @Override
     public native void trackEvent(String category, String subCategory, String label, int value) /*-{
-    $wnd._gaq.push(['_trackEvent', category, action, label, value]);
+    $wnd._gaq.push(['_trackEvent', category, subCategory, label, value]);
 	}-*/;
 
     @Override
