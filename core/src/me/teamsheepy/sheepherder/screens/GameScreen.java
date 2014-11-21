@@ -156,7 +156,7 @@ public class GameScreen extends ScreenAdapter {
 
 		} else if (!suggestionShown
 				&& world.timeLeft < SheepWorld.GAME_TIME - 3000
-				&& !SavedData.neverShowSwipeSuggestion) {
+				&& !SavedData.neverShowSwipeSuggestion && world.swipeTime == 0) {
 			state = SWIPE_SUGGESTION;
 			world.state = SheepWorld.WORLD_STATE_SWIPE_SUGGESTION;
 		}
