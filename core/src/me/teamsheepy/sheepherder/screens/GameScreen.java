@@ -1,14 +1,12 @@
 package me.teamsheepy.sheepherder.screens;
 
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import me.teamsheepy.sheepherder.Assets;
 import me.teamsheepy.sheepherder.SavedData;
 import me.teamsheepy.sheepherder.SheepHerder;
 import me.teamsheepy.sheepherder.SheepWorld;
 import me.teamsheepy.sheepherder.WorldGenerator;
 import me.teamsheepy.sheepherder.WorldRenderer;
-import me.teamsheepy.sheepherder.objects.*;
-import me.teamsheepy.sheepherder.utils.SwipeDetector;
+import me.teamsheepy.sheepherder.objects.Sheep;
 import me.teamsheepy.sheepherder.utils.SwipeDetector2;
 import me.teamsheepy.sheepherder.utils.TimeFormatter;
 
@@ -17,9 +15,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector3;
 
@@ -155,7 +150,7 @@ public class GameScreen extends ScreenAdapter {
 			}
 
 		} else if (!suggestionShown
-				&& world.timeLeft < SheepWorld.GAME_TIME - 3000
+				&& world.tapCount >= 20
 				&& !SavedData.neverShowSwipeSuggestion) {
 			state = SWIPE_SUGGESTION;
 			world.state = SheepWorld.WORLD_STATE_SWIPE_SUGGESTION;

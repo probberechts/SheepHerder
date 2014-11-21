@@ -8,6 +8,7 @@ import com.badlogic.gdx.input.GestureDetector;
 public class SwipeDetector2 extends GestureDetector.GestureAdapter{
 
 	private SheepWorld world;
+	private boolean firstSwipe;
 	
 	public SwipeDetector2(SheepWorld world){
 		this.world = world;
@@ -15,10 +16,16 @@ public class SwipeDetector2 extends GestureDetector.GestureAdapter{
 	
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		if(world.state == SheepWorld.WORLD_STATE_RUNNING && world.swipeTime == 0){
-			world.swipeTime = SheepWorld.GAME_TIME-world.timeLeft;
-			SheepHerder.analytics.trackEvent("gameEvent", "firstSwipe", "swipeTime", world.swipeTime);
+		if(world.state == SheepWorld.WORLD_STATE_RUNNING && !firstSwipe){
+			firstSwipe = true;
+			SheepHerder.analytics.trackEvent("gameEvent", "firstSwipe", "swipeTime", SheepWorld.GAME_TIME-world.timeLeft);
 		}
+		return false;
+	}
+	
+	@Override
+	public boolean tap(float x, float y, int count, int button) {
+		world.tapCount++;
 		return false;
 	}
 }

@@ -17,6 +17,8 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener getApplicationListener () {
-                return new SheepHerder(new HtmlTimeFormatter(), new HtmlAnalyticsEngine());
+                HtmlAnalyticsEngine analytics = new HtmlAnalyticsEngine();
+                analytics.setGaVars();
+                return new SheepHerder(new HtmlTimeFormatter(), analytics);
         }
 }
