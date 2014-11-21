@@ -3,9 +3,11 @@ package me.teamsheepy.sheepherder.objects;
 import java.util.Random;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import me.teamsheepy.sheepherder.Assets;
 import me.teamsheepy.sheepherder.SheepWorld;
 
@@ -33,6 +35,7 @@ public class Sheep extends DynamicGameObject {
 	public float safeMoveX, safeMoveY;
 	public Body body;
 	private float animationStateTime = 0;
+	public Music currentSound;
 
 
 	public Sheep (float x, float y) {

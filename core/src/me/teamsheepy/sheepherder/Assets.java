@@ -1,6 +1,11 @@
 package me.teamsheepy.sheepherder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -32,6 +37,9 @@ public class Assets {
 	public static BitmapFont font22;
 	public static TextureRegion emptyCheckBox;
 	public static TextureRegion fullCheckBox;
+	public static List<Music> sheepSounds;
+	public static Sound sheepInPen;
+	public static Sound allSheepInPen;
 
 
 	public static Texture loadTexture (String file) {
@@ -80,6 +88,12 @@ public class Assets {
 		font28 = new BitmapFont(Gdx.files.internal("ArchitectsDaughter-28.fnt"), atlas.findRegion("font"), false);
 		font24 = new BitmapFont(Gdx.files.internal("ArchitectsDaughter-24.fnt"), atlas.findRegion("font"), false);
 		font22 = new BitmapFont(Gdx.files.internal("ArchitectsDaughter-22.fnt"), atlas.findRegion("font"), false);
+		sheepSounds = new ArrayList<Music>();
+		sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep1.mp3")));
+		sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep2.mp3")));
+		sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep3.wav")));
+		sheepInPen = Gdx.audio.newSound(Gdx.files.internal("sheepinpen.mp3"));
+		allSheepInPen = Gdx.audio.newSound(Gdx.files.internal("allsheepinpen.mp3"));
 	}
 
 }

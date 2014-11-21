@@ -13,6 +13,8 @@ import me.teamsheepy.sheepherder.objects.Tree;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -96,6 +98,11 @@ public class SheepWorld {
 				
 				Vector2 force = new Vector2((float) Math.cos(Math.toRadians(rot)) * 30000, (float) Math.sin(Math.toRadians(rot)) * 30000);
 				sheep.body.applyLinearImpulse(force.x, force.y, sheep.body.getPosition().x, sheep.body.getPosition().y, true);
+				if(sheep.currentSound == null || !sheep.currentSound.isPlaying()){
+					sheep.currentSound = Assets.sheepSounds.get((int)(Math.random()*Assets.sheepSounds.size()));
+					sheep.currentSound.play();
+				}
+				
 			}
 		}
 		
@@ -175,6 +182,7 @@ public class SheepWorld {
 	private void checkIfSheepsIsInPen(Sheep sheep) {
 		Rectangle sheepBounds = new Rectangle(sheep.body.getPosition().x, sheep.body.getPosition().y, sheep.bounds.width, sheep.bounds.height);
 		if (sheep.state != Sheep.SHEEP_STATE_CAUGHT && pen.hasScored(sheepBounds)) {
+			Assets.sheepInPen.play();
 			sheep.state = Sheep.SHEEP_STATE_CAUGHT;
 			sheepsCollected++;
 		} else if (sheep.state == Sheep.SHEEP_STATE_CAUGHT && !pen.hasScored(sheepBounds)) {
@@ -192,6 +200,8 @@ public class SheepWorld {
 			if (sheep.state != Sheep.SHEEP_STATE_CAUGHT
 					&& sheep.state != Sheep.SHEEP_STATE_ESCAPED)  
 				return;
+		if(timeLeft > 0f)
+			Assets.allSheepInPen.play();
 		state = WORLD_STATE_GAME_OVER;
 	}
 }
