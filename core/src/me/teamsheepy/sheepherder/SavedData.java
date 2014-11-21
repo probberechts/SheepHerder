@@ -10,6 +10,7 @@ public class SavedData {
 	public static int gamesPlayed;
 	public static boolean questionnaireFilled;
 	public static boolean neverShowSwipeSuggestion;
+	public static String clientId;
 	static Preferences prefs;
 
 	public static void load () {
@@ -18,6 +19,7 @@ public class SavedData {
 		gamesPlayed = prefs.getInteger("gamesPlayed", 0);
 		questionnaireFilled = prefs.getBoolean("questionnaireFilled", false);
 		neverShowSwipeSuggestion = prefs.getBoolean("neverShowSwipeSuggestion", false);
+		clientId = prefs.getString("clientId");
 	}
 
 	private static void save () {
@@ -25,6 +27,7 @@ public class SavedData {
 		prefs.putInteger("gamesPlayed", gamesPlayed);
 		prefs.putBoolean("questionnaireFilled", questionnaireFilled);
 		prefs.putBoolean("neverShowSwipeSuggestion", neverShowSwipeSuggestion);
+		prefs.putString("clientId", clientId);
 		prefs.flush();
 	}
 
@@ -49,4 +52,10 @@ public class SavedData {
 		neverShowSwipeSuggestion = true;
 		save();
 	}
+	
+	public static void setClientId(String id){
+		clientId = id;
+		save();
+	}
+	
 }

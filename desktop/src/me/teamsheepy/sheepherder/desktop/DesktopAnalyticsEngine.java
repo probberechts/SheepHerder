@@ -25,13 +25,6 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 			LOGGER.addHandler(fh);
 			fh.setFormatter(new SimpleFormatter());
 			LOGGER.info("SheepHerder version "+SheepHerder.VERSION);
-			Preferences pref = Gdx.app.getPreferences("SheepHerder");
-			clientId = pref.getString("clientId", null);
-			if(clientId == null){
-				clientId = UUID.randomUUID().toString();
-				pref.putString("clientId", clientId);
-				pref.flush();
-			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -39,6 +32,7 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 
 	@Override
 	public void initialize() {
+		SavedData.setClientId(UUID.randomUUID().toString());
 	}
 
 	@Override

@@ -31,6 +31,7 @@ public class SheepHerder extends Game {
 		batcher = new SpriteBatch();
 		SavedData.load();
 		Assets.load();
+		analytics.initialize();
 		setScreen(new GameScreen(this));
 	}
 	
