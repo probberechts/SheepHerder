@@ -30,7 +30,7 @@ public class SheepWorld {
 	public static final int WORLD_STATE_RUNNING = 0;
 	public static final int WORLD_STATE_GAME_OVER = 1;
 	public static final int WORLD_STATE_SWIPE_SUGGESTION = 2;
-	public static final int WORLD_MARGIN = 20;
+	public static int WORLD_MARGIN = 20;
 	public static final Color WORLD_MARGIN_COLOR = new Color(0x006400ff);
 	public static final int GAME_TIME = 6000;
 
@@ -61,7 +61,6 @@ public class SheepWorld {
 		world = new World(new Vector2(0,0), true);
 	}
 
-	
 	public void update(float deltaTime) {
 		for (Sheep sheep : sheeps) 
 			if (Gdx.input.isKeyPressed(Keys.A)) {          

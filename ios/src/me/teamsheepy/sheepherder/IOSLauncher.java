@@ -12,6 +12,7 @@ public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
+        SheepWorld.WORLD_MARGIN = 40;
         return new IOSApplication(new SheepHerder(new IosTimeFormatter(), new IosAnalyticsEngine()), config);
     }
 

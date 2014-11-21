@@ -4,11 +4,14 @@ import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.mygdx.game.android.R;
+
 import me.teamsheepy.sheepherder.SheepHerder;
+import me.teamsheepy.sheepherder.SheepWorld;
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+
 import me.teamsheepy.sheepherder.utils.AnalyticsEngine;
 
 public class AndroidLauncher extends AndroidApplication implements AnalyticsEngine {
@@ -19,6 +22,7 @@ public class AndroidLauncher extends AndroidApplication implements AnalyticsEngi
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		SheepWorld.WORLD_MARGIN = 40;
 		initialize(new SheepHerder(new AndroidTimeFormatter(), this), config);
 
 		t = GoogleAnalytics.getInstance(this).newTracker(R.xml.tracker);
