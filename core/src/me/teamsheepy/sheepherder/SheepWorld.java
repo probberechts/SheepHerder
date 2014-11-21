@@ -42,7 +42,7 @@ public class SheepWorld {
 	public int timeLeft;
 	public int sheepsCollected;
 	public int state;
-	public int swipeTime = 0;
+	public int tapCount = 0;
 	
 	public World world;
 
