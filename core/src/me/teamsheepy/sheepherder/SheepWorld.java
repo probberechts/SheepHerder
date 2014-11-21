@@ -21,6 +21,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2D;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class SheepWorld {
@@ -70,6 +74,30 @@ public class SheepWorld {
 		world.step(deltaTime, 6, 2);
 		updateSheeps(deltaTime);
 		updateTrees();
+		for(Contact contact : world.getContactList()) {
+			if(contact.getFixtureA().getBody().getUserData() != null && contact.getFixtureB().getBody().getUserData() != null)
+            	if(contact.getFixtureA().getBody().getUserData().toString().contains("schaap")&& contact.getFixtureB().getBody().getUserData().toString().contains("schaap")) {
+            		//collision between sheep detected
+            		Vector2 velocity1 = contact.getFixtureA().getBody().getLinearVelocity();
+            		Vector2 velocity2 = contact.getFixtureB().getBody().getLinearVelocity();
+            		
+        			for(Sheep s : sheeps)
+        				if((s.sheepId + "").equals(contact.getFixtureA().getBody().getUserData().toString().substring(6)))
+        					for(Sheep t : sheeps)
+        						if((t.sheepId + "").equals(contact.getFixtureB().getBody().getUserData().toString().substring(6)))
+        							if(velocity1.len2() >= velocity2.len2()) {
+        								if(s.touched) {
+        									t.rotation = s.rotation;
+        									t.timeToIdle = 100;
+        								}
+        							} else {
+        								if(t.touched) {
+	        								s.rotation = t.rotation;
+	        								s.timeToIdle = 100;
+        								}
+        							}
+            	}
+		}
 		checkGameOver();
 	}
 
@@ -97,29 +125,9 @@ public class SheepWorld {
 				
 				Vector2 force = new Vector2((float) Math.cos(Math.toRadians(rot)) * 30000, (float) Math.sin(Math.toRadians(rot)) * 30000);
 				sheep.body.applyLinearImpulse(force.x, force.y, sheep.body.getPosition().x, sheep.body.getPosition().y, true);
-			}
+				sheep.touched = true;
+			} else sheep.touched = false;
 		}
-		
-//		for (Sheep sheep : sheeps) {
-//			if (sheep.position.dst2(touchPos.x, touchPos.y) < 10000) {
-//				float angle;
-//				if (touchPos.x < SheepWorld.WORLD_MARGIN
-//						|| touchPos.x > SheepWorld.WORLD_WIDTH - SheepWorld.WORLD_MARGIN
-//						|| touchPos.y < SheepWorld.WORLD_MARGIN
-//						|| touchPos.y > SheepWorld.WORLD_HEIGHT - SheepWorld.WORLD_MARGIN) {
-//					angle = new Vector2(touchPos.x, touchPos.y).sub(
-//							new Vector2(SheepWorld.WORLD_WIDTH / 2,
-//									SheepWorld.WORLD_HEIGHT / 2)).angle();
-//				} else {
-//					angle = new Vector2(touchPos.x, touchPos.y).sub(
-//							new Vector2(sheep.bounds.x + sheep.center.x,
-//									sheep.bounds.y + sheep.center.y)).angle();
-//				}
-//				sheep.rotation = ((int) angle + 180) % 360;
-//				sheep.velocity = new Vector2(100, 100);
-//				sheep.timeToIdle = 200;
-//			}
-//		}
 	}
 
 	public List<GameObject> getWorldObjects() {
