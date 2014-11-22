@@ -2,10 +2,8 @@ package me.teamsheepy.sheepherder.desktop;
 
 import me.teamsheepy.sheepherder.SavedData;
 import me.teamsheepy.sheepherder.SheepHerder;
-import me.teamsheepy.sheepherder.objects.Sheep;
 import me.teamsheepy.sheepherder.utils.AnalyticsEngine;
 
-import java.io.IOException;
 import java.util.UUID;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
@@ -13,7 +11,6 @@ import java.util.logging.SimpleFormatter;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.HttpRequest;
-import com.badlogic.gdx.Preferences;
 
 public class DesktopAnalyticsEngine implements AnalyticsEngine {
 	private final static Logger LOGGER = Logger.getLogger("Desktop");
@@ -22,7 +19,7 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 	
 	public DesktopAnalyticsEngine() {
 		try {
-			FileHandler fh = new FileHandler("sheepherderlogs.log", true);
+			FileHandler fh = new FileHandler("../../sheepherderlogs.log", true);
 			LOGGER.addHandler(fh);
 			fh.setFormatter(new SimpleFormatter());
 			LOGGER.info("SheepHerder version "+SheepHerder.VERSION);

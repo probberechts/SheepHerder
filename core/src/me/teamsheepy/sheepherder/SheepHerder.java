@@ -13,6 +13,7 @@ public class SheepHerder extends Game {
 	public static final String VERSION = "3";
 	public static final String TRACKER_ID = "UA-56280744-3";
 	public static final String DEBUG_TRACKER_ID = "UA-56280744-1";
+	public static String TAP_OR_CLICK = "click";
 
 	// used by all screens
 	public SpriteBatch batcher;

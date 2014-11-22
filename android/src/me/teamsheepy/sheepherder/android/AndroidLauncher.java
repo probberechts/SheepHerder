@@ -45,6 +45,7 @@ public class AndroidLauncher extends AndroidApplication implements AnalyticsEngi
 		SheepWorld.WORLD_MARGIN = 40;
 		initialize(new SheepHerder(new AndroidTimeFormatter(), this), config);
 
+		SheepHerder.TAP_OR_CLICK = "tap";
 		if (SheepHerder.DEBUG)
 			t = getTracker(TrackerName.DEBUG_TRACKER);
 		else

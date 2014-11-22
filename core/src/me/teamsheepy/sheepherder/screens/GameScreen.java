@@ -324,7 +324,7 @@ public class GameScreen extends ScreenAdapter {
 			Assets.font22.draw(game.batcher, line2, SheepWorld.WORLD_WIDTH / 2 - line2W / 2, 500);
 			Assets.font22.draw(game.batcher, line3, SheepWorld.WORLD_WIDTH / 2 - line3W / 2, 470);
 		}
-		Assets.font22.draw(game.batcher, "--click to play--", 140, 400);
+		Assets.font22.draw(game.batcher, "--" + SheepHerder.TAP_OR_CLICK + " to play--", 140, 400);
 	}
 
 	private void presentRunning() {
@@ -353,7 +353,7 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void presentPaused() {
-		Assets.font22.draw(game.batcher, "--click to resume--", 140, 400);
+		Assets.font22.draw(game.batcher, "--" + SheepHerder.TAP_OR_CLICK + " to resume--", 140, 400);
 	}
 
 	private int calculateScore(int sheepCollected, int timeLeft) {
