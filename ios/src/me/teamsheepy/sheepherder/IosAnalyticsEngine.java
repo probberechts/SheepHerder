@@ -1,60 +1,47 @@
 package me.teamsheepy.sheepherder;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Net.HttpRequest;
-
 import me.teamsheepy.sheepherder.utils.AnalyticsEngine;
+import org.robovm.apple.foundation.NSNumber;
+import org.robovm.bindings.googleanalytics.GAIDictionaryBuilder;
+import org.robovm.bindings.googleanalytics.GAIFields;
 
 
 public class IosAnalyticsEngine implements AnalyticsEngine {
-	
-	private int clientId;
-	
-	public IosAnalyticsEngine() {
-		clientId = (int) (Math.random()*1000000D);
-	}
-	
-	@Override
+
+    private GAITrackerImpl tracker;
+
+    @Override
     public void initialize() {
+        GAI.getSharedInstance().setTrackUncaughtExceptions(true);
+        GAI.getSharedInstance().setDispatchInterval(20);
+
+        if (SheepHerder.DEBUG)
+            tracker = GAI.getSharedInstance().getTracker(SheepHerder.DEBUG_TRACKER_ID);
+        else
+            tracker = GAI.getSharedInstance().getTracker(SheepHerder.TRACKER_ID);
+
+        GAI.getSharedInstance().setDefaultTracker(tracker);
     }
 
     @Override
-    public void trackPageView(String screenName) {
-    	HttpRequest request = defaultRequest();
-    	StringBuilder content = defaultParams();
-    	content.append("&t=screenview&an=SheepHerder&av=").append(SheepHerder.VERSION).append("&aid=").append("me.teamsheepy.sheepherder").append("&cd=").append(screenName);
-    	request.setContent(content.toString());
-    	Gdx.net.sendHttpRequest(request, null);
+    public void trackEvent(String category, String action, String label, int value) {
+        tracker.send(GAIDictionaryBuilder.createEvent(category, action, label, NSNumber.valueOf(value)).build());
     }
 
     @Override
-    public void trackEvent(String category, String subCategory, String label, int value) {
-    	HttpRequest request = defaultRequest();
-    	StringBuilder content = defaultParams();
-    	content.append("&t=event&ec=").append(category).append("&ea=").append(subCategory).append("&el=").append(label).append("&ev="+value);
-    	request.setContent(content.toString());
-    	Gdx.net.sendHttpRequest(request, null);
+    public void trackPageView(String name) {
+        tracker.set(GAIFields.kGAIScreenName, name);
+        tracker.send(GAIDictionaryBuilder.createAppView().build());
+    }
+
+    @Override
+    public void trackTimedEvent(String category, String name, String label, int timeInMilliseconds) {
+        tracker.send(GAIDictionaryBuilder.createTiming(category, NSNumber.valueOf(timeInMilliseconds), name, label).build());
     }
 
     @Override
     public void dispatch() {
-    	//TODO persist requests for if no internet connection, atm everything is instantly sent.
+        GAI.getSharedInstance().dispatch();
     }
-    
-    private HttpRequest defaultRequest(){
-    	HttpRequest request = new HttpRequest("POST");
-    	request.setUrl("http://www.google-analytics.com/collect");
-    	request.setHeader("User-Agent", "SheepHerder Desktop");
-    	return request;
-    }
-    private StringBuilder defaultParams(){
-    	return new StringBuilder("v=")
-    	.append(SheepHerder.VERSION)
-    	.append("&tid=")
-    	.append(SheepHerder.TRACKER_ID)
-    	.append("&cid=")
-    	.append(clientId)
-    	.append("&je=0");
-    }
-    
+
 }
