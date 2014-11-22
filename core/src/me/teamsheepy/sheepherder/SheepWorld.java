@@ -141,7 +141,7 @@ public class SheepWorld {
 		for (Tree tree : trees) {
 			boolean shouldBeAnimated = false;
 			for (Sheep sheep : sheeps) {
-				if (tree.bounds.contains(sheep.bounds)) {
+				if (tree.bounds.contains(sheep.sprite.getBoundingRectangle())) {
 					shouldBeAnimated = true;
 					break;
 				}
@@ -153,10 +153,12 @@ public class SheepWorld {
 	
 	private void checkIfSheepHasEscaped (Sheep sheep) {
 		Vector2 pos = sheep.body.getPosition();
-		if (pos.x + sheep.bounds.width < 0 
-				|| pos.x > WORLD_WIDTH 
-				|| pos.y + sheep.bounds.height < 0 
-				|| pos.y > WORLD_HEIGHT) {
+		float posX = pos.x - sheep.bounds.width/2f;
+		float posY = pos.y - sheep.bounds.height/2f;
+		if (posX + sheep.bounds.width < 0
+				|| posX > WORLD_WIDTH
+				|| posY + sheep.bounds.height < 0
+				|| posY > WORLD_HEIGHT) {
 			sheep.state = Sheep.SHEEP_STATE_ESCAPED;
 			sheep.collisionAreas.clear();
 		}

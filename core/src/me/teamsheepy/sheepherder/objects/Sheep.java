@@ -45,7 +45,6 @@ public class Sheep extends DynamicGameObject {
 		this.sprite = new Sprite(Assets.sheep);
 		this.sprite.setRotation(rotation);
 		this.sprite.setPosition(x, y);
-		collisionAreas.add(new Rectangle(this.bounds.x + 20, this.bounds.y + 20, this.bounds.width - 40, this.bounds.height - 40));
 		timeToIdle = 0;
 		safeMoveX = 0;
 		safeMoveY = 0;
