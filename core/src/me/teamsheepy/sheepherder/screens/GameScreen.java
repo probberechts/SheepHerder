@@ -7,7 +7,6 @@ import me.teamsheepy.sheepherder.SheepWorld;
 import me.teamsheepy.sheepherder.WorldGenerator;
 import me.teamsheepy.sheepherder.WorldRenderer;
 import me.teamsheepy.sheepherder.objects.Sheep;
-import me.teamsheepy.sheepherder.utils.SwipeDetector2;
 import me.teamsheepy.sheepherder.utils.TimeFormatter;
 
 import com.badlogic.gdx.Gdx;
@@ -15,8 +14,8 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector3;
+import me.teamsheepy.sheepherder.utils.TouchTracker;
 
 public class GameScreen extends ScreenAdapter {
 	static final int GAME_READY = 0;
@@ -43,6 +42,7 @@ public class GameScreen extends ScreenAdapter {
 	private Vector3 touchPos;
 	private boolean swipeCheckboxTicked;
 	private boolean suggestionShown = false;
+	private TouchTracker touchTracker;
 
 	public GameScreen(SheepHerder game) {
 		SheepHerder.analytics.trackPageView("game");
@@ -61,8 +61,8 @@ public class GameScreen extends ScreenAdapter {
 		else
 			state = GAME_READY;
 		touchPos = new Vector3(-500, -500, 0); // hide offscreen at start
-		// Gdx.input.setInputProcessor(new SwipeDetector(world));
-		Gdx.input.setInputProcessor(new GestureDetector(new SwipeDetector2(world)));
+		touchTracker = new TouchTracker();
+		Gdx.input.setInputProcessor(touchTracker);
 	}
 
 	public void update(float deltaTime) {
@@ -99,6 +99,9 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void updateRunning(float deltaTime) {
+		/**
+		 * Handle screen touch
+		 */
 		if (Gdx.input.isTouched()) {
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
@@ -112,34 +115,58 @@ public class GameScreen extends ScreenAdapter {
 			world.updateRotationSheeps(touchPos);
 		}
 
+		/**
+		 * Update world objects, score and time left
+		 */
 		world.update(deltaTime);
+
 		world.timeLeft -= deltaTime;
 		timeString = tfm.format(world.timeLeft / 6000) + ":"
 				+ tfm.format((world.timeLeft % 6000) / 100);
 
+		int currentScore = world.sheepsCollected == 0 ? 0
+				: (world.sheepsCollected * 100 + world.timeLeft / 100);
+		scoreString = "" + currentScore;
+
+		/**
+		 * Play +100 animation if the player leads a sheep into the pen
+		 */
 		if (world.sheepsCollected > lastScore) {
 			playScoreAnimation = true;
 			scoreAnimationTime = 0;
 		}
 		lastScore = world.sheepsCollected;
 
-		int currentScore = world.sheepsCollected == 0 ? 0
-				: (world.sheepsCollected * 100 + world.timeLeft / 100);
-		scoreString = "" + currentScore;
-
+		/**
+		 * Check if game over
+		 */
 		if (world.state == SheepWorld.WORLD_STATE_GAME_OVER) {
 			SavedData.addGamePlayed();
-			SheepHerder.analytics.trackEvent("gameEvent", "gameOver",
-					"gameTime", SheepWorld.GAME_TIME - world.timeLeft);
-			SheepHerder.analytics.trackEvent("gameEvent", "gameOver",
-					"sheepCollected", world.sheepsCollected);
+
+			SheepHerder.analytics.trackTimedEvent("gameOver", "gameTime",
+					SavedData.gamesPlayed + "", SheepWorld.GAME_TIME - world.timeLeft);
+
+			SheepHerder.analytics.trackEvent("gameOver", "sheepCollected",
+					SavedData.gamesPlayed + "", world.sheepsCollected);
+
 			int escapedSheep = 0;
 			for (Sheep s : world.sheeps) {
 				if (s.state == Sheep.SHEEP_STATE_ESCAPED)
 					escapedSheep++;
 			}
-			SheepHerder.analytics.trackEvent("gameEvent", "gameOver",
-					"escapedSheep", escapedSheep);
+			SheepHerder.analytics.trackEvent("gameOver", "escapedSheep",
+					SavedData.gamesPlayed + "", escapedSheep);
+
+			SheepHerder.analytics.trackTimedEvent("swipeData", "numTaps",
+					SavedData.gamesPlayed + "", touchTracker.countTaps());
+			SheepHerder.analytics.trackTimedEvent("swipeData", "numSwipes",
+					SavedData.gamesPlayed + "", touchTracker.countSwipes());
+			SheepHerder.analytics.trackTimedEvent("swipeData", "avgSwipeTime",
+					SavedData.gamesPlayed + "", touchTracker.getAvarageTouchTime());
+			SheepHerder.analytics.trackTimedEvent("swipeData", "minSwipeTime",
+					SavedData.gamesPlayed + "", touchTracker.getMinTouchTime());
+			SheepHerder.analytics.trackTimedEvent("swipeData", "maxSwipeTime",
+					SavedData.gamesPlayed + "", touchTracker.getMaxTouchTime());
 
 			int newScore = calculateScore(world.sheepsCollected, world.timeLeft);
 			if (newScore > SavedData.highscore) {
@@ -149,9 +176,12 @@ public class GameScreen extends ScreenAdapter {
 				state = GAME_OVER;
 			}
 
+		/**
+		 * Show swipe suggestion to the user
+		 */
 		} else if (!suggestionShown
-				&& world.tapCount >= 20
-				&& !SavedData.neverShowSwipeSuggestion) {
+					&& world.tapCount >= 20
+					&& !SavedData.neverShowSwipeSuggestion) {
 			state = SWIPE_SUGGESTION;
 			world.state = SheepWorld.WORLD_STATE_SWIPE_SUGGESTION;
 		}
@@ -168,8 +198,8 @@ public class GameScreen extends ScreenAdapter {
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			if (touchPos.x > 120 && touchPos.x < 120 + 240 && touchPos.y > 285
-					&& touchPos.y < 285 + 55) {
+			if (touchPos.x > 120 && touchPos.x < 120 + 240
+					&& touchPos.y > 285 && touchPos.y < 285 + 55) {
 				// play again button touched
 				game.setScreen(new GameScreen(game));
 			}
@@ -185,6 +215,7 @@ public class GameScreen extends ScreenAdapter {
 					&& touchPos.y < 283 + 55) {
 				// answered yes
 				Gdx.net.openURI("https://docs.google.com/forms/d/1eLUKnRGSiimqk4Mzr7ArOWwbGUMii8vZ7PagRqbDVe4/viewform?usp=send_form");
+				SavedData.filledInQuestionaire();
 				state = GAME_READY;
 			} else if (touchPos.x > 203 && touchPos.x < 203 + 200
 					&& touchPos.y > 283 && touchPos.y < 283 + 55) {
@@ -199,15 +230,15 @@ public class GameScreen extends ScreenAdapter {
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			if (touchPos.x > 380 && touchPos.x < 420 && touchPos.y > 490
-					&& touchPos.y < 530) {
+			if (touchPos.x > 380 && touchPos.x < 420
+					&& touchPos.y > 490 && touchPos.y < 530) {
 				if (swipeCheckboxTicked)
 					SavedData.neverShowSwipeSuggestion();
 				suggestionShown = true;
 				state = GAME_READY;
 				world.state = SheepWorld.WORLD_STATE_RUNNING;
-			} else if (touchPos.x > 110 && touchPos.x < 160 && touchPos.y > 285
-					&& touchPos.y < 318) {
+			} else if (touchPos.x > 110 && touchPos.x < 160
+						&& touchPos.y > 285 && touchPos.y < 318) {
 				swipeCheckboxTicked = !swipeCheckboxTicked;
 			}
 		}
@@ -252,9 +283,9 @@ public class GameScreen extends ScreenAdapter {
 		game.batcher.end();
 
 		// DEBUG: draw bounding boxes of objects
-//		ShapeRenderer sr = new ShapeRenderer();
-//		sr.setProjectionMatrix(camera.combined);
-//		sr.begin(ShapeRenderer.ShapeType.Line);
+		// ShapeRenderer sr = new ShapeRenderer();
+		// sr.setProjectionMatrix(camera.combined);
+		// sr.begin(ShapeRenderer.ShapeType.Line);
 		// sr.setColor(1, 1, 0, 1);
 		// for (Sheep sheep : world.sheep)
 		// sr.rect(sheep.bounds.x, sheep.bounds.y, sheep.bounds.width,
@@ -275,8 +306,8 @@ public class GameScreen extends ScreenAdapter {
 		// sr.setColor(1, 0, 0, 1);
 		// for (Rectangle col : world.pen.collisionAreas)
 		// sr.rect(col.x, col.y, col.width, col.height);
-//		sr.rect(26, 800-53, 30, 30);
-//		sr.end();
+		// sr.rect(26, 800-53, 30, 30);
+		// sr.end();
 	}
 
 	private void presentReady() {
@@ -311,19 +342,6 @@ public class GameScreen extends ScreenAdapter {
 		Assets.font22.draw(game.batcher, "Best: " + SavedData.highscore,
 				480 - 113, 800 - 60);
 		Assets.font22.setScale(1);
-		
-		//debug
-		//Assets.font.draw(game.batcher, Gdx.input.getX()+","+Gdx.input.getY(), 480-190, 800-110);
-		int i = 1;
-		for(Sheep s : world.sheeps) {
-			String xSpeed = s.body.getPosition().x + "";
-			String ySpeed = s.body.getPosition().y + "";
-			xSpeed = xSpeed.substring(0, xSpeed.indexOf('.'));
-			ySpeed = ySpeed.substring(0, ySpeed.indexOf('.'));
-			//Assets.font22.draw(game.batcher, i + ": x:" + xSpeed + " y:" + ySpeed + " rot:" + s.rotation, 10, 10 + i*30);
-			//Assets.font22.draw(game.batcher, "c: " + Math.cos(Math.toRadians(30)) + " s:" + Math.sin(Math.toRadians(30)), 10, 10 + i*30);
-			i++;
-		}
 	}
 
 	private void presentSwipeSuggestion() {

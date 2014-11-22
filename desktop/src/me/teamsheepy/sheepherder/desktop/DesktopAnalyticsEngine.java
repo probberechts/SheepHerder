@@ -2,6 +2,7 @@ package me.teamsheepy.sheepherder.desktop;
 
 import me.teamsheepy.sheepherder.SavedData;
 import me.teamsheepy.sheepherder.SheepHerder;
+import me.teamsheepy.sheepherder.objects.Sheep;
 import me.teamsheepy.sheepherder.utils.AnalyticsEngine;
 
 import java.io.IOException;
@@ -62,6 +63,12 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 	}
 
 	@Override
+	public void trackTimedEvent(String category, String subCategory, String label,
+						   int value) {
+		//TODO
+	}
+
+	@Override
 	public void dispatch() {
 		// TODO persist requests for if no internet connection, atm everything
 		// is instantly sent.
@@ -75,8 +82,11 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 	}
 
 	private StringBuilder defaultParams() {
+		String tracker_id = SheepHerder.TRACKER_ID;
+		if (SheepHerder.DEBUG)
+			tracker_id = SheepHerder.DEBUG_TRACKER_ID;
 		return new StringBuilder("v=").append(SheepHerder.VERSION)
-				.append("&tid=").append(SheepHerder.TRACKER_ID).append("&cid=")
+				.append("&tid=").append(tracker_id).append("&cid=")
 				.append(clientId).append("&je=1");
 	}
 }

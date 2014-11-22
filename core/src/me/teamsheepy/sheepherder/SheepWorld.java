@@ -1,11 +1,8 @@
 package me.teamsheepy.sheepherder;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-import me.teamsheepy.sheepherder.objects.Bridge;
-import me.teamsheepy.sheepherder.objects.GameObject;
 import me.teamsheepy.sheepherder.objects.Pen;
 import me.teamsheepy.sheepherder.objects.River;
 import me.teamsheepy.sheepherder.objects.Sheep;
@@ -14,17 +11,11 @@ import me.teamsheepy.sheepherder.objects.Tree;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2D;
 import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.ContactImpulse;
-import com.badlogic.gdx.physics.box2d.ContactListener;
-import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class SheepWorld {
@@ -128,15 +119,6 @@ public class SheepWorld {
 			} else sheep.touched = false;
 		}
 	}
-
-	public List<GameObject> getWorldObjects() {
-		List<GameObject> result = new LinkedList<GameObject>();
-		result.addAll(sheeps);
-		result.addAll(trees);
-		result.addAll(rivers);
-		result.add(pen);
-		return result;
-	}
 	
 	private void updateSheeps (float deltaTime) {
 		for (Sheep sheep : sheeps) {
@@ -185,6 +167,8 @@ public class SheepWorld {
 		if (sheep.state != Sheep.SHEEP_STATE_CAUGHT && pen.hasScored(sheepBounds)) {
 			sheep.state = Sheep.SHEEP_STATE_CAUGHT;
 			sheepsCollected++;
+			if (sheepsCollected == 0)
+				SheepHerder.analytics.trackTimedEvent("gameEvent", "firstSheepInPen", SavedData.gamesPlayed + "", GAME_TIME-timeLeft);
 		} else if (sheep.state == Sheep.SHEEP_STATE_CAUGHT && !pen.hasScored(sheepBounds)) {
 			sheep.state = Sheep.SHEEP_STATE_FREE;
 			sheepsCollected--;

@@ -18,7 +18,13 @@ public class HtmlAnalyticsEngine implements AnalyticsEngine {
 
     public native void setGaVars() /*-{
         $wnd._gaq = $wnd._gaq || [];
+        $wnd._gaq.push(['_setAccount', 'UA-56280744-3']);
+    }-*/;
+
+    public native void setGaVarsDebug() /*-{
+        $wnd._gaq = $wnd._gaq || [];
         $wnd._gaq.push(['_setAccount', 'UA-56280744-1']);
+        $wnd._gaq.push(['_setDomainName', 'none']);
     }-*/;
 
     @Override
@@ -34,6 +40,15 @@ public class HtmlAnalyticsEngine implements AnalyticsEngine {
     public native void trackEvent(String category, String subCategory, String label, int value) /*-{
         try {
             $wnd._gaq.push(['_trackEvent', category, subCategory, label, value]);
+        } catch (e) {
+            console.log("AnalyticsError: " + e)
+        }
+	}-*/;
+
+    @Override
+    public native void trackTimedEvent(String category, String subCategory, String label, int value) /*-{
+        try {
+            $wnd._gaq.push(['_trackTiming', category, subCategory, label, value]);
         } catch (e) {
             console.log("AnalyticsError: " + e)
         }

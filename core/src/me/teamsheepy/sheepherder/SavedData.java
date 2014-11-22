@@ -15,7 +15,7 @@ public class SavedData {
 
 	public static void load () {
 		prefs = Gdx.app.getPreferences("SheepHerder");
-		prefs.clear();
+		if (SheepHerder.DEBUG) prefs.clear();
 		highscore = prefs.getInteger("highscore", 0);
 		gamesPlayed = prefs.getInteger("gamesPlayed", 0);
 		questionnaireFilled = prefs.getBoolean("questionnaireFilled", false);

@@ -12,11 +12,31 @@ import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
+import me.teamsheepy.sheepherder.objects.Sheep;
 import me.teamsheepy.sheepherder.utils.AnalyticsEngine;
+
+import java.util.HashMap;
 
 public class AndroidLauncher extends AndroidApplication implements AnalyticsEngine {
 
 	Tracker t;
+
+	public enum TrackerName {
+		APP_TRACKER, // Tracker used in production.
+		DEBUG_TRACKER, // Tracker used for debugging.
+	}
+
+	HashMap<TrackerName, Tracker> mTrackers = new HashMap<TrackerName, Tracker>();
+
+	synchronized Tracker getTracker(TrackerName trackerId) {
+		if (!mTrackers.containsKey(trackerId)) {
+			GoogleAnalytics analytics = GoogleAnalytics.getInstance(this);
+			Tracker t = (trackerId == TrackerName.DEBUG_TRACKER) ? analytics.newTracker(R.xml.debug_tracker)
+					: analytics.newTracker(R.xml.tracker);
+			mTrackers.put(trackerId, t);
+		}
+		return mTrackers.get(trackerId);
+	}
 
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
@@ -25,7 +45,10 @@ public class AndroidLauncher extends AndroidApplication implements AnalyticsEngi
 		SheepWorld.WORLD_MARGIN = 40;
 		initialize(new SheepHerder(new AndroidTimeFormatter(), this), config);
 
-		t = GoogleAnalytics.getInstance(this).newTracker(R.xml.tracker);
+		if (SheepHerder.DEBUG)
+			t = getTracker(TrackerName.DEBUG_TRACKER);
+		else
+			t = getTracker(TrackerName.APP_TRACKER);
 	}
 
 	@Override
@@ -62,6 +85,17 @@ public class AndroidLauncher extends AndroidApplication implements AnalyticsEngi
 				.setAction(subCategory)
 				.setLabel(label)
 				.setValue(value)
+				.build());
+	}
+
+	@Override
+	public void trackTimedEvent(String category, String subCategory, String label, int value) {
+		// Build and send an Event.
+		t.send(new HitBuilders.TimingBuilder()
+				.setCategory(category)
+				.setValue(value)
+				.setVariable(subCategory)
+				.setLabel(label)
 				.build());
 	}
 

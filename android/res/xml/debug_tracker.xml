@@ -3,5 +3,5 @@
            tools:ignore="UnusedResources">
     <integer name="ga_sessionTimeout">300</integer>
     <bool name="ga_autoActivityTracking">true</bool>
-    <string name="ga_trackingId">UA-56280744-3</string>
+    <string name="ga_trackingId">UA-56280744-1</string>
 </resources>
