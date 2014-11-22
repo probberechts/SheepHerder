@@ -53,72 +53,28 @@ public class Sheep extends DynamicGameObject {
 		touched = false;
 	}
 	
-	
-	
 	public void update (float deltaTime) {
 		// Introduce some random movement for idle sheep
 		if(timeToIdle > 0) timeToIdle -= deltaTime;
 		else { 
-//			Random rand = new Random();
-//			int angle = rand.nextInt()%360;
-//			
-//			rotation = ((int) angle + 180) % 360;
-//			int rot = ((int) angle + 180) % 360; 
-//			
-//			Vector2 force = new Vector2((float) Math.cos(Math.toRadians(rot)) * 30000, (float) Math.sin(Math.toRadians(rot)) * 30000);
-//			body.applyLinearImpulse(force.x, force.y, body.getPosition().x, body.getPosition().y, true);
-//			
-//			timeToIdle = 90 + rand.nextInt()%50;
+			Random rand = new Random();
+
+			if (rand.nextInt()%100 == 0)
+				rotation = (rotation + (rand.nextInt(41) - 20)) % 360;
+
+			int speed = 0;
+			if (rand.nextInt()%100 < 98)
+				speed = 600 + rand.nextInt(300);
+			else
+				timeToIdle = rand.nextInt(500);
+
+			Vector2 force = new Vector2((float) Math.cos(Math.toRadians(rotation)) * speed, (float) Math.sin(Math.toRadians(rotation)) * speed);
+			body.applyLinearImpulse(force.x, force.y, body.getPosition().x, body.getPosition().y, true);
 		}
 		
 		// Check if sheep is escaping
 		if (state != SHEEP_STATE_CAUGHT)
 			checkCloseToScreenBorder();
-	}
-
-	private Rectangle intersect(Rectangle rectangle1, Rectangle rectangle2) {
-	    if (rectangle1.overlaps(rectangle2)) {
-	    	Rectangle intersection = new Rectangle();
-	        intersection.x = Math.max(rectangle1.x, rectangle2.x);
-	        intersection.width = Math.min(rectangle1.x + rectangle1.width, rectangle2.x + rectangle2.width) - intersection.x;
-	        intersection.y = Math.max(rectangle1.y, rectangle2.y);
-	        intersection.height = Math.min(rectangle1.y + rectangle1.height, rectangle2.y + rectangle2.height) - intersection.y;
-	        return intersection;
-	    }
-	    return null;
-	}
-	
-	private int getCollisionSide(Rectangle A, Rectangle B) {
-		float w = 0.5f * (A.getWidth() + B.getWidth());
-		float h = 0.5f * (A.getHeight() + B.getHeight());
-		Vector2 centerA = new Vector2(), centerB = new Vector2();
-		A.getCenter(centerA);
-		B.getCenter(centerB);
-		float dx = centerA.x - centerB.x;
-		float dy = centerA.y - centerB.y;
-
-		if (Math.abs(dx) <= w && Math.abs(dy) <= h)
-		{
-		    /* collision! */
-		    float wy = w * dy;
-		    float hx = h * dx;
-		    
-		    if (wy > hx)
-		        if (wy > -hx)
-		            /* collision at the top */
-		        	return 0;
-		        else
-		            /* on the left */
-		        	return 3;
-		    else
-		        if (wy > -hx)
-		            /* on the right */
-		        	return 1;
-		        else
-		            /* at the bottom */
-		        	return 2;
-		}
-		return -1;
 	}
 		
 	public void checkCloseToScreenBorder () {
@@ -135,10 +91,10 @@ public class Sheep extends DynamicGameObject {
 		//sprite.setPosition(position.x, position.y);
 		sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2, body.getPosition().y - sprite.getHeight() / 2);
 		sprite.setRotation(rotation);
-		
-		if(body.getLinearVelocity().x > 10 || body.getLinearVelocity().y > 10)
-			animationStateTime += Gdx.graphics.getDeltaTime();
-		if(body.getLinearVelocity().x > 30 || body.getLinearVelocity().y > 30)
+
+		if(body.getLinearVelocity().len2() > 20)
+			animationStateTime += Gdx.graphics.getDeltaTime() / 2;
+		if(body.getLinearVelocity().len2() > 1000)
 			animationStateTime += Gdx.graphics.getDeltaTime() * 4;
 		TextureRegion frame = Assets.sheepAnimation.getKeyFrame(animationStateTime, true);
 		
