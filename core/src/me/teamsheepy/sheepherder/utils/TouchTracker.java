@@ -43,11 +43,19 @@ public class TouchTracker extends InputAdapter {
 	}
 
 	public int getMinTouchTime() {
-		return Collections.min(touchTimes).intValue();
+		try {
+			return Collections.min(touchTimes).intValue();
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public int getMaxTouchTime() {
-		return Collections.max(touchTimes).intValue();
+		try {
+			return Collections.max(touchTimes).intValue();
+		} catch (Exception e) {
+			return 0;
+		}
 	}
 
 	public int getAvarageTouchTime() {

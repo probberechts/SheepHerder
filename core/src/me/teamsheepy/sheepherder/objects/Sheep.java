@@ -54,6 +54,11 @@ public class Sheep extends DynamicGameObject {
 	}
 	
 	public void update (float deltaTime) {
+		if (state == SHEEP_STATE_CAUGHT) {
+			body.setLinearVelocity(0, 0);
+			return;
+		}
+
 		// Introduce some random movement for idle sheep
 		if(timeToIdle > 0) timeToIdle -= deltaTime;
 		else { 
