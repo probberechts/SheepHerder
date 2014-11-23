@@ -2,17 +2,15 @@ package me.teamsheepy.sheepherder;
 
 import java.util.Random;
 
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.Fixture;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-
 import me.teamsheepy.sheepherder.objects.GameObject;
 import me.teamsheepy.sheepherder.objects.Pen;
 import me.teamsheepy.sheepherder.objects.River;
 import me.teamsheepy.sheepherder.objects.Sheep;
 import me.teamsheepy.sheepherder.objects.Tree;
+
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 public class WorldGenerator {
 	
@@ -83,7 +81,7 @@ public class WorldGenerator {
 		        fixtureDef.shape = shape;
 		        fixtureDef.density = 1f;
 
-		        Fixture fixture = sheep.body.createFixture(fixtureDef);
+		        sheep.body.createFixture(fixtureDef);
 		        sheepnumber++;
 
 		        shape.dispose();

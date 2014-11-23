@@ -1,17 +1,10 @@
 package me.teamsheepy.sheepherder.utils;
 
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.World;
-import me.teamsheepy.sheepherder.SheepHerder;
-import me.teamsheepy.sheepherder.SheepWorld;
-
-import com.badlogic.gdx.input.GestureDetector;
-import me.teamsheepy.sheepherder.objects.Sheep;
-
 import java.util.ArrayList;
 import java.util.Collections;
+
+import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.math.Vector2;
 
 public class TouchTracker extends InputAdapter {
 

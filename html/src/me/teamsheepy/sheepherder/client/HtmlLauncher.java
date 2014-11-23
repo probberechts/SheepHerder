@@ -5,7 +5,6 @@ import me.teamsheepy.sheepherder.SheepHerder;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import me.teamsheepy.sheepherder.objects.Sheep;
 
 public class HtmlLauncher extends GwtApplication {
 
