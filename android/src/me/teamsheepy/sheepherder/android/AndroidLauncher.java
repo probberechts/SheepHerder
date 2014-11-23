@@ -12,7 +12,6 @@ import android.os.Bundle;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
-import me.teamsheepy.sheepherder.objects.Sheep;
 import me.teamsheepy.sheepherder.utils.AnalyticsEngine;
 
 import java.util.HashMap;
@@ -90,7 +89,7 @@ public class AndroidLauncher extends AndroidApplication implements AnalyticsEngi
 	}
 
 	@Override
-	public void trackTimedEvent(String category, String subCategory, String label, int value) {
+	public void trackTimedEvent(String category, String subCategory, String label, long value) {
 		// Build and send an Event.
 		t.send(new HitBuilders.TimingBuilder()
 				.setCategory(category)

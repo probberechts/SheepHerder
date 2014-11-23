@@ -1,7 +1,5 @@
 package me.teamsheepy.sheepherder;
 
-import java.util.UUID;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 

@@ -42,31 +42,31 @@ public class TouchTracker extends InputAdapter {
 		return super.touchUp(screenX, screenY, pointer, button);
 	}
 
-	public int getMinTouchTime() {
+	public long getMinTouchTime() {
 		try {
-			return Collections.min(touchTimes).intValue();
+			return Collections.min(touchTimes);
 		} catch (Exception e) {
 			return 0;
 		}
 	}
 
-	public int getMaxTouchTime() {
+	public long getMaxTouchTime() {
 		try {
-			return Collections.max(touchTimes).intValue();
+			return Collections.max(touchTimes);
 		} catch (Exception e) {
 			return 0;
 		}
 	}
 
-	public int getAvarageTouchTime() {
+	public long getAverageTouchTime() {
 		long sum = 0;
 		if(!touchTimes.isEmpty()) {
 			for (long mark : touchTimes) {
 				sum += mark;
 			}
-			return (int) sum / touchTimes.size();
+			return sum / touchTimes.size();
 		}
-		return (int) sum;
+		return sum;
 	}
 
 	public int countTaps() {

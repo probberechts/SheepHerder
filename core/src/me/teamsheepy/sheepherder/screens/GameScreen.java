@@ -43,6 +43,7 @@ public class GameScreen extends ScreenAdapter {
 	private boolean swipeCheckboxTicked;
 	private boolean suggestionShown = false;
 	private TouchTracker touchTracker;
+	private long startTime;
 
 	public GameScreen(SheepHerder game) {
 		SheepHerder.analytics.trackPageView("game");
@@ -95,6 +96,7 @@ public class GameScreen extends ScreenAdapter {
 	private void updateReady() {
 		if (Gdx.input.justTouched()) {
 			state = GAME_RUNNING;
+			startTime = System.currentTimeMillis();
 		}
 	}
 
@@ -120,12 +122,12 @@ public class GameScreen extends ScreenAdapter {
 		 */
 		world.update(deltaTime);
 
-		world.timeLeft -= deltaTime;
-		timeString = tfm.format(world.timeLeft / 6000) + ":"
-				+ tfm.format((world.timeLeft % 6000) / 100);
+		world.timeLeft = SheepWorld.GAME_TIME - (System.currentTimeMillis() - startTime);
+		timeString = tfm.format(world.timeLeft / 60000) + ":"
+				+ tfm.format((world.timeLeft % 60000) / 1000);
 
-		int currentScore = world.sheepsCollected == 0 ? 0
-				: (world.sheepsCollected * 100 + world.timeLeft / 100);
+		int currentScore = (int) (world.sheepsCollected == 0 ? 0
+				: (world.sheepsCollected * 100 + world.timeLeft / 1000));
 		scoreString = "" + currentScore;
 
 		/**
@@ -162,7 +164,7 @@ public class GameScreen extends ScreenAdapter {
 			SheepHerder.analytics.trackTimedEvent("swipeData", "numSwipes",
 					SavedData.gamesPlayed + "", touchTracker.countSwipes());
 			SheepHerder.analytics.trackTimedEvent("swipeData", "avgSwipeTime",
-					SavedData.gamesPlayed + "", touchTracker.getAvarageTouchTime());
+					SavedData.gamesPlayed + "", touchTracker.getAverageTouchTime());
 			SheepHerder.analytics.trackTimedEvent("swipeData", "minSwipeTime",
 					SavedData.gamesPlayed + "", touchTracker.getMinTouchTime());
 			SheepHerder.analytics.trackTimedEvent("swipeData", "maxSwipeTime",
@@ -190,6 +192,7 @@ public class GameScreen extends ScreenAdapter {
 	private void updatePaused() {
 		if (Gdx.input.justTouched()) {
 			state = GAME_RUNNING;
+			startTime = System.currentTimeMillis() - (SheepWorld.GAME_TIME - world.timeLeft);
 		}
 	}
 
@@ -334,7 +337,7 @@ public class GameScreen extends ScreenAdapter {
 		game.batcher.draw(Assets.time, 480 - 218, 800 - 40,
 				Assets.time.getRegionWidth() / 2f, 0,
 				Assets.time.getRegionWidth(), Assets.time.getRegionHeight(),
-				1f, 1f, world.timeLeft / 16.666f, false);
+				1f, 1f, world.timeLeft / 166.666f, false);
 		Assets.font22.draw(game.batcher, timeString, 480 - 193, 800 - 30);
 		game.batcher.draw(Assets.score, 480 - 113, 800 - 53);
 		Assets.font22.draw(game.batcher, scoreString, 480 - 75, 800 - 30);
@@ -356,10 +359,10 @@ public class GameScreen extends ScreenAdapter {
 		Assets.font22.draw(game.batcher, "--" + SheepHerder.TAP_OR_CLICK + " to resume--", 140, 400);
 	}
 
-	private int calculateScore(int sheepCollected, int timeLeft) {
+	private int calculateScore(int sheepCollected, long timeLeft) {
 		if (sheepCollected == 0)
 			return 0;
-		return sheepCollected * 100 + timeLeft / 100;
+		return (int) (sheepCollected * 100 + timeLeft / 1000);
 	}
 
 	private void presentGameOver(boolean newBest) {
@@ -367,9 +370,7 @@ public class GameScreen extends ScreenAdapter {
 			game.batcher.draw(Assets.newbest, 50, 263, 380, 274);
 		} else
 			game.batcher.draw(Assets.gameover, 50, 263, 380, 274);
-		String time = tfm.format(world.timeLeft / 6000) + ":"
-				+ tfm.format((world.timeLeft % 6000) / 100);
-		String score = "SCORE: " + world.sheepsCollected + " + " + time + " = "
+		String score = "SCORE: " + world.sheepsCollected + " + " + timeString + " = "
 				+ calculateScore(world.sheepsCollected, world.timeLeft);
 		String best = "BEST: " + SavedData.highscore;
 		Assets.font24.setColor(Color.BLACK);

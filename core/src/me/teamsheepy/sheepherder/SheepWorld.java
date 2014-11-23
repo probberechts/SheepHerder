@@ -27,14 +27,14 @@ public class SheepWorld {
 	public static final int WORLD_STATE_SWIPE_SUGGESTION = 2;
 	public static int WORLD_MARGIN = 20;
 	public static final Color WORLD_MARGIN_COLOR = new Color(0x006400ff);
-	public static final int GAME_TIME = 6000;
+	public static final long GAME_TIME = 60000; //milliseconds -> 1 min
 
 	public Pen pen;
 	public final List<Sheep> sheeps;
 	public final List<Tree> trees;
 	public final List<River> rivers;
 
-	public int timeLeft;
+	public long timeLeft;
 	public int sheepsCollected;
 	public int state;
 	public int tapCount = 0;
@@ -47,7 +47,7 @@ public class SheepWorld {
 		this.trees = new ArrayList<Tree>();
 		this.rivers = new ArrayList<River>();
 
-		this.timeLeft = 6000;
+		this.timeLeft = GAME_TIME;
 		this.sheepsCollected = 0;
 		this.state = WORLD_STATE_RUNNING;
 		
@@ -113,7 +113,7 @@ public class SheepWorld {
 				sheep.velocity = new Vector2(100, 100);
 				sheep.timeToIdle = 200;
 				
-				Vector2 force = new Vector2((float) Math.cos(Math.toRadians(rot)) * 30000, (float) Math.sin(Math.toRadians(rot)) * 30000);
+				Vector2 force = new Vector2((float) Math.cos(Math.toRadians(rot)) * 300000, (float) Math.sin(Math.toRadians(rot)) * 300000);
 				sheep.body.applyLinearImpulse(force.x, force.y, sheep.body.getPosition().x, sheep.body.getPosition().y, true);
 				sheep.touched = true;
 			} else sheep.touched = false;
@@ -165,7 +165,7 @@ public class SheepWorld {
 	}
 	
 	private void checkIfSheepsIsInPen(Sheep sheep) {
-		Rectangle sheepBounds = new Rectangle(sheep.body.getPosition().x, sheep.body.getPosition().y, sheep.bounds.width, sheep.bounds.height);
+		Rectangle sheepBounds = sheep.sprite.getBoundingRectangle();
 		if (sheep.state != Sheep.SHEEP_STATE_CAUGHT && pen.hasScored(sheepBounds)) {
 			sheep.state = Sheep.SHEEP_STATE_CAUGHT;
 			sheepsCollected++;

@@ -61,7 +61,7 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 
 	@Override
 	public void trackTimedEvent(String category, String subCategory, String label,
-						   int value) {
+						   long value) {
 		//TODO
 	}
 

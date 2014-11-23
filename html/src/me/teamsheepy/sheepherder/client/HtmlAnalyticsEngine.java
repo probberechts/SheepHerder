@@ -46,7 +46,7 @@ public class HtmlAnalyticsEngine implements AnalyticsEngine {
 	}-*/;
 
     @Override
-    public native void trackTimedEvent(String category, String subCategory, String label, int value) /*-{
+    public native void trackTimedEvent(String category, String subCategory, String label, long value) /*-{
         try {
             $wnd._gaq.push(['_trackTiming', category, subCategory, label, value]);
         } catch (e) {
