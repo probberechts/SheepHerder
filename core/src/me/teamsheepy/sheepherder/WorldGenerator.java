@@ -60,8 +60,9 @@ public class WorldGenerator {
 		int numSheeps = rand(MIN_SHEEPS, MAX_SHEEPS);
 		Sheep sheep;
 		int trys = 0;
+		int sheepnumber = 1;
 		for (int i = 0; i < numSheeps; i++) {
-			sheep = new Sheep(rand(50, (int) SheepWorld.WORLD_WIDTH - 70), rand(50, 180));
+			sheep = new Sheep(rand(50, (int) SheepWorld.WORLD_WIDTH - 70), rand(50, 180), sheepnumber);
 			sheep.rotation = rand(0, 360);
 			if (trys < 200 && checkOverlapObject(sheep)) {
 				i--;
@@ -74,6 +75,7 @@ public class WorldGenerator {
 				bodyDef.linearDamping = 2.0f;
 				sheep.body = shWorld.world.createBody(bodyDef);
 				sheep.body.setFixedRotation(true);
+				sheep.body.setUserData("schaap" + sheepnumber);
 				
 				PolygonShape shape = new PolygonShape();
 				shape.setAsBox(sheep.sprite.getWidth()/2, sheep.sprite.getHeight()/2);
@@ -82,6 +84,7 @@ public class WorldGenerator {
 		        fixtureDef.density = 1f;
 
 		        Fixture fixture = sheep.body.createFixture(fixtureDef);
+		        sheepnumber++;
 
 		        shape.dispose();
 			}

@@ -1,4 +1,4 @@
-package me.teamsheepy.sheepherder;
+package me.teamsheepy.sheepherder.client;
 
 import me.teamsheepy.sheepherder.utils.TimeFormatter;
 

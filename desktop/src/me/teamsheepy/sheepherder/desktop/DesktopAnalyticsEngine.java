@@ -1,16 +1,8 @@
 package me.teamsheepy.sheepherder.desktop;
 
-import me.teamsheepy.sheepherder.SavedData;
-import me.teamsheepy.sheepherder.SheepHerder;
-import me.teamsheepy.sheepherder.utils.AnalyticsEngine;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Locale;
-import java.util.Queue;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -18,16 +10,15 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import me.teamsheepy.sheepherder.SavedData;
+import me.teamsheepy.sheepherder.SheepHerder;
+import me.teamsheepy.sheepherder.utils.AnalyticsEngine;
+
 import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Net.HttpRequest;
-import com.badlogic.gdx.Preferences;
 
 public class DesktopAnalyticsEngine implements AnalyticsEngine {
 	private final static Logger LOGGER = Logger.getLogger("Desktop");
@@ -47,7 +38,7 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 	@Override
 	public void initialize() {
 		try {
-			FileHandler fh = new FileHandler("sheepherderlogs.log", true);
+			FileHandler fh = new FileHandler("../../sheepherderlogs.log", true);
 			LOGGER.addHandler(fh);
 			fh.setFormatter(new SimpleFormatter());
 			LOGGER.info("SheepHerder version " + SheepHerder.VERSION);
@@ -102,6 +93,12 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 	}
 
 	@Override
+	public void trackTimedEvent(String category, String subCategory, String label,
+						   long value) {
+		//TODO
+	}
+
+	@Override
 	public void dispatch() {
 	}
 
@@ -128,7 +125,7 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 	private AnalyticsRequest defaultRequest() {
 		AnalyticsRequest req = new AnalyticsRequest();
 		req.addParameter("v", SheepHerder.VERSION);
-		req.addParameter("tid", SheepHerder.TRACKER_ID);
+		req.addParameter("tid", SheepHerder.DEBUG ? SheepHerder.DEBUG_TRACKER_ID : SheepHerder.TRACKER_ID);
 		req.addParameter("cid", SavedData.clientId);
 //		req.addParameter("sr", Gdx.app.getGraphics().getWidth() + "x"
 //				+ Gdx.app.getGraphics().getHeight());
@@ -138,7 +135,6 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 	}
 	
 	class SendRequest implements Runnable{
-
 		private AnalyticsRequest req;
 		
 		SendRequest(AnalyticsRequest req){
@@ -156,6 +152,5 @@ public class DesktopAnalyticsEngine implements AnalyticsEngine {
 				}
 			}
 		}
-		
 	}
 }

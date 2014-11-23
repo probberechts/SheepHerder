@@ -1,7 +1,5 @@
 package me.teamsheepy.sheepherder;
 
-import java.util.UUID;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 
@@ -15,6 +13,7 @@ public class SavedData {
 
 	public static void load() {
 		prefs = Gdx.app.getPreferences("SheepHerder");
+		if (SheepHerder.DEBUG) prefs.clear();
 		highscore = prefs.getInteger("highscore", 0);
 		gamesPlayed = prefs.getInteger("gamesPlayed", 0);
 		questionnaireFilled = prefs.getBoolean("questionnaireFilled", false);
