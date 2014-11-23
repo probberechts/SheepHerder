@@ -62,4 +62,12 @@ public class HtmlAnalyticsEngine implements AnalyticsEngine {
     public void dispatch() {
         //ga.js dispatches immediately
     }
+
+	@Override
+	public void startSession() {
+	}
+
+	@Override
+	public void stopSession() {
+	}
 }

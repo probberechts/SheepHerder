@@ -35,8 +35,4 @@ public class SheepHerder extends Game {
 		setScreen(new GameScreen(this));
 	}
 
-	@Override
-	public void render() {
-		super.render();
-	}
 }

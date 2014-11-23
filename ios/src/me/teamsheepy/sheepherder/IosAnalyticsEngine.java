@@ -44,4 +44,12 @@ public class IosAnalyticsEngine implements AnalyticsEngine {
         GAI.getSharedInstance().dispatch();
     }
 
+	@Override
+	public void startSession() {
+	}
+
+	@Override
+	public void stopSession() {
+	}
+
 }
