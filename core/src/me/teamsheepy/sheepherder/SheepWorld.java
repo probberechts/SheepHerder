@@ -43,7 +43,6 @@ public class SheepWorld {
 	public long timeLeft;
 	public int sheepsCollected;
 	public int state;
-	public int tapCount = 0;
 
 	public World world;
 

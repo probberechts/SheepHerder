@@ -182,7 +182,7 @@ public class GameScreen extends ScreenAdapter {
 		 * Show swipe suggestion to the user
 		 */
 		} else if (!suggestionShown
-					&& world.tapCount >= 20
+					&& touchTracker.countTaps() >= 20
 					&& !SavedData.neverShowSwipeSuggestion) {
 			state = SWIPE_SUGGESTION;
 			world.state = SheepWorld.WORLD_STATE_SWIPE_SUGGESTION;
@@ -238,7 +238,8 @@ public class GameScreen extends ScreenAdapter {
 				if (swipeCheckboxTicked)
 					SavedData.neverShowSwipeSuggestion();
 				suggestionShown = true;
-				state = GAME_READY;
+				state = GAME_RUNNING;
+				startTime = System.currentTimeMillis() - (SheepWorld.GAME_TIME - world.timeLeft);
 				world.state = SheepWorld.WORLD_STATE_RUNNING;
 			} else if (touchPos.x > 110 && touchPos.x < 160
 						&& touchPos.y > 285 && touchPos.y < 318) {
