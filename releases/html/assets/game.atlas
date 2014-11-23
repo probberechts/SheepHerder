@@ -6,113 +6,224 @@ filter: Nearest,Nearest
 repeat: none
 alert
   rotate: false
-  xy: 377, 478
+  xy: 1002, 889
   size: 20, 20
   orig: 20, 20
   offset: 0, 0
   index: -1
 bridge
   rotate: false
-  xy: 229, 179
+  xy: 947, 761
   size: 51, 48
   orig: 51, 48
   offset: 0, 0
   index: -1
+clock
+  rotate: false
+  xy: 892, 751
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
 font
   rotate: false
-  xy: 2, 500
+  xy: 2, 502
   size: 510, 509
   orig: 512, 512
   offset: 1, 2
   index: -1
 gameover
   rotate: false
-  xy: 2, 229
-  size: 373, 269
-  orig: 380, 274
-  offset: 4, 2
-  index: -1
-newbest
-  rotate: false
-  xy: 514, 740
+  xy: 425, 18
   size: 373, 269
   orig: 380, 274
   offset: 4, 2
   index: -1
 pen
   rotate: false
-  xy: 377, 202
+  xy: 223, 2
   size: 200, 225
   orig: 200, 225
   offset: 0, 0
   index: -1
-questionnaire
+retry
   rotate: false
-  xy: 514, 469
-  size: 373, 269
-  orig: 380, 274
-  offset: 4, 2
+  xy: 892, 780
+  size: 27, 28
+  orig: 27, 28
+  offset: 0, 0
   index: -1
 river
   rotate: false
-  xy: 377, 429
+  xy: 380, 289
   size: 584, 38
   orig: 584, 38
   offset: 0, 0
   index: -1
+score
+  rotate: false
+  xy: 921, 782
+  size: 24, 26
+  orig: 30, 30
+  offset: 2, 2
+  index: -1
 sheep
   rotate: false
-  xy: 889, 959
+  xy: 892, 961
   size: 55, 50
   orig: 55, 50
   offset: 0, 0
   index: -1
+sheep_walk1
+  rotate: false
+  xy: 892, 961
+  size: 55, 50
+  orig: 55, 50
+  offset: 0, 0
+  index: -1
+sheep_walk2
+  rotate: false
+  xy: 949, 962
+  size: 53, 49
+  orig: 55, 51
+  offset: 2, 0
+  index: -1
+sheep_walk3
+  rotate: false
+  xy: 949, 911
+  size: 53, 49
+  orig: 55, 51
+  offset: 2, 0
+  index: -1
+sheep_walk4
+  rotate: false
+  xy: 892, 910
+  size: 53, 49
+  orig: 55, 51
+  offset: 2, 0
+  index: -1
+sheep_walk5
+  rotate: false
+  xy: 947, 861
+  size: 53, 48
+  orig: 55, 51
+  offset: 2, 1
+  index: -1
+sheep_walk6
+  rotate: false
+  xy: 892, 860
+  size: 53, 48
+  orig: 55, 51
+  offset: 2, 1
+  index: -1
+sheep_walk7
+  rotate: false
+  xy: 947, 811
+  size: 53, 48
+  orig: 55, 51
+  offset: 2, 1
+  index: -1
+sheep_walk8
+  rotate: false
+  xy: 892, 810
+  size: 53, 48
+  orig: 55, 51
+  offset: 2, 1
+  index: -1
+time
+  rotate: false
+  xy: 1004, 1003
+  size: 2, 8
+  orig: 2, 8
+  offset: 0, 0
+  index: -1
+tip_notap
+  rotate: false
+  xy: 514, 740
+  size: 376, 271
+  orig: 380, 274
+  offset: 4, 2
+  index: -1
+tip_notap_v2
+  rotate: false
+  xy: 514, 467
+  size: 376, 271
+  orig: 380, 274
+  offset: 4, 2
+  index: -1
+tip_notap_v2_checked
+  rotate: false
+  xy: 2, 229
+  size: 376, 271
+  orig: 380, 274
+  offset: 4, 2
+  index: -1
 touchmarker
   rotate: false
-  xy: 2, 2
-  size: 225, 225
+  xy: 2, 8
+  size: 219, 219
   orig: 225, 225
-  offset: 0, 0
+  offset: 3, 3
   index: -1
 tree
   rotate: false
-  xy: 579, 290
+  xy: 800, 150
   size: 195, 137
   orig: 200, 140
   offset: 4, 2
   index: -1
 tree1
   rotate: false
-  xy: 579, 290
+  xy: 800, 150
   size: 195, 137
   orig: 200, 140
   offset: 4, 2
   index: -1
 tree2
   rotate: false
-  xy: 776, 290
-  size: 195, 137
+  xy: 800, 12
+  size: 196, 136
   orig: 200, 140
-  offset: 4, 2
+  offset: 3, 3
   index: -1
 tree3
   rotate: false
-  xy: 579, 151
-  size: 195, 137
+  xy: 380, 329
+  size: 197, 136
   orig: 200, 140
-  offset: 4, 2
-  index: -1
-tree5
-  rotate: false
-  xy: 579, 151
-  size: 195, 137
-  orig: 200, 140
-  offset: 4, 2
+  offset: 2, 3
   index: -1
 tree4
   rotate: false
-  xy: 776, 151
-  size: 195, 137
+  xy: 778, 330
+  size: 198, 135
   orig: 200, 140
+  offset: 1, 4
+  index: -1
+tree5
+  rotate: false
+  xy: 579, 329
+  size: 197, 136
+  orig: 200, 140
+  offset: 2, 3
+  index: -1
+
+game2.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+newbest
+  rotate: false
+  xy: 2, 2
+  size: 373, 269
+  orig: 380, 274
+  offset: 4, 2
+  index: -1
+questionnaire
+  rotate: false
+  xy: 377, 2
+  size: 373, 269
+  orig: 380, 274
   offset: 4, 2
   index: -1
