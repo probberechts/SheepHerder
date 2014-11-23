@@ -35,6 +35,8 @@ public class SheepWorld {
 	public static int WORLD_MARGIN = 20;
 	public static final Color WORLD_MARGIN_COLOR = new Color(0x006400ff);
 	public static final int GAME_TIME = 6000;
+	
+	public static final int SHEEP_SOUND_AFFECTED_THRESHOLD = 5;
 
 	public Pen pen;
 	public final List<Sheep> sheeps;
@@ -76,6 +78,12 @@ public class SheepWorld {
 
 	public void updateRotationSheeps(Vector3 touchPos) {
 		//push sheep away from finger/mouse
+		int sheepAffected = 0;
+		for (Sheep sheep : sheeps) {
+			if (sheep.body.getPosition().dst2(touchPos.x, touchPos.y) < 10000) {
+				sheepAffected++;
+			}
+		}
 		for (Sheep sheep : sheeps) {
 			if (sheep.body.getPosition().dst2(touchPos.x, touchPos.y) < 10000) {
 				float angle;
@@ -98,13 +106,15 @@ public class SheepWorld {
 				
 				Vector2 force = new Vector2((float) Math.cos(Math.toRadians(rot)) * 30000, (float) Math.sin(Math.toRadians(rot)) * 30000);
 				sheep.body.applyLinearImpulse(force.x, force.y, sheep.body.getPosition().x, sheep.body.getPosition().y, true);
-				if(sheep.currentSound == null || !sheep.currentSound.isPlaying()){
+				if(sheepAffected <= SHEEP_SOUND_AFFECTED_THRESHOLD && (sheep.currentSound == null || !sheep.currentSound.isPlaying())){
 					sheep.currentSound = Assets.sheepSounds.get((int)(Math.random()*Assets.sheepSounds.size()));
 					sheep.currentSound.play();
 				}
 				
 			}
 		}
+		if(sheepAffected > SHEEP_SOUND_AFFECTED_THRESHOLD)
+			Assets.manySheepSound.play();
 		
 //		for (Sheep sheep : sheeps) {
 //			if (sheep.position.dst2(touchPos.x, touchPos.y) < 10000) {

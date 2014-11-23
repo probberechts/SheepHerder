@@ -31,13 +31,13 @@ public class AndroidLauncher extends AndroidApplication implements AnalyticsEngi
 	@Override
 	public void onStart() {
 		super.onStart();
-		GoogleAnalytics.getInstance(this).reportActivityStart(this);
+		startSession();
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		GoogleAnalytics.getInstance(this).reportActivityStop(this);
+		stopSession();
 	}
 
 	@Override
@@ -68,5 +68,15 @@ public class AndroidLauncher extends AndroidApplication implements AnalyticsEngi
 	@Override
 	public void dispatch() {
 		GoogleAnalytics.getInstance(this).dispatchLocalHits();
+	}
+
+	@Override
+	public void startSession() {
+		GoogleAnalytics.getInstance(this).reportActivityStart(this);
+	}
+
+	@Override
+	public void stopSession() {
+		GoogleAnalytics.getInstance(this).reportActivityStop(this);
 	}
 }

@@ -5,10 +5,25 @@ import me.teamsheepy.sheepherder.SheepHerder;
 import me.teamsheepy.sheepherder.utils.AnalyticsEngine;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Queue;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.HttpRequest;
@@ -17,66 +32,130 @@ import com.badlogic.gdx.Preferences;
 public class DesktopAnalyticsEngine implements AnalyticsEngine {
 	private final static Logger LOGGER = Logger.getLogger("Desktop");
 
-	private String clientId;
+	private static final String CACHE_BUSTER = "z";
+	private static final String QUEUE_TIME = "qt";
 	
+	
+	private ExecutorService executor = Executors.newSingleThreadExecutor();
+	
+	private static int cacheBuster = 0;
+
 	public DesktopAnalyticsEngine() {
-		try {
-			FileHandler fh = new FileHandler("sheepherderlogs.log", true);
-			LOGGER.addHandler(fh);
-			fh.setFormatter(new SimpleFormatter());
-			LOGGER.info("SheepHerder version "+SheepHerder.VERSION);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+
 	}
 
 	@Override
 	public void initialize() {
+		try {
+			FileHandler fh = new FileHandler("sheepherderlogs.log", true);
+			LOGGER.addHandler(fh);
+			fh.setFormatter(new SimpleFormatter());
+			LOGGER.info("SheepHerder version " + SheepHerder.VERSION);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 		SavedData.setClientId(UUID.randomUUID().toString());
+	}
+
+	public void startSession() {
+		AnalyticsRequest req = defaultRequest();
+		req.addParameter("t", "event");
+		req.addParameter("sc", "start");
+		executor.submit(new SendRequest(req));
+		LOGGER.info("start session");
+	}
+
+	public void stopSession() {
+		AnalyticsRequest req = defaultRequest();
+		req.addParameter("t", "event");
+		req.addParameter("sc", "stop");
+		executor.submit(new SendRequest(req));
+		LOGGER.info("stop session");
 	}
 
 	@Override
 	public void trackPageView(String screenName) {
-		HttpRequest request = defaultRequest();
-		StringBuilder content = defaultParams();
-		content.append("&t=screenview&an=SheepHerder&av=")
-				.append(SheepHerder.VERSION).append("&aid=")
-				.append("me.teamsheepy.sheepherder").append("&cd=")
-				.append(screenName);
-		request.setContent(content.toString());
-		Gdx.net.sendHttpRequest(request, null);
-		LOGGER.info("pageView "+screenName);
+		screenName = screenName+"DTTEST";
+		AnalyticsRequest req = defaultRequest();
+		req.addParameter("av", "1");
+		req.addParameter("an", "SheepHerder");
+		req.addParameter("t", "appview");
+		req.addParameter("dt", screenName);
+		req.addParameter("cd", screenName);
+		executor.submit(new SendRequest(req));
+		LOGGER.info("pageView " + screenName);
 	}
 
 	@Override
 	public void trackEvent(String category, String subCategory, String label,
 			int value) {
-		HttpRequest request = defaultRequest();
-		StringBuilder content = defaultParams();
-		content.append("&t=event&ec=").append(category).append("&ea=")
-				.append(subCategory).append("&el=").append(label)
-				.append("&ev=" + value);
-		request.setContent(content.toString());
-		Gdx.net.sendHttpRequest(request, null);
-		LOGGER.info("event: category="+category+";action="+subCategory+";label="+label+";value="+value );
+		AnalyticsRequest req = defaultRequest();
+		req.addParameter("an", "SheepHerder");
+		req.addParameter("t", "event");
+		req.addParameter("ec", category);
+		req.addParameter("ea", subCategory);
+		req.addParameter("el", label);
+		req.addParameter("ev", "" + value);
+		executor.submit(new SendRequest(req));
+		LOGGER.info("event: category=" + category + ";action=" + subCategory
+				+ ";label=" + label + ";value=" + value);
 	}
 
 	@Override
 	public void dispatch() {
-		// TODO persist requests for if no internet connection, atm everything
-		// is instantly sent.
 	}
 
-	private HttpRequest defaultRequest() {
-		HttpRequest request = new HttpRequest("POST");
-		request.setUrl("http://www.google-analytics.com/collect");
-		request.setHeader("User-Agent", "SheepHerder Desktop");
-		return request;
+	private void sendRequest(AnalyticsRequest req) throws IOException,
+			URISyntaxException {
+		URIBuilder builder = new URIBuilder(new URI(
+				"http://www.google-analytics.com/collect"));
+		for (String a : req.getParams().keySet()) {
+			builder.setParameter(a, req.getParams().get(a));
+		}
+		builder.setParameter(CACHE_BUSTER, "" + cacheBuster);
+		builder.setParameter(QUEUE_TIME,
+				"" + (System.currentTimeMillis() - req.getQueryTime()));
+		cacheBuster++;
+		URI uri = builder.build();
+		//System.out.println(uri);
+		HttpGet post = new HttpGet(uri);
+		post.setHeader("User-Agent", "sheepherder.desktop/4");
+		CloseableHttpClient client = HttpClients.createDefault();
+		HttpResponse resp = client.execute(post);
+		//System.out.println("send req "+resp.getStatusLine().getReasonPhrase());
 	}
 
-	private StringBuilder defaultParams() {
-		return new StringBuilder("v=").append(SheepHerder.VERSION)
-				.append("&tid=").append(SheepHerder.TRACKER_ID).append("&cid=")
-				.append(clientId).append("&je=1");
+	private AnalyticsRequest defaultRequest() {
+		AnalyticsRequest req = new AnalyticsRequest();
+		req.addParameter("v", SheepHerder.VERSION);
+		req.addParameter("tid", SheepHerder.TRACKER_ID);
+		req.addParameter("cid", SavedData.clientId);
+//		req.addParameter("sr", Gdx.app.getGraphics().getWidth() + "x"
+//				+ Gdx.app.getGraphics().getHeight());
+//		req.addParameter("ul", Locale.getDefault().getLanguage());
+		req.addParameter("je", "1");
+		return req;
+	}
+	
+	class SendRequest implements Runnable{
+
+		private AnalyticsRequest req;
+		
+		SendRequest(AnalyticsRequest req){
+			this.req = req;
+		}
+		
+		@Override
+		public void run() {
+			for(;;){
+				try{
+					sendRequest(req);
+					break;
+				}catch(Exception e){
+					e.printStackTrace();//TODO remove
+				}
+			}
+		}
+		
 	}
 }

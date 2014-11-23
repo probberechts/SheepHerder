@@ -44,7 +44,7 @@ public class IosAnalyticsEngine implements AnalyticsEngine {
     private HttpRequest defaultRequest(){
     	HttpRequest request = new HttpRequest("POST");
     	request.setUrl("http://www.google-analytics.com/collect");
-    	request.setHeader("User-Agent", "SheepHerder Desktop");
+    	request.setHeader("User-Agent", "SheepHerder IOS");
     	return request;
     }
     private StringBuilder defaultParams(){
@@ -56,5 +56,13 @@ public class IosAnalyticsEngine implements AnalyticsEngine {
     	.append(clientId)
     	.append("&je=0");
     }
+
+	@Override
+	public void startSession() {
+	}
+
+	@Override
+	public void stopSession() {
+	}
     
 }

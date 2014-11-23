@@ -14,12 +14,14 @@ public class SwipeDetector2 extends GestureDetector.GestureAdapter{
 		this.world = world;
 	}
 	
+	
 	@Override
 	public boolean pan(float x, float y, float deltaX, float deltaY) {
 		if(world.state == SheepWorld.WORLD_STATE_RUNNING && !firstSwipe){
 			firstSwipe = true;
 			SheepHerder.analytics.trackEvent("gameEvent", "firstSwipe", "swipeTime", SheepWorld.GAME_TIME-world.timeLeft);
 		}
+		world.tapCount = 0;
 		return false;
 	}
 	

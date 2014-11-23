@@ -21,4 +21,12 @@ public class HtmlAnalyticsEngine implements AnalyticsEngine {
     @Override
     public void dispatch() {
     }
+
+	@Override
+	public void startSession() {
+	}
+
+	@Override
+	public void stopSession() {
+	}
 }
