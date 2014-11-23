@@ -59,8 +59,9 @@ public class AndroidLauncher extends AndroidApplication implements AnalyticsEngi
 
 	@Override
 	public void onStop() {
-		super.onStop();
 		GoogleAnalytics.getInstance(this).reportActivityStop(this);
+		dispatch();
+		super.onStop();
 	}
 
 	@Override
