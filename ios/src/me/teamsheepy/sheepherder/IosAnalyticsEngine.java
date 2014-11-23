@@ -35,7 +35,7 @@ public class IosAnalyticsEngine implements AnalyticsEngine {
     }
 
     @Override
-    public void trackTimedEvent(String category, String name, String label, long timeInMilliseconds) {
+    public void trackTimedEvent(String category, String name, String label, Long timeInMilliseconds) {
         tracker.send(GAIDictionaryBuilder.createTiming(category, NSNumber.valueOf(timeInMilliseconds), name, label).build());
     }
 

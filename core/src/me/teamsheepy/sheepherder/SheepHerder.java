@@ -17,7 +17,7 @@ public class SheepHerder extends Game {
 
 	// used by all screens
 	public SpriteBatch batcher;
-	
+
 	public static TimeFormatter timeFormatter = null;
 	public static AnalyticsEngine analytics = null;
 
@@ -25,7 +25,7 @@ public class SheepHerder extends Game {
 		SheepHerder.timeFormatter = timeFormatter;
 		SheepHerder.analytics = analytics;
 	}
-	   
+
 	@Override
 	public void create () {
 		batcher = new SpriteBatch();
@@ -34,7 +34,7 @@ public class SheepHerder extends Game {
 		analytics.initialize();
 		setScreen(new GameScreen(this));
 	}
-	
+
 	@Override
 	public void render() {
 		super.render();

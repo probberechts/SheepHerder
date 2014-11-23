@@ -159,9 +159,9 @@ public class GameScreen extends ScreenAdapter {
 			SheepHerder.analytics.trackEvent("gameOver", "escapedSheep",
 					SavedData.gamesPlayed + "", escapedSheep);
 
-			SheepHerder.analytics.trackTimedEvent("swipeData", "numTaps",
+			SheepHerder.analytics.trackEvent("swipeData", "numTaps",
 					SavedData.gamesPlayed + "", touchTracker.countTaps());
-			SheepHerder.analytics.trackTimedEvent("swipeData", "numSwipes",
+			SheepHerder.analytics.trackEvent("swipeData", "numSwipes",
 					SavedData.gamesPlayed + "", touchTracker.countSwipes());
 			SheepHerder.analytics.trackTimedEvent("swipeData", "avgSwipeTime",
 					SavedData.gamesPlayed + "", touchTracker.getAverageTouchTime());

@@ -45,10 +45,14 @@ public class HtmlAnalyticsEngine implements AnalyticsEngine {
         }
 	}-*/;
 
-    @Override
-    public native void trackTimedEvent(String category, String subCategory, String label, long value) /*-{
+    public void trackTimedEvent(String category, String subCategory, String label, Long value) {
+        // JSNI doesn't accept long values
+        trackTimedEvent_hack(category, subCategory, label, value.doubleValue());
+    }
+
+    public native void trackTimedEvent_hack(String category, String subCategory, String label, double value) /*-{
         try {
-            $wnd._gaq.push(['_trackTiming', category, subCategory, label, value]);
+            $wnd._gaq.push(['_trackTiming', category, subCategory, value, label, 100]);
         } catch (e) {
             console.log("AnalyticsError: " + e)
         }
@@ -56,5 +60,6 @@ public class HtmlAnalyticsEngine implements AnalyticsEngine {
 
     @Override
     public void dispatch() {
+        //ga.js dispatches immediately
     }
 }

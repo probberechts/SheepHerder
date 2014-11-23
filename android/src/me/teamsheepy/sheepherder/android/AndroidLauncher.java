@@ -90,7 +90,7 @@ public class AndroidLauncher extends AndroidApplication implements AnalyticsEngi
 	}
 
 	@Override
-	public void trackTimedEvent(String category, String subCategory, String label, long value) {
+	public void trackTimedEvent(String category, String subCategory, String label, Long value) {
 		// Build and send an Event.
 		t.send(new HitBuilders.TimingBuilder()
 				.setCategory(category)
