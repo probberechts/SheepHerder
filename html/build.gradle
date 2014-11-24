@@ -7,8 +7,8 @@ gwt {
     minHeapSize="1G"
 
     src = files(file("src/")) // Needs to be in front of "modules" below.
-    modules 'me.teamsheepy.sheepherder.GdxDefinition'
-    devModules 'me.teamsheepy.sheepherder.GdxDefinitionSuperdev'
+    modules 'be.teamsheepy.sheepherder.GdxDefinition'
+    devModules 'be.teamsheepy.sheepherder.GdxDefinitionSuperdev'
     project.webAppDirName = 'webapp'
 
     compiler {
