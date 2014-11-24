@@ -106,22 +106,32 @@ header img {
     margin: 0 auto 0;
 }
 
+.row-centered {
+  text-align:center;
+}
+
+.col-centered {
+  display:inline-block;
+  float:none;
+  /* reset the text-align */
+  text-align:left;
+  /* inline-block space fix */
+  margin-right:-4px;
+}
+
 @media(min-width:768px) {
     header .container {
         padding-top: 0px;
         padding-bottom: 100px;
     }
 
-    header img {
+    #banner {
       padding-top:100px;
+      padding-bottom:70px;
     }
 
-    header .intro-text .name {
-        font-size: 4.75em;
-    }
-
-    header .intro-text .skills {
-        font-size: 1.75em;
+    #downloads{
+      margin-top:50px;
     }
 }
 

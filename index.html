@@ -46,6 +46,24 @@
       ga('send', 'pageview');
     </script>
 
+    <script>
+      var sourceSwap = function () {
+        var $this = $(this);
+        var newSource = $this.data('alt-src');
+        $this.data('alt-src', $this.attr('src'));
+        $this.attr('src', newSource);
+      }
+      $(function() {
+        $('img[data-alt-src]').each(function() {
+          new Image().src = $(this).data('alt-src');
+        }).hover(sourceSwap, sourceSwap);
+      });
+
+      $(function ()
+      { $("#questionnaire").tooltip({title: '<strong>We need your opinion!</strong><br/>Please fill in this 5-minute questionnaire and help us to improve our game.'});
+      });
+    </script>
+
 </head>
 
 <body id="page-top" class="index">
@@ -55,13 +73,28 @@
         <div class="container">
             <div class="row">
                <a class="navbar" href="http://blog.teamsheepy.be">Blog</a>
+               <a id="questionnaire" class="navbar" data-html="true" data-toggle="tooltip" data-placement="bottom" data-trigger="hover" href="http://teamsheepy.be/questionnaire.html">Questionnaire</a>
             </div>
             <div class="row">
                 <div class="col-lg-12">
-                    <img class="img-responsive" src="img/banner.png" alt="">
-                    <a onClick="ga('send', 'event', { eventCategory: 'download', eventAction: 'html5', eventLabel: 'v2.0'});" href="releases/html/index.html"><button class="btn-outline" value="Play online"><span class="glyphicon glyphicon-play"></span> Play it online</button></a>
-                    <a onClick="ga('send', 'event', { eventCategory: 'download', eventAction: 'android', eventLabel: 'v2.0'});" href="releases/SheepHerder.apk" target="_blank"><button class="btn-outline" value="Get for desktop"><span class="glyphicon glyphicon-download"></span> Get it for Android</button></a>
-                    <a onClick="ga('send', 'event', { eventCategory: 'download', eventAction: 'desktop', eventLabel: 'v2.0'});" href="releases/SheepHerder.jar" target="_blank"><button class="btn-outline" value="Get for desktop"><span class="glyphicon glyphicon-download"></span> Get it for desktop</button></a>
+                    <div class="row">
+                      <img id="banner" class=" banner img-responsive" src="img/banner.png" alt="">
+                    </div>
+                    <div class="row row-centered downloads">
+                      <div class="col-xs-4 col-md-3 col-centered">
+                        <a onClick="ga('send', 'event', { eventCategory: 'download', eventAction: 'html5', eventLabel: 'v1.4'});" href="releases/html/index.html">
+                          <img class="img-responsive" data-alt-src="img/Play Online black.png"  src="img/Play Online white.png" alt="Play Online">
+                        </a>
+                      </div>
+                      <div class="col-xs-4 col-md-3 col-centered">
+                        <a onClick="ga('send', 'event', { eventCategory: 'download', eventAction: 'android', eventLabel: 'v1.4'});" href="https://play.google.com/store/apps/details?id=be.teamsheepy.sheepherder.android" target="_blank">
+                          <img class="img-responsive" data-alt-src="img/Google Play black.png" src="img/Google Play white.png" alt="Google Play Store">
+                        </a>
+                      </div>
+                      <div class="col-xs-4 col-md-3 col-centered">
+                          <img class="img-responsive" data-alt-src="img/Apple App Store soon black.png" src="img/Apple App Store soon white.png" alt="Apple App Store">
+                      </div>
+                  </div>
                 </div>
             </div>
         </div>
@@ -93,8 +126,8 @@
                     <p>
                     We are three student at the KU Leuven, developping this game as
                     a project for the course "Fundamentals of CHI". You can follow
-                    our adventures on <a href="http://teamsheepy.blogspot.com">this</a>
-                    blog. Let us know if you have remarks/ideas for improvements/...
+                    our adventures on our <a href="http://teamsheepy.blogspot.com">blog</a>.
+                    Let us know if you have remarks/ideas for improvements/...
                     </p>
                     <br/>
                     <h4>Have fun!</h4>
@@ -109,6 +142,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
+                      <a style="color:white" class="pull-right" href="mailto:teamsheepy@outlook.com"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> Send us an email</a>
                       &copy; 2014 by Team Sheepy
                     </div>
                 </div>
