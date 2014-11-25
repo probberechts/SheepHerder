@@ -135,6 +135,23 @@ header img {
     }
 }
 
+@media all and (max-width: 1200px) { /* screen size until 1200px */
+  nav {
+    font-size: 1em; /* 1.5x default size */
+  }
+}
+@media all and (max-width: 1000px) { /* screen size until 1000px */
+  nav {
+    font-size: 0.8em; /* 1.2x default size */
+  }
+}
+@media all and (max-width: 500px) { /* screen size until 500px */
+  nav {
+    text-align:left;
+    font-size: 0.6em; /* 0.8x default size */
+  }
+}
+
 section {
     padding: 100px 0;
 }
@@ -213,4 +230,8 @@ footer .footer {
 
 .scroll-top .btn:focus {
     outline: 0;
+}
+
+.img-responsive {
+  margin: 0 auto;
 }
