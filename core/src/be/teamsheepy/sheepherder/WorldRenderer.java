@@ -72,9 +72,10 @@ public class WorldRenderer {
 		renderSheeps();
 		renderPen();
 		renderTrees();
+		world.confettiMaker.render(batch, Gdx.graphics.getDeltaTime());
 		renderTouchMarker(touchPos);
-		if(Gdx.input.isKeyJustPressed(Keys.ANY_KEY))
-			debugRenderer.render(world.world, camera.combined);
+//		if(Gdx.input.isKeyJustPressed(Keys.ANY_KEY))
+//			debugRenderer.render(world.world, camera.combined);
 		batch.end();
 	}
 

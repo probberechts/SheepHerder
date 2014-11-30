@@ -42,6 +42,8 @@ public class Assets {
 	public static Music manySheepSound;
 	public static Sound sheepInPen;
 	public static Sound allSheepInPen;
+	public static TextureRegion confettiWhite;
+	public static TextureRegion sleepingsheep;
 
 	public static Texture loadTexture(String file) {
 		return new Texture(Gdx.files.internal(file));
@@ -65,6 +67,8 @@ public class Assets {
 		tree = atlas.findRegion("tree");
 		river = atlas.findRegion("river");
 		bridge = atlas.findRegion("bridge");
+		confettiWhite = atlas.findRegion("confettiwit");
+		sleepingsheep = atlas.findRegion("sleepingsheep");
 		alert = atlas.findRegion("alert");
 		clock = atlas.findRegion("clock");
 		clock.getTexture()
@@ -107,6 +111,7 @@ public class Assets {
 		for (int i = 1; i < 12; i++) {
 			sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep" + i
 					+ ".mp3")));
+		
 		}
 		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep1.wav")));
 		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep2.wav")));

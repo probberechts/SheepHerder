@@ -1,5 +1,7 @@
 package be.teamsheepy.sheepherder.screens;
 
+import java.util.Random;
+
 import be.teamsheepy.sheepherder.Assets;
 import be.teamsheepy.sheepherder.SavedData;
 import be.teamsheepy.sheepherder.SheepHerder;
@@ -14,6 +16,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import be.teamsheepy.sheepherder.utils.TouchTracker;
 
@@ -44,6 +47,7 @@ public class GameScreen extends ScreenAdapter {
 	private boolean suggestionShown = false;
 	private TouchTracker touchTracker;
 	private long startTime;
+	private float confettiTimer;
 
 	public GameScreen(SheepHerder game) {
 		SheepHerder.analytics.trackPageView("game");
@@ -56,6 +60,7 @@ public class GameScreen extends ScreenAdapter {
 		renderer = new WorldRenderer(game.batcher, world);
 		scoreString = "0";
 		timeString = "1:00";
+		confettiTimer = 0;
 		if (!SavedData.questionnaireFilled && SavedData.gamesPlayed != 0
 				&& SavedData.gamesPlayed % 5 == 0)
 			state = QUESTIONNAIRE;
@@ -367,6 +372,14 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void presentGameOver(boolean newBest) {
+		//confetti //TODO uitzoeken waarom alleen in linkeronderhoek vuurt
+		confettiTimer -= Gdx.graphics.getDeltaTime();
+		Random rand = new Random();
+		if(confettiTimer <= 0) {
+			confettiTimer = rand.nextFloat()+1;
+			world.confettiMaker.fire(new Vector2(rand.nextFloat()*world.WORLD_WIDTH, rand.nextFloat()*world.WORLD_HEIGHT));
+		}
+		world.confettiMaker.render(game.batcher, Gdx.graphics.getDeltaTime());
 		if (newBest) {
 			game.batcher.draw(Assets.newbest, 50, 263, 380, 274);
 		} else

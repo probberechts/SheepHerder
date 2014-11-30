@@ -93,6 +93,7 @@ public class Sheep extends DynamicGameObject {
 
 	@Override
 	public void render(SpriteBatch batch) {
+		if(body == null) return;
 		// sprite.setPosition(position.x, position.y);
 		sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2,
 				body.getPosition().y - sprite.getHeight() / 2);

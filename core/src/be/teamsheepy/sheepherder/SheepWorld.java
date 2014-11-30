@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import be.teamsheepy.sheepherder.objects.ConfettiMaker;
 import be.teamsheepy.sheepherder.objects.Pen;
 import be.teamsheepy.sheepherder.objects.River;
 import be.teamsheepy.sheepherder.objects.Sheep;
@@ -42,6 +43,7 @@ public class SheepWorld {
 	public long timeLeft;
 	public int sheepsCollected;
 	public int state;
+	public ConfettiMaker confettiMaker;
 
 	public World world;
 
@@ -54,6 +56,8 @@ public class SheepWorld {
 		this.timeLeft = GAME_TIME;
 		this.sheepsCollected = 0;
 		this.state = WORLD_STATE_RUNNING;
+		
+		confettiMaker = new ConfettiMaker();
 
 		// initialize box2D
 		Box2D.init();
@@ -215,11 +219,17 @@ public class SheepWorld {
 				SheepHerder.analytics.trackTimedEvent("gameEvent",
 						"firstSheepInPen", SavedData.gamesPlayed + "",
 						GAME_TIME - timeLeft);
-		} else if (sheep.state == Sheep.SHEEP_STATE_CAUGHT
-				&& !pen.hasScored(sheepBounds)) {
-			sheep.state = Sheep.SHEEP_STATE_FREE;
-			sheepsCollected--;
-		}
+			//confetti
+			confettiMaker.fire(new Vector2(sheep.body.getPosition().x, sheep.body.getPosition().y));
+			
+			//remove sheep
+			sheep.body.setTransform(new Vector2(-500, -500),0);
+		} 
+//		else if (sheep.state == Sheep.SHEEP_STATE_CAUGHT
+//				&& !pen.hasScored(sheepBounds)) {
+//			sheep.state = Sheep.SHEEP_STATE_FREE;
+//			sheepsCollected--;
+//		}
 	}
 
 	private void checkGameOver() {
