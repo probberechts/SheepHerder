@@ -44,6 +44,7 @@ public class Assets {
 	public static Sound allSheepInPen;
 	public static TextureRegion confettiWhite;
 	public static TextureRegion sleepingsheep;
+	public static TextureRegion sleepingsheeps;
 
 	public static Texture loadTexture(String file) {
 		return new Texture(Gdx.files.internal(file));
@@ -69,6 +70,7 @@ public class Assets {
 		bridge = atlas.findRegion("bridge");
 		confettiWhite = atlas.findRegion("confettiwit");
 		sleepingsheep = atlas.findRegion("sleepingsheep");
+		sleepingsheeps = atlas.findRegion("sleepingsheeps");
 		alert = atlas.findRegion("alert");
 		clock = atlas.findRegion("clock");
 		clock.getTexture()

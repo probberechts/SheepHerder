@@ -91,8 +91,13 @@ public class Sheep extends DynamicGameObject {
 			state = SHEEP_STATE_FREE;
 	}
 
+	
 	@Override
 	public void render(SpriteBatch batch) {
+		//not used
+	}
+	
+	public void render(SpriteBatch batch, boolean sleeping) {
 		if(body == null) return;
 		// sprite.setPosition(position.x, position.y);
 		sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2,
@@ -111,9 +116,15 @@ public class Sheep extends DynamicGameObject {
 		// newSprite.setPosition(sprite.getX(), sprite.getY());
 		// newSprite.draw(batch);
 
-		batch.draw(frame, sprite.getX(), sprite.getY(), sprite.getWidth() / 2f,
+		if(sleeping) {
+			batch.draw(Assets.sleepingsheep, sprite.getX(), sprite.getY(), sprite.getWidth() / 2f,
+					sprite.getHeight() / 2f, sprite.getWidth(), sprite.getHeight(),
+					1f, 1f, sprite.getRotation() - 90, false);
+		} else {
+			batch.draw(frame, sprite.getX(), sprite.getY(), sprite.getWidth() / 2f,
 				sprite.getHeight() / 2f, sprite.getWidth(), sprite.getHeight(),
 				1f, 1f, sprite.getRotation() - 90, false);
+		}
 
 		if (state == SHEEP_STATE_DANGER)
 			batch.draw(Assets.alert,

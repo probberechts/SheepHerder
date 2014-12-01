@@ -320,6 +320,7 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void presentReady() {
+		renderer.sleeping = true;
 		if (SavedData.highscore <= 0) { // only show tutorial when there have
 										// been no sheep collected so far
 			String line1 = "Drag your finger across the screen,";
@@ -337,14 +338,25 @@ public class GameScreen extends ScreenAdapter {
 	}
 
 	private void presentRunning() {
+		renderer.sleeping = false;
 		renderer.renderRetry();
 		Assets.font22.setScale(0.9f);
+		
+		if((world.timeLeft % 60000) / 1000 < 10) {
+			//only 10 sec left
+			game.batcher.setColor(Color.RED);
+			Assets.font22.setColor(Color.RED);
+		} 
 		game.batcher.draw(Assets.clock, 480 - 230, 800 - 53);
 		game.batcher.draw(Assets.time, 480 - 218, 800 - 40,
 				Assets.time.getRegionWidth() / 2f, 0,
 				Assets.time.getRegionWidth(), Assets.time.getRegionHeight(),
 				1f, 1f, world.timeLeft / 166.666f, false);
 		Assets.font22.draw(game.batcher, timeString, 480 - 193, 800 - 30);
+		
+		game.batcher.setColor(Color.WHITE);
+		Assets.font22.setColor(Color.WHITE);
+		
 		game.batcher.draw(Assets.score, 480 - 113, 800 - 53);
 		Assets.font22.draw(game.batcher, scoreString, 480 - 75, 800 - 30);
 		Assets.font22.setScale(0.7f);

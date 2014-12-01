@@ -13,7 +13,7 @@ alert
   index: -1
 bridge
   rotate: false
-  xy: 892, 613
+  xy: 892, 612
   size: 51, 48
   orig: 51, 48
   offset: 0, 0
@@ -25,16 +25,9 @@ clock
   orig: 27, 27
   offset: 0, 0
   index: -1
-confettirood
-  rotate: false
-  xy: 2, 2
-  size: 8, 8
-  orig: 8, 8
-  offset: 0, 0
-  index: -1
 confettiwit
   rotate: false
-  xy: 223, 12
+  xy: 2, 2
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
@@ -97,54 +90,61 @@ sheep_walk1
   index: -1
 sheep_walk2
   rotate: false
-  xy: 892, 914
+  xy: 949, 966
   size: 53, 49
   orig: 55, 51
   offset: 2, 0
   index: -1
 sheep_walk3
   rotate: false
-  xy: 949, 966
+  xy: 892, 862
   size: 53, 49
   orig: 55, 51
   offset: 2, 0
   index: -1
 sheep_walk4
   rotate: false
-  xy: 892, 863
+  xy: 949, 915
   size: 53, 49
   orig: 55, 51
   offset: 2, 0
   index: -1
 sheep_walk5
   rotate: false
-  xy: 892, 813
+  xy: 892, 812
   size: 53, 48
   orig: 55, 51
   offset: 2, 1
   index: -1
 sheep_walk6
   rotate: false
-  xy: 892, 763
+  xy: 892, 762
   size: 53, 48
   orig: 55, 51
   offset: 2, 1
   index: -1
 sheep_walk7
   rotate: false
-  xy: 892, 713
+  xy: 892, 712
   size: 53, 48
   orig: 55, 51
   offset: 2, 1
   index: -1
 sheep_walk8
   rotate: false
-  xy: 892, 663
+  xy: 892, 662
   size: 53, 48
   orig: 55, 51
   offset: 2, 1
   index: -1
 sleepingsheep
+  rotate: false
+  xy: 892, 913
+  size: 55, 50
+  orig: 55, 50
+  offset: 0, 0
+  index: -1
+sleepingsheeps
   rotate: false
   xy: 819, 57
   size: 184, 185
@@ -153,7 +153,7 @@ sleepingsheep
   index: -1
 time
   rotate: false
-  xy: 1004, 1007
+  xy: 223, 12
   size: 2, 8
   orig: 2, 8
   offset: 0, 0

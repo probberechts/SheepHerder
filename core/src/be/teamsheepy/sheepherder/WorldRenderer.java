@@ -25,11 +25,13 @@ public class WorldRenderer {
 	private SpriteBatch batch;
 	ImmediateModeRenderer immediateRenderer;
 	Box2DDebugRenderer debugRenderer = new Box2DDebugRenderer();
+	public boolean sleeping;
 
 	public WorldRenderer (SpriteBatch batch, SheepWorld world) {
 		this.world = world;
 		this.batch = batch;
 		this.immediateRenderer = new ImmediateModeRenderer20(false, true, 0);
+		 sleeping = false;
 	}
 
 	public void render (Vector3 touchPos, OrthographicCamera camera) {
@@ -83,7 +85,7 @@ public class WorldRenderer {
 		int len = world.sheeps.size();
 		for (int i = 0; i < len; i++) {
 			Sheep sheep = world.sheeps.get(i);
-			sheep.render(batch);
+			sheep.render(batch, sleeping);
 		}
 	}
 
