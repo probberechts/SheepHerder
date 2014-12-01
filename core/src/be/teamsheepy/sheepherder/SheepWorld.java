@@ -214,11 +214,11 @@ public class SheepWorld {
 				&& pen.hasScored(sheepBounds)) {
 			Assets.sheepInPen.play();
 			sheep.state = Sheep.SHEEP_STATE_CAUGHT;
-			sheepsCollected++;
 			if (sheepsCollected == 0)
 				SheepHerder.analytics.trackTimedEvent("gameEvent",
-						"firstSheepInPen", SavedData.gamesPlayed + "",
+						"firstSheepInPen", "played: "+SavedData.gamesPlayed,
 						GAME_TIME - timeLeft);
+			sheepsCollected++;
 			//confetti
 			confettiMaker.fire(new Vector2(sheep.body.getPosition().x, sheep.body.getPosition().y));
 			
