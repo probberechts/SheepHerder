@@ -33,7 +33,9 @@ public class ConfettiMaker {
 		
 		//create between 5 and 10 random confettis
 		Random rand = new Random();
-		int amount = rand.nextInt()%50+20;
+		int amount = rand.nextInt()%50;
+		amount = Math.abs(amount);
+		amount += 20;
 		for(int i=0;i<amount;++i) {
 			Color c = new Color(rand.nextFloat(), rand.nextFloat(), rand.nextFloat(), 1);
 			Vector2 direction = new Vector2(rand.nextInt()%7, rand.nextInt()%7);
