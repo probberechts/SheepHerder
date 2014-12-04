@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Play Sheep Herder online">
+  <meta name="author" content="Team Sheepy">
+
+  <script src="soundmanager2-setup.js"></script>
+  <script src="soundmanager2-jsmin.js"></script>
+
+  <title>Sheep Herder</title>
+
+</head>
+
+<body>
+  <div id="embed-html"></div>
+  <script type="text/javascript" src="gwt/html.nocache.js"></script>
+  <br/>
+  <p><small>Have patience, loading could take a while!<br/>Use Ctrl and - (Windows) or ⌘ and - (Mac) if the game does not fit on your screen.</small></p>
+</body>
+
+<script>
+function handleMouseDown(evt) {
+  evt.preventDefault();
+  evt.stopPropagation();
+  evt.target.style.cursor = 'default';
+}
+
+function handleMouseUp(evt) {
+  evt.preventDefault();
+  evt.stopPropagation();
+  evt.target.style.cursor = '';
+}
+document.getElementById('embed-html').addEventListener('mousedown',
+handleMouseDown, false);
+document.getElementById('embed-html').addEventListener('mouseup',
+handleMouseUp, false);
+</script>
+</html>
