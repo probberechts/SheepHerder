@@ -36,7 +36,6 @@ public class WorldRenderer {
 
 	public void render (Vector3 touchPos, OrthographicCamera camera) {
 		renderBackground();
-		Gdx.gl.glViewport(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		renderObjects(touchPos, camera);
 	}
 
