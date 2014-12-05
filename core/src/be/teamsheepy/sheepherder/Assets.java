@@ -37,9 +37,7 @@ public class Assets {
 	public static BitmapFont font22;
 	public static TextureRegion emptyCheckBox;
 	public static TextureRegion fullCheckBox;
-	public static List<Music> sheepSounds;
-	public static Music escapingSheepSound;
-	public static Music manySheepSound;
+	public static Sound sheepSound;
 	public static Sound sheepInPen;
 	public static Sound allSheepInPen;
 	public static TextureRegion confettiWhite;
@@ -109,30 +107,9 @@ public class Assets {
 		font22 = new BitmapFont(
 				Gdx.files.internal("ArchitectsDaughter-22.fnt"),
 				atlas.findRegion("font"), false);
-		sheepSounds = new ArrayList<Music>();
-		for (int i = 1; i < 12; i++) {
-			sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep" + i
-					+ ".mp3")));
-		
-		}
-		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep1.wav")));
-		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep2.wav")));
-		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep3.wav")));
-		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep4.wav")));
-		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep5.wav")));
-		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep6.wav")));
-		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep7.wav")));
-		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep8.wav")));
-		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep9.wav")));
-		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep10.wav")));
-		// sheepSounds.add(Gdx.audio.newMusic(Gdx.files.internal("sheep11.wav")));
-		manySheepSound = Gdx.audio
-				.newMusic(Gdx.files.internal("manysheep.mp3"));
-		escapingSheepSound = Gdx.audio.newMusic(Gdx.files
-				.internal("sheepescaping.mp3"));
+		sheepSound = Gdx.audio.newSound(Gdx.files.internal("sheep7.mp3"));
 		sheepInPen = Gdx.audio.newSound(Gdx.files.internal("sheepinpen.mp3"));
 		allSheepInPen = Gdx.audio.newSound(Gdx.files
 				.internal("allsheepinpen.mp3"));
 	}
-
 }

@@ -80,13 +80,9 @@ public class Sheep extends DynamicGameObject {
 		if (body.getPosition().x < danger
 				|| body.getPosition().x > SheepWorld.WORLD_WIDTH - danger){
 			state = SHEEP_STATE_DANGER;
-			if(!Assets.escapingSheepSound.isPlaying())
-				Assets.escapingSheepSound.play();
 		}else if (body.getPosition().y < danger
 				|| body.getPosition().y > SheepWorld.WORLD_HEIGHT - danger){
 			state = SHEEP_STATE_DANGER;
-			if(!Assets.escapingSheepSound.isPlaying())
-				Assets.escapingSheepSound.play();
 		}else
 			state = SHEEP_STATE_FREE;
 	}

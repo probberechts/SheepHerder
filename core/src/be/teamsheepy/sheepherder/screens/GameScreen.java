@@ -48,6 +48,7 @@ public class GameScreen extends ScreenAdapter {
 	private TouchTracker touchTracker;
 	private long startTime;
 	private float confettiTimer;
+	private long lastPlayedSound = SheepWorld.GAME_TIME;
 
 	public GameScreen(SheepHerder game) {
 		SheepHerder.analytics.trackPageView("game");
@@ -363,6 +364,11 @@ public class GameScreen extends ScreenAdapter {
 		Assets.font22.draw(game.batcher, "Best: " + SavedData.highscore,
 				480 - 113, 800 - 60);
 		Assets.font22.setScale(1);
+		long chance = world.timeLeft % 10000L;
+		if(chance >= 0 && chance <= 3000 && lastPlayedSound-world.timeLeft >= 3000){
+			Assets.sheepSound.play(.5f);
+			lastPlayedSound = world.timeLeft;
+		}
 	}
 
 	private void presentSwipeSuggestion() {

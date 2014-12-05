@@ -113,12 +113,6 @@ public class SheepWorld {
 
 	public void updateRotationSheeps(Vector3 touchPos) {
 		// push sheep away from finger/mouse
-		int sheepAffected = 0;
-		for (Sheep sheep : sheeps) {
-			if (sheep.body.getPosition().dst2(touchPos.x, touchPos.y) < 10000) {
-				sheepAffected++;
-			}
-		}
 		for (Sheep sheep : sheeps) {
 			if (sheep.body.getPosition().dst2(touchPos.x, touchPos.y) < 10000) {
 				float angle;
@@ -147,19 +141,10 @@ public class SheepWorld {
 				sheep.body.applyLinearImpulse(force.x, force.y,
 						sheep.body.getPosition().x, sheep.body.getPosition().y,
 						true);
-				if (sheepAffected <= SHEEP_SOUND_AFFECTED_THRESHOLD
-						&& (sheep.currentSound == null || !sheep.currentSound
-								.isPlaying())) {
-					sheep.currentSound = Assets.sheepSounds.get((int) (Math
-							.random() * Assets.sheepSounds.size()));
-					sheep.currentSound.play();
-				}
 				sheep.touched = true;
 			} else
 				sheep.touched = false;
 		}
-		if (sheepAffected > SHEEP_SOUND_AFFECTED_THRESHOLD)
-			Assets.manySheepSound.play();
 	}
 
 	private void updateSheeps(float deltaTime) {
