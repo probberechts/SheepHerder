@@ -201,7 +201,7 @@ public class SheepWorld {
 			sheep.state = Sheep.SHEEP_STATE_CAUGHT;
 			if (sheepsCollected == 0)
 				SheepHerder.analytics.trackTimedEvent("gameEvent",
-						"firstSheepInPen", "played: "+SavedData.gamesPlayed,
+						"firstSheepInPen", ""+SavedData.gamesPlayed,
 						GAME_TIME - timeLeft);
 			sheepsCollected++;
 			//confetti
