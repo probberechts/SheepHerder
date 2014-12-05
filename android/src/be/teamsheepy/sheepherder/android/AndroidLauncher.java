@@ -40,6 +40,7 @@ public class AndroidLauncher extends AndroidApplication implements AnalyticsEngi
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
+		config.hideStatusBar = true;
 		SheepWorld.WORLD_MARGIN = 40;
 		initialize(new SheepHerder(new AndroidTimeFormatter(), this), config);
 
