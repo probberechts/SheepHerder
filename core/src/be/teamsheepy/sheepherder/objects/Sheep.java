@@ -32,6 +32,7 @@ public class Sheep extends DynamicGameObject {
 
 	public int sheepId = -1;
 	public boolean touched;
+	private int timeToDeath;
 
 
 	public Sheep (float x, float y, int id) {
@@ -47,9 +48,21 @@ public class Sheep extends DynamicGameObject {
 		safeMoveY = 0;
 		this.sheepId = id;
 		touched = false;
+		timeToDeath = 150;
 	}
 
 	public void update(float deltaTime) {
+		//check if sheep is offscreen
+		if(state == SHEEP_STATE_ESCAPED) {
+			if(timeToDeath > 0)
+				timeToDeath -= deltaTime;
+			else {
+				//sheep has been outside of the screen for too long
+				body.setTransform(new Vector2(-500,-500), rotation);
+			}
+		} else 
+			timeToDeath = 150;
+		
 		// Introduce some random movement for idle sheep
 		if (timeToIdle > 0)
 			timeToIdle -= deltaTime;
@@ -71,6 +84,7 @@ public class Sheep extends DynamicGameObject {
 		// Check if sheep is escaping
 		if (state != SHEEP_STATE_CAUGHT)
 			checkCloseToScreenBorder();
+		
 	}
 		
 	public void checkCloseToScreenBorder () {
@@ -95,6 +109,7 @@ public class Sheep extends DynamicGameObject {
 	
 	public void render(SpriteBatch batch, boolean sleeping) {
 		if(body == null) return;
+		
 		// sprite.setPosition(position.x, position.y);
 		sprite.setPosition(body.getPosition().x - sprite.getWidth() / 2,
 				body.getPosition().y - sprite.getHeight() / 2);
@@ -121,11 +136,24 @@ public class Sheep extends DynamicGameObject {
 				sprite.getHeight() / 2f, sprite.getWidth(), sprite.getHeight(),
 				1f, 1f, sprite.getRotation() - 90, false);
 		}
-
-		if (state == SHEEP_STATE_DANGER)
-			batch.draw(Assets.alert,
-					body.getPosition().x - Assets.alert.getRegionWidth() / 2,
-					body.getPosition().y - Assets.alert.getRegionHeight() / 2);
+		
+		Vector2 alertPos = new Vector2(body.getPosition().x - Assets.alert.getRegionWidth() / 2, body.getPosition().y - Assets.alert.getRegionHeight() / 2);
+		if(alertPos.x < 0)
+			alertPos.x = 0;
+		if(alertPos.x > SheepWorld.WORLD_WIDTH - Assets.alert.getRegionWidth())
+			alertPos.x = SheepWorld.WORLD_WIDTH - Assets.alert.getRegionWidth();
+		if(alertPos.y < 0)
+			alertPos.y = 0;
+		if(alertPos.y > SheepWorld.WORLD_HEIGHT - Assets.alert.getRegionHeight())
+			alertPos.y = SheepWorld.WORLD_HEIGHT - Assets.alert.getRegionHeight();
+		
+		if (state == SHEEP_STATE_DANGER || (state == SHEEP_STATE_ESCAPED && body.getPosition().dst(alertPos) < 100)) {
+			drawAlert(batch, alertPos);
+		}
+	}
+	
+	private void drawAlert(SpriteBatch batch, Vector2 alertPos) {
+		batch.draw(Assets.alert, alertPos.x, alertPos.y);
 	}
 
 }
