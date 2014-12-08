@@ -32,7 +32,7 @@ public class Sheep extends DynamicGameObject {
 
 	public int sheepId = -1;
 	public boolean touched;
-	private int timeToDeath;
+	public int timeToDeath;
 
 
 	public Sheep (float x, float y, int id) {

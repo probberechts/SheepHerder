@@ -5,6 +5,7 @@ import be.teamsheepy.sheepherder.SavedData;
 import be.teamsheepy.sheepherder.SheepHerder;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.math.Vector3;
@@ -38,8 +39,7 @@ public class RegisterScreen extends Screen {
         skin.add(
                 "button-down",
                 new NinePatch(Assets.buttonDown, 30, 30, 20, 20));
-
-        //skin.add("cursor", this.game.manager.get("data/cursor.png"));
+        skin.add("cursor", new NinePatch(Assets.cursor, 0, 0, 0, 0));
 
         Gdx.input.setInputProcessor(stage);
 
@@ -53,11 +53,14 @@ public class RegisterScreen extends Screen {
         tStyle.font = Assets.font22; //here i get the font
         tStyle.fontColor = Color.BLACK;
         tStyle.background = skin.getDrawable("background");
-        //tStyle.cursor = skin.newDrawable("cursor", Color.GREEN);
-        //tStyle.cursor.setMinWidth(2f);
-        //tStyle.selection = skin.newDrawable("background", 0.5f, 0.5f, 0.5f, 0.5f);
+        tStyle.cursor = skin.getDrawable("cursor");
+        tStyle.cursor.setMinWidth(2f); //set cursor width
+        tStyle.selection = skin.newDrawable("cursor", 0.5f, 0.5f, 0.5f, 0.5f);
         final TextField.TextFieldStyle twStyle = new TextField.TextFieldStyle();
         twStyle.font = Assets.font22; //here i get the font
+        twStyle.cursor = skin.getDrawable("cursor");
+        twStyle.cursor.setMinWidth(2f); //set cursor width
+        twStyle.selection = skin.newDrawable("cursor", 0.5f, 0.5f, 0.5f, 0.5f);
         twStyle.fontColor = Color.BLACK;
         twStyle.background = skin.getDrawable("background-wrong");
 

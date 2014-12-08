@@ -49,6 +49,7 @@ public class Assets {
 	public static TextureRegion confettiWhite;
 	public static TextureRegion sleepingsheep;
 	public static TextureRegion sleepingsheeps;
+	public static TextureRegion cursor;
 
 	public static void load() {
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("game.atlas"));
@@ -71,6 +72,7 @@ public class Assets {
 		confettiWhite = atlas.findRegion("confettiwit");
 		sleepingsheep = atlas.findRegion("sleepingsheep");
 		sleepingsheeps = atlas.findRegion("sleepingsheeps");
+		cursor = atlas.findRegion("cursor");
 		alert = atlas.findRegion("alert");
 		clock = atlas.findRegion("clock");
 		clock.getTexture()

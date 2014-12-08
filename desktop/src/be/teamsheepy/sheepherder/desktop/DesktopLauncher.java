@@ -15,19 +15,19 @@ public class DesktopLauncher {
 
 	public static void main (String[] arg) {
 		// Automatic texture packing
-		Settings settings = new Settings();
-		settings.paddingX = 2;
-	    settings.paddingY = 2;
-	    settings.minWidth = 32;
-	    settings.minHeight = 32;
-	    settings.maxHeight = 1024;
-	    settings.maxWidth = 1024;
-	    settings.stripWhitespaceX = true;
-	    settings.stripWhitespaceY = true;
-	    settings.filterMag = TextureFilter.Nearest;
-	    settings.filterMin = TextureFilter.Nearest;
-	    settings.flattenPaths = true;
-        TexturePacker.process(settings, "/users/probberechts/Development/SheepHerder/graphics/png", "/users/probberechts/Development/SheepHerder/android/assets", "game");
+//		Settings settings = new Settings();
+//		settings.paddingX = 2;
+//	    settings.paddingY = 2;
+//	    settings.minWidth = 32;
+//	    settings.minHeight = 32;
+//	    settings.maxHeight = 1024;
+//	    settings.maxWidth = 1024;
+//	    settings.stripWhitespaceX = true;
+//	    settings.stripWhitespaceY = true;
+//	    settings.filterMag = TextureFilter.Nearest;
+//	    settings.filterMin = TextureFilter.Nearest;
+//	    settings.flattenPaths = true;
+        //TexturePacker.process(settings, "/users/probberechts/Development/SheepHerder/graphics/png", "/users/probberechts/Development/SheepHerder/android/assets", "game");
         //TexturePacker.process(settings, "D:/Schakeljaar Master TI/HCI/DEV/SheepHerder/graphics/png", "D:/Schakeljaar Master TI/HCI/DEV/SheepHerder/android/assets", "game");
 
 		

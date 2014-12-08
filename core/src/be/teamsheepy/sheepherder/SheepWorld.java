@@ -197,7 +197,7 @@ public class SheepWorld {
 		Rectangle sheepBounds = sheep.sprite.getBoundingRectangle();
 		if (sheep.state != Sheep.SHEEP_STATE_CAUGHT
 				&& pen.hasScored(sheepBounds)) {
-			Assets.sheepInPen.play();
+			Assets.sheepInPen.play(0.1f);
 			sheep.state = Sheep.SHEEP_STATE_CAUGHT;
 			if (sheepsCollected == 0)
 				SheepHerder.analytics.trackTimedEvent("gameEvent",
@@ -222,12 +222,14 @@ public class SheepWorld {
 			state = WORLD_STATE_GAME_OVER;
 		}
 
-		for (Sheep sheep : sheeps)
-			if (sheep.state != Sheep.SHEEP_STATE_CAUGHT
-					&& sheep.state != Sheep.SHEEP_STATE_ESCAPED)
+		for (Sheep sheep : sheeps) {
+			if (sheep.state != Sheep.SHEEP_STATE_CAUGHT && sheep.state != Sheep.SHEEP_STATE_ESCAPED)
 				return;
+			if (sheep.state == Sheep.SHEEP_STATE_ESCAPED && sheep.timeToDeath > 0)
+				return;
+		}
 		if (timeLeft > 0f)
-			Assets.allSheepInPen.play();
+			Assets.allSheepInPen.play(0.2f);
 		state = WORLD_STATE_GAME_OVER;
 	}
 }
