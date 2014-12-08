@@ -43,10 +43,11 @@ public class LeaderboardScreen extends Screen {
             Assets.font28.draw(SheepHerder.batch, "#", 57, 700);
             Assets.font28.draw(SheepHerder.batch, "User", 108, 700);
             Assets.font28.draw(SheepHerder.batch, "Score", 320, 700);
+            SheepHerder.batch.draw(Assets.hr, 57, 665);
             for (int i =0; i<leaderboard.leaderBoardPage.size(); i++) {
-                Assets.font22.draw(SheepHerder.batch, leaderboard.leaderBoardPage.get(i).rank + "", 60, 650 - 40*i);
-                Assets.font22.draw(SheepHerder.batch, leaderboard.leaderBoardPage.get(i).playerName + "", 110, 650 - 40*i);
-                Assets.font22.draw(SheepHerder.batch, leaderboard.leaderBoardPage.get(i).score + "", 320, 650 - 40*i);
+                Assets.font22.draw(SheepHerder.batch, leaderboard.leaderBoardPage.get(i).rank + "", 60, 640 - 40*i);
+                Assets.font22.draw(SheepHerder.batch, leaderboard.leaderBoardPage.get(i).playerName + "", 110, 640 - 40*i);
+                Assets.font22.draw(SheepHerder.batch, leaderboard.leaderBoardPage.get(i).score + "", 320, 640 - 40*i);
             }
         }
 

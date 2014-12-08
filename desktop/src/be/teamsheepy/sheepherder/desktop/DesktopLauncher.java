@@ -27,7 +27,7 @@ public class DesktopLauncher {
 //	    settings.filterMag = TextureFilter.Nearest;
 //	    settings.filterMin = TextureFilter.Nearest;
 //	    settings.flattenPaths = true;
-        //TexturePacker.process(settings, "/users/probberechts/Development/SheepHerder/graphics/png", "/users/probberechts/Development/SheepHerder/android/assets", "game");
+//      TexturePacker.process(settings, "/users/probberechts/Development/SheepHerder/graphics/png", "/users/probberechts/Development/SheepHerder/android/assets", "game");
         //TexturePacker.process(settings, "D:/Schakeljaar Master TI/HCI/DEV/SheepHerder/graphics/png", "D:/Schakeljaar Master TI/HCI/DEV/SheepHerder/android/assets", "game");
 
 		

@@ -38,6 +38,7 @@ public class Assets {
 	public static AtlasRegion login;
 	public static AtlasRegion register;
 	public static AtlasRegion questionnaire;
+	public static AtlasRegion hr;
 	public static BitmapFont font28;
 	public static BitmapFont font24;
 	public static BitmapFont font22;
@@ -131,6 +132,9 @@ public class Assets {
 				TextureFilter.Linear);
 		fullCheckBox = atlas.findRegion("tip_notap_v2_checked");
 		fullCheckBox.getTexture().setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+		hr = atlas.findRegion("hr");
+		hr.getTexture().setFilter(TextureFilter.Linear,
 				TextureFilter.Linear);
 
 		font28 = new BitmapFont(
