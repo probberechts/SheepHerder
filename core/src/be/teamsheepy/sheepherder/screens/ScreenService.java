@@ -91,7 +91,7 @@ public class ScreenService extends ScreenAdapter {
      */
     public void resume() {
         try {
-            base.resume();
+            //base.resume();
             overlay.resume();
         } catch (NullPointerException e) {}
     }

@@ -337,9 +337,8 @@ public class GameScreen extends Screen {
 
 	@Override
 	public void resume() {
-		//IMPORTANT: dit in commentaar laten of het spel gaat vanzelf terug uit pauze
-//		if (state == GAME_PAUSED)
-//			state = GAME_RUNNING;
+		if (state == GAME_PAUSED)
+			state = GAME_RUNNING;
 	}
 
 	@Override

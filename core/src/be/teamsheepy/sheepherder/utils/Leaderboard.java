@@ -120,7 +120,7 @@ public class Leaderboard {
                     JSONArray json = new JSONArray(result);
                     for(int i=0;i<json.length();i++){
                         JSONObject e = json.getJSONObject(i);
-                        int rank = page * 10 + i;
+                        int rank = page * 10 + i +1;
                         LeaderboardEntry entry = new LeaderboardEntry(rank, e.getString("player_name"), e.getInt("score"));
                         leaderBoardPage.add(entry);
                     }
