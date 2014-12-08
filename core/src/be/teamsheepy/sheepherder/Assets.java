@@ -48,7 +48,6 @@ public class Assets {
 	public static Sound allSheepInPen;
 	public static TextureRegion confettiWhite;
 	public static TextureRegion sleepingsheep;
-	public static TextureRegion sleepingsheeps;
 	public static TextureRegion cursor;
 
 	public static void load() {
@@ -71,7 +70,6 @@ public class Assets {
 		bridge = atlas.findRegion("bridge");
 		confettiWhite = atlas.findRegion("confettiwit");
 		sleepingsheep = atlas.findRegion("sleepingsheep");
-		sleepingsheeps = atlas.findRegion("sleepingsheeps");
 		cursor = atlas.findRegion("cursor");
 		alert = atlas.findRegion("alert");
 		clock = atlas.findRegion("clock");

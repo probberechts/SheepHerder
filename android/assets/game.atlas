@@ -6,227 +6,227 @@ filter: Nearest,Nearest
 repeat: none
 alert
   rotate: false
-  xy: 86, 10
+  xy: 86, 12
   size: 20, 20
   orig: 20, 20
   offset: 0, 0
   index: -1
 bridge
   rotate: false
-  xy: 898, 564
+  xy: 898, 767
   size: 51, 48
   orig: 51, 48
   offset: 0, 0
   index: -1
 clock
   rotate: false
-  xy: 31, 3
+  xy: 31, 5
   size: 27, 27
   orig: 27, 27
   offset: 0, 0
   index: -1
 confettiwit
   rotate: false
-  xy: 113, 22
+  xy: 86, 2
   size: 8, 8
   orig: 8, 8
   offset: 0, 0
   index: -1
 current
   rotate: false
-  xy: 898, 436
+  xy: 941, 682
   size: 40, 40
   orig: 40, 40
   offset: 0, 0
   index: -1
 cursor
   rotate: false
-  xy: 108, 15
+  xy: 108, 17
   size: 3, 15
   orig: 3, 15
   offset: 0, 0
   index: -1
 first
   rotate: false
-  xy: 955, 32
+  xy: 951, 724
   size: 59, 42
   orig: 59, 42
   offset: 0, 0
   index: -1
 highscore
   rotate: false
-  xy: 2, 253
+  xy: 2, 255
   size: 446, 764
   orig: 446, 764
   offset: 0, 0
   index: -1
 next
   rotate: false
-  xy: 898, 521
+  xy: 898, 724
   size: 41, 41
   orig: 41, 41
   offset: 0, 0
   index: -1
 pen
   rotate: false
-  xy: 223, 26
+  xy: 223, 28
   size: 200, 225
   orig: 200, 225
   offset: 0, 0
   index: -1
 previous
   rotate: false
-  xy: 898, 478
+  xy: 898, 681
   size: 41, 41
   orig: 41, 41
   offset: 0, 0
   index: -1
 register
   rotate: false
-  xy: 450, 253
+  xy: 450, 255
   size: 446, 764
   orig: 446, 764
   offset: 0, 0
   index: -1
 retry
   rotate: false
-  xy: 2, 2
+  xy: 2, 4
   size: 27, 28
   orig: 27, 28
   offset: 0, 0
   index: -1
 river
   rotate: false
-  xy: 425, 213
+  xy: 425, 77
   size: 584, 38
   orig: 584, 38
   offset: 0, 0
   index: -1
 score
   rotate: false
-  xy: 60, 4
+  xy: 60, 6
   size: 24, 26
   orig: 30, 30
   offset: 2, 2
   index: -1
 sheep
   rotate: false
-  xy: 898, 24
+  xy: 898, 969
   size: 55, 50
   orig: 55, 50
   offset: 0, 0
   index: -1
 sheep_walk1
   rotate: false
-  xy: 898, 24
+  xy: 898, 969
   size: 55, 50
   orig: 55, 50
   offset: 0, 0
   index: -1
 sheep_walk2
   rotate: false
-  xy: 898, 916
+  xy: 898, 918
   size: 53, 49
   orig: 55, 51
   offset: 2, 0
   index: -1
 sheep_walk3
   rotate: false
-  xy: 898, 865
+  xy: 953, 918
   size: 53, 49
   orig: 55, 51
   offset: 2, 0
   index: -1
 sheep_walk4
   rotate: false
-  xy: 898, 814
+  xy: 898, 867
   size: 53, 49
   orig: 55, 51
   offset: 2, 0
   index: -1
 sheep_walk5
   rotate: false
-  xy: 898, 764
+  xy: 953, 868
   size: 53, 48
   orig: 55, 51
   offset: 2, 1
   index: -1
 sheep_walk6
   rotate: false
-  xy: 898, 714
+  xy: 953, 818
   size: 53, 48
   orig: 55, 51
   offset: 2, 1
   index: -1
 sheep_walk7
   rotate: false
-  xy: 898, 664
+  xy: 898, 817
   size: 53, 48
   orig: 55, 51
   offset: 2, 1
   index: -1
 sheep_walk8
   rotate: false
-  xy: 898, 614
+  xy: 953, 768
   size: 53, 48
   orig: 55, 51
   offset: 2, 1
   index: -1
 sleepingsheep
   rotate: false
-  xy: 898, 967
+  xy: 955, 969
   size: 55, 50
   orig: 55, 50
   offset: 0, 0
   index: -1
-sleepingsheeps
-  rotate: false
-  xy: 425, 26
-  size: 184, 185
-  orig: 200, 225
-  offset: 7, 0
-  index: -1
 textfield
   rotate: false
-  xy: 611, 19
+  xy: 425, 22
+  size: 285, 53
+  orig: 285, 53
+  offset: 0, 0
+  index: -1
+textfield_wrong
+  rotate: false
+  xy: 712, 22
   size: 285, 53
   orig: 285, 53
   offset: 0, 0
   index: -1
 time
   rotate: false
-  xy: 123, 22
+  xy: 96, 2
   size: 2, 8
   orig: 2, 8
   offset: 0, 0
   index: -1
 touchmarker
   rotate: false
-  xy: 2, 32
+  xy: 2, 34
   size: 219, 219
   orig: 225, 225
   offset: 3, 3
   index: -1
-tree
+tree3
   rotate: false
-  xy: 611, 74
-  size: 195, 137
+  xy: 425, 117
+  size: 197, 136
   orig: 200, 140
-  offset: 4, 2
-  index: -1
-tree1
-  rotate: false
-  xy: 611, 74
-  size: 195, 137
-  orig: 200, 140
-  offset: 4, 2
+  offset: 2, 3
   index: -1
 tree4
   rotate: false
-  xy: 808, 76
+  xy: 823, 118
   size: 198, 135
   orig: 200, 140
   offset: 1, 4
+  index: -1
+tree5
+  rotate: false
+  xy: 624, 117
+  size: 197, 136
+  orig: 200, 140
+  offset: 2, 3
   index: -1
 
 game2.png
@@ -236,80 +236,73 @@ filter: Nearest,Nearest
 repeat: none
 button-down
   rotate: false
-  xy: 892, 551
+  xy: 892, 914
   size: 127, 50
   orig: 127, 50
   offset: 0, 0
   index: -1
 button-up
   rotate: false
-  xy: 892, 499
+  xy: 2, 2
   size: 127, 50
   orig: 127, 50
   offset: 0, 0
   index: -1
 font
   rotate: false
-  xy: 2, 493
+  xy: 2, 455
   size: 510, 509
   orig: 512, 512
   offset: 1, 2
   index: -1
 login
   rotate: false
-  xy: 514, 603
+  xy: 2, 54
   size: 446, 399
   orig: 446, 399
   offset: 0, 0
   index: -1
-textfield_wrong
-  rotate: false
-  xy: 2, 2
-  size: 285, 53
-  orig: 285, 53
-  offset: 0, 0
-  index: -1
 tip_notap
   rotate: false
-  xy: 514, 330
+  xy: 514, 693
   size: 376, 271
   orig: 380, 274
   offset: 4, 2
   index: -1
 tip_notap_v2
   rotate: false
-  xy: 2, 220
+  xy: 514, 420
   size: 376, 271
   orig: 380, 274
   offset: 4, 2
   index: -1
 tip_notap_v2_checked
   rotate: false
-  xy: 380, 57
+  xy: 450, 147
   size: 376, 271
   orig: 380, 274
   offset: 4, 2
   index: -1
+tree
+  rotate: false
+  xy: 648, 8
+  size: 195, 137
+  orig: 200, 140
+  offset: 4, 2
+  index: -1
+tree1
+  rotate: false
+  xy: 648, 8
+  size: 195, 137
+  orig: 200, 140
+  offset: 4, 2
+  index: -1
 tree2
   rotate: false
-  xy: 758, 54
+  xy: 450, 9
   size: 196, 136
   orig: 200, 140
   offset: 3, 3
-  index: -1
-tree3
-  rotate: false
-  xy: 2, 82
-  size: 197, 136
-  orig: 200, 140
-  offset: 2, 3
-  index: -1
-tree5
-  rotate: false
-  xy: 758, 192
-  size: 197, 136
-  orig: 200, 140
-  offset: 2, 3
   index: -1
 
 game3.png
