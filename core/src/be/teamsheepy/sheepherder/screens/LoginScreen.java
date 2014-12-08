@@ -64,16 +64,21 @@ public class LoginScreen extends Screen {
         twStyle.cursor.setMinWidth(2f); //set cursor width
         twStyle.selection = skin.newDrawable("cursor", 0.5f, 0.5f, 0.5f, 0.5f);
         twStyle.background = skin.getDrawable("background-wrong");
+        
+        final Label.LabelStyle lStyle = new Label.LabelStyle();
+        lStyle.font = Assets.font28;
+        lStyle.fontColor = Color.BLACK;
+       // lStyle.background = skin.getDrawable("background");
+        
+        Label loginLabel = new Label("Login", lStyle);
 
         final TextField userField = new TextField("", tStyle);
         userField.setText(SavedData.userName);
-        stage.addActor(userField);
 
         final TextField passField = new TextField("", tStyle);
         passField.setMessageText("password");
         passField.setPasswordCharacter('*');
         passField.setPasswordMode(true);
-        stage.addActor(passField);
 
         userField.setTextFieldListener(new TextField.TextFieldListener() {
             public void keyTyped (TextField textField, char key) {
@@ -88,7 +93,6 @@ public class LoginScreen extends Screen {
         bStyle.down = skin.getDrawable("button-down");
 
         final TextButton loginButton = new TextButton("Login", bStyle);
-        stage.addActor(loginButton);
         loginButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -163,8 +167,11 @@ public class LoginScreen extends Screen {
             }
         });
 
+        
         table.row().height(50);
-        table.add(userField).center().width(300).pad(5f).padTop(80f);
+        table.add(loginLabel).width(300).padTop(50f);
+        table.row().height(50);
+        table.add(userField).center().width(300).pad(5f);
         table.row().height(50);
         table.add(passField).center().width(300).pad(5f);
         table.row().height(50);
