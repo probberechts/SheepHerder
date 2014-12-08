@@ -167,9 +167,9 @@ public class GameScreen extends Screen {
 		} else if (!suggestionShown
 				&& touchTracker.countTaps() >= 20
 				&& !SavedData.neverShowSwipeSuggestion) {
+			suggestionShown = true;
 			state = GAME_PAUSED;
 			ScreenService.getInstance().add(new SwipeSuggestionScreen());
-			world.state = SheepWorld.WORLD_STATE_SWIPE_SUGGESTION;
 		}
 	}
 
