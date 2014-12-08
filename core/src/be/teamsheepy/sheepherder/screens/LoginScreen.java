@@ -26,6 +26,8 @@ public class LoginScreen extends Screen {
     private Skin skin = new Skin();
 
     public LoginScreen() {
+        SheepHerder.analytics.trackPageView("login");
+
         skin.add(
                 "background",
                 new NinePatch(Assets.textfield, 30, 30, 20, 20));

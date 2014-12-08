@@ -27,6 +27,8 @@ public class RegisterScreen extends Screen {
     private Skin skin = new Skin();
 
     public RegisterScreen() {
+        SheepHerder.analytics.trackPageView("register");
+
         skin.add(
                 "background",
                 new NinePatch(Assets.textfield, 30, 30, 20, 20));

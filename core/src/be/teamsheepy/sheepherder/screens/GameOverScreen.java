@@ -26,6 +26,8 @@ public class GameOverScreen extends Screen {
 
 
     public GameOverScreen(GameScreen gameScreen, long time, int score, boolean newBest) {
+        SheepHerder.analytics.trackPageView("game over");
+
         this.gameScreen = gameScreen;
         this.time = time;
         this.score = score;

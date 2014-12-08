@@ -14,6 +14,8 @@ public class LeaderboardScreen extends Screen {
     private float loadDots = 1;
 
     public LeaderboardScreen() {
+        SheepHerder.analytics.trackPageView("leaderboard");
+
         this.leaderboard = new Leaderboard(SavedData.userName, SavedData.password);
     }
 

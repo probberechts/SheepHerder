@@ -8,6 +8,10 @@ import com.badlogic.gdx.math.Vector3;
 
 public class QuestionnaireScreen extends Screen {
 
+    public QuestionnaireScreen() {
+        SheepHerder.analytics.trackPageView("questionnaire");
+    }
+
     @Override
     protected void draw() {
         SheepHerder.batch.begin();

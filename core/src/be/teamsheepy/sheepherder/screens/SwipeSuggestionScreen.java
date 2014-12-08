@@ -10,6 +10,10 @@ import com.badlogic.gdx.math.Vector3;
 public class SwipeSuggestionScreen extends Screen {
     private boolean swipeCheckboxTicked = false;
 
+    public SwipeSuggestionScreen() {
+        SheepHerder.analytics.trackPageView("swipe suggestion");
+    }
+
     @Override
     protected void draw() {
         SheepHerder.batch.begin();
