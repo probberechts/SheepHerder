@@ -33,7 +33,7 @@ public class QuestionnaireScreen extends Screen {
             if (touchPos.x > 88 && touchPos.x < 88 + 95 && touchPos.y > 283
                     && touchPos.y < 283 + 55) {
                 // answered yes
-                Gdx.net.openURI("https://docs.google.com/forms/d/1eLUKnRGSiimqk4Mzr7ArOWwbGUMii8vZ7PagRqbDVe4/viewform?usp=send_form");
+                Gdx.net.openURI("https://docs.google.com/forms/d/1I6um_3299Ux57FcbEwSJpWTBBHrBGrLknvol-5JANuo/viewform");
                 SavedData.filledInQuestionaire();
                 ScreenService.getInstance().add(new GameScreen());
             } else if (touchPos.x > 203 && touchPos.x < 203 + 200
