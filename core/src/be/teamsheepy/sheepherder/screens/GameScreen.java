@@ -174,9 +174,9 @@ public class GameScreen extends Screen {
 	}
 
 	private void updatePaused() {
-		if (Gdx.input.justTouched() && !ScreenService.getInstance().existOverlay()) {
-			state = GAME_RUNNING;
-		}
+		if(Gdx.input.justTouched() && !ScreenService.getInstance().existOverlay()) 
+				state = GAME_RUNNING;
+		
 		startTime = System.currentTimeMillis() - (SheepWorld.GAME_TIME - world.timeLeft);
 	}
 
@@ -337,8 +337,9 @@ public class GameScreen extends Screen {
 
 	@Override
 	public void resume() {
-		if (state == GAME_PAUSED)
-			state = GAME_RUNNING;
+		//IMPORTANT: dit in commentaar laten of het spel gaat vanzelf terug uit pauze
+//		if (state == GAME_PAUSED)
+//			state = GAME_RUNNING;
 	}
 
 	@Override

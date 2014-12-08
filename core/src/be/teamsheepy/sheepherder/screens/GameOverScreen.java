@@ -36,7 +36,7 @@ public class GameOverScreen extends Screen {
     @Override
     protected void draw() {
         SheepHerder.batch.begin();
-        //confetti //TODO uitzoeken waarom alleen in linkeronderhoek vuurt
+        //confetti 
         confettiTimer -= Gdx.graphics.getDeltaTime();
         Random rand = new Random();
         if(confettiTimer <= 0) {
