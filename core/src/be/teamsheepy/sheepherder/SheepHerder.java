@@ -1,10 +1,13 @@
 package be.teamsheepy.sheepherder;
 
 import be.teamsheepy.sheepherder.screens.GameScreen;
+import be.teamsheepy.sheepherder.screens.LoginScreen;
+import be.teamsheepy.sheepherder.screens.ScreenService;
 import be.teamsheepy.sheepherder.utils.AnalyticsEngine;
 import be.teamsheepy.sheepherder.utils.TimeFormatter;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SheepHerder extends Game {
@@ -16,7 +19,8 @@ public class SheepHerder extends Game {
 	public static String TAP_OR_CLICK = "click";
 
 	// used by all screens
-	public SpriteBatch batcher;
+	public static SpriteBatch batch;
+	public static OrthographicCamera camera;
 
 	public static TimeFormatter timeFormatter = null;
 	public static AnalyticsEngine analytics = null;
@@ -28,11 +32,19 @@ public class SheepHerder extends Game {
 
 	@Override
 	public void create () {
-		batcher = new SpriteBatch();
+		batch = new SpriteBatch();
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, 480, 800);
+
 		SavedData.load();
 		Assets.load();
+
 		analytics.initialize();
-		setScreen(new GameScreen(this));
+
+		ScreenService screens = ScreenService.getInstance();
+		screens.add(new GameScreen());
+		setScreen(screens);
 	}
+
 
 }

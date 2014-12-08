@@ -8,7 +8,8 @@ public class SavedData {
 	public static int gamesPlayed;
 	public static boolean questionnaireFilled;
 	public static boolean neverShowSwipeSuggestion;
-	public static String clientId;
+	public static String userName = "";
+	public static String password = "";
 	static Preferences prefs;
 
 	public static void load() {
@@ -19,7 +20,8 @@ public class SavedData {
 		questionnaireFilled = prefs.getBoolean("questionnaireFilled", false);
 		neverShowSwipeSuggestion = prefs.getBoolean("neverShowSwipeSuggestion",
 				false);
-		clientId = prefs.getString("clientId");
+		userName = prefs.getString("userName");
+		userName = prefs.getString("password");
 	}
 
 	private static void save() {
@@ -27,7 +29,8 @@ public class SavedData {
 		prefs.putInteger("gamesPlayed", gamesPlayed);
 		prefs.putBoolean("questionnaireFilled", questionnaireFilled);
 		prefs.putBoolean("neverShowSwipeSuggestion", neverShowSwipeSuggestion);
-		prefs.putString("clientId", clientId);
+		prefs.putString("userName", userName);
+		prefs.putString("password", password);
 		prefs.flush();
 	}
 
@@ -52,11 +55,15 @@ public class SavedData {
 		save();
 	}
 
-	public static void setClientId(String id) {
-		if (clientId == null) {
-			clientId = id;
-			save();
-		}
+	public static void setUser(String userName, String password) {
+		SavedData.userName = userName;
+		SavedData.password = password;
+		save();
+	}
+
+	public static void logout() {
+		SavedData.password = "";
+		save();
 	}
 
 }

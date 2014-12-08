@@ -1,12 +1,7 @@
 package be.teamsheepy.sheepherder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -29,8 +24,19 @@ public class Assets {
 	public static TextureRegion score;
 	public static TextureRegion retry;
 	public static TextureRegion touchmarker;
+	public static TextureRegion textfield;
+	public static TextureRegion textfieldWrong;
 	public static AtlasRegion gameover;
 	public static AtlasRegion newbest;
+	public static AtlasRegion highscore;
+	public static AtlasRegion first;
+	public static AtlasRegion previous;
+	public static AtlasRegion current;
+	public static AtlasRegion next;
+	public static AtlasRegion buttonUp;
+	public static AtlasRegion buttonDown;
+	public static AtlasRegion login;
+	public static AtlasRegion register;
 	public static AtlasRegion questionnaire;
 	public static BitmapFont font28;
 	public static BitmapFont font24;
@@ -43,10 +49,6 @@ public class Assets {
 	public static TextureRegion confettiWhite;
 	public static TextureRegion sleepingsheep;
 	public static TextureRegion sleepingsheeps;
-
-	public static Texture loadTexture(String file) {
-		return new Texture(Gdx.files.internal(file));
-	}
 
 	public static void load() {
 		TextureAtlas atlas = new TextureAtlas(Gdx.files.internal("game.atlas"));
@@ -90,6 +92,39 @@ public class Assets {
 				TextureFilter.Linear);
 		questionnaire = atlas.findRegion("questionnaire");
 		questionnaire.getTexture().setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+		highscore = atlas.findRegion("highscore");
+		highscore.getTexture().setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+		first = atlas.findRegion("first");
+		first.getTexture().setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+		previous = atlas.findRegion("previous");
+		previous.getTexture().setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+		current = atlas.findRegion("current");
+		current.getTexture().setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+		next = atlas.findRegion("next");
+		next.getTexture().setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+		login = atlas.findRegion("login");
+		login.getTexture().setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+		register = atlas.findRegion("register");
+		register.getTexture().setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+		textfield = atlas.findRegion("textfield");
+		textfield.getTexture().setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+		textfieldWrong = atlas.findRegion("textfield_wrong");
+		textfieldWrong.getTexture().setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+		buttonDown = atlas.findRegion("button-up");
+		buttonDown.getTexture().setFilter(TextureFilter.Linear,
+				TextureFilter.Linear);
+		buttonUp = atlas.findRegion("button-down");
+		buttonUp.getTexture().setFilter(TextureFilter.Linear,
 				TextureFilter.Linear);
 		emptyCheckBox = atlas.findRegion("tip_notap_v2");
 		emptyCheckBox.getTexture().setFilter(TextureFilter.Linear,
