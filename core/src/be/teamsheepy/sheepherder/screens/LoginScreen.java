@@ -14,8 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -131,7 +131,8 @@ public class LoginScreen extends Screen {
 
                         String result = httpResponse.getResultAsString();
                         try {
-                            JSONObject json = new JSONObject(result);
+                            JsonReader reader = new JsonReader();
+                            JsonValue json = reader.parse(result);
                             if(json.has("access_token")) {
                                 SavedData.setUser(user, password);
                                 ScreenService.getInstance().add(new LeaderboardScreen());
@@ -140,7 +141,7 @@ public class LoginScreen extends Screen {
                                 passField.setStyle(twStyle);
                                 loginButton.setText("Login");
                             }
-                        }  catch(JSONException exception) {
+                        }  catch(Exception exception) {
                             exception.printStackTrace();
                         }
                     }

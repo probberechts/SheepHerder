@@ -3,7 +3,7 @@ package be.teamsheepy.sheepherder.screens;
 import be.teamsheepy.sheepherder.Assets;
 import be.teamsheepy.sheepherder.SavedData;
 import be.teamsheepy.sheepherder.SheepHerder;
-import be.teamsheepy.sheepherder.SheepWorld;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector3;
 

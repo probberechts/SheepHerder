@@ -5,9 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
 import com.badlogic.gdx.net.HttpParametersUtils;
 import com.badlogic.gdx.net.HttpStatus;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonReader;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -66,19 +65,20 @@ public class Leaderboard {
                 int statusCode = httpResponse.getStatus().getStatusCode();
                 if(statusCode != HttpStatus.SC_OK) {
                     status = FAILED;
-                    error = "Error while downloading\n highscores";
+                    error = "Error downloading highscores";
                     System.out.println("Request Failed: getPage");
                     return;
                 }
 
                 String result = httpResponse.getResultAsString();
                 try {
-                    JSONObject json = new JSONObject(result);
+                    JsonReader reader = new JsonReader();
+                    JsonValue json = reader.parse(result);
                     totalPages = json.getInt("pages");
                     status = SUCCESS;
-                }  catch(JSONException exception) {
+                }  catch(Exception exception) {
                     status = FAILED;
-                    error = "Error while downloading\n highscores";
+                    error = "Error downloading highscores";
                     exception.printStackTrace();
                 }
             }
@@ -110,24 +110,26 @@ public class Leaderboard {
                 int statusCode = httpResponse.getStatus().getStatusCode();
                 if(statusCode != HttpStatus.SC_OK) {
                     status = FAILED;
-                    error = "Error while downloading\n highscores";
+                    error = "Error downloading highscores";
                     System.out.println("Request Failed: getPage");
                     return;
                 }
 
                 String result = httpResponse.getResultAsString();
                 try {
-                    JSONArray json = new JSONArray(result);
-                    for(int i=0;i<json.length();i++){
-                        JSONObject e = json.getJSONObject(i);
-                        int rank = page * 10 + i +1;
+                    JsonReader reader = new JsonReader();
+                    JsonValue json = reader.parse(result);
+                    int i = 1;
+                    for(JsonValue e : json){
+                        int rank = page * 10 + i;
                         LeaderboardEntry entry = new LeaderboardEntry(rank, e.getString("player_name"), e.getInt("score"));
                         leaderBoardPage.add(entry);
+                        i++;
                     }
                     getTotalPages();
-                }  catch(JSONException exception) {
+                }  catch(Exception exception) {
                     status = FAILED;
-                    error = "Error while downloading\n highscores";
+                    error = "Error downloading highscores";
                     exception.printStackTrace();
                 }
             }
@@ -164,19 +166,20 @@ public class Leaderboard {
                 int statusCode = httpResponse.getStatus().getStatusCode();
                 if(statusCode != HttpStatus.SC_OK) {
                     status = FAILED;
-                    error = "Error while downloading\n highscores";
+                    error = "Error downloading highscores";
                     System.out.println("Request Failed: getToken");
                     return;
                 }
 
                 String result = httpResponse.getResultAsString();
                 try {
-                    JSONObject json = new JSONObject(result);
+                    JsonReader reader = new JsonReader();
+                    JsonValue json = reader.parse(result);
                     token = json.getString("access_token");
                     updateScore(SavedData.highscore);
-                }  catch(JSONException exception) {
+                }  catch(Exception exception) {
                     status = FAILED;
-                    error = "Error while downloading\n highscores";
+                    error = "Error downloading highscores";
                     exception.printStackTrace();
                 }
             }
@@ -211,7 +214,7 @@ public class Leaderboard {
                 int statusCode = httpResponse.getStatus().getStatusCode();
                 if(statusCode != HttpStatus.SC_CREATED) {
                     status = FAILED;
-                    error = "Error while downloading\n highscores";
+                    error = "Error downloading highscores";
                     System.out.println("Request Failed: updateScore");
                     return;
                 }
@@ -242,23 +245,24 @@ public class Leaderboard {
                 int statusCode = httpResponse.getStatus().getStatusCode();
                 if(statusCode != HttpStatus.SC_OK) {
                     status = FAILED;
-                    error = "Error while downloading\n highscores";
+                    error = "Error downloading highscores";
                     System.out.println("Request Failed: getRank");
                     return;
                 }
 
                 String result = httpResponse.getResultAsString();
                 try {
-                    JSONObject json = new JSONObject(result);
+                    JsonReader reader = new JsonReader();
+                    JsonValue json = reader.parse(result);
                     rank =  json.getInt("rank");
                     int score = json.getInt("score");
                     if (score > SavedData.highscore)
                         SavedData.newHighscore(score);
                     page = (rank - 1) /10;
                     getPage(page);
-                }  catch(JSONException exception) {
+                }  catch(Exception exception) {
                     status = FAILED;
-                    error = "Error while downloading\n highscores";
+                    error = "Error downloading highscores";
                     exception.printStackTrace();
                 }
             }

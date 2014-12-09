@@ -1,7 +1,5 @@
 package be.teamsheepy.sheepherder.screens;
 
-import be.teamsheepy.sheepherder.SheepHerder;
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.utils.Disposable;
 
 /**

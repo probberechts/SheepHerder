@@ -1,11 +1,17 @@
 package be.teamsheepy.sheepherder.screens;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
+
 import be.teamsheepy.sheepherder.Assets;
 import be.teamsheepy.sheepherder.SavedData;
 import be.teamsheepy.sheepherder.SheepHerder;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.math.Vector3;
@@ -13,13 +19,11 @@ import com.badlogic.gdx.net.HttpParametersUtils;
 import com.badlogic.gdx.net.HttpStatus;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RegisterScreen extends Screen {
 
@@ -132,7 +136,8 @@ public class RegisterScreen extends Screen {
 
                         String result = httpResponse.getResultAsString();
                         try {
-                            JSONObject json = new JSONObject(result);
+                            JsonReader reader = new JsonReader();
+                            JsonValue json = reader.parse(result);
                             if(json.has("access_token")) {
                                 SavedData.setUser(user, password);
                                 ScreenService.getInstance().add(new LeaderboardScreen());
@@ -141,7 +146,7 @@ public class RegisterScreen extends Screen {
                                 passField.setStyle(twStyle);
                                 loginButton.setText("Login");
                             }
-                        }  catch(JSONException exception) {
+                        }  catch(Exception exception) {
                             exception.printStackTrace();
                         }
                     }
@@ -253,7 +258,8 @@ public class RegisterScreen extends Screen {
 
                         String result = httpResponse.getResultAsString();
                         try {
-                            JSONObject json = new JSONObject(result);
+                            JsonReader reader = new JsonReader();
+                            JsonValue json = reader.parse(result);
                             if (json.has("error")) {
                                 newUserField.setStyle(twStyle);
                                 newUserField.setText("Already taken");
@@ -264,7 +270,7 @@ public class RegisterScreen extends Screen {
                                 SavedData.setUser(user, password);
                                 ScreenService.getInstance().add(new LeaderboardScreen());
                             }
-                        }  catch(JSONException exception) {
+                        }  catch(Exception exception) {
                             exception.printStackTrace();
                         }
                     }

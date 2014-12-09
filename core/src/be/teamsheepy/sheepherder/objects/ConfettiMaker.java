@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class ConfettiMaker {
 	private Vector2 position;
-	private Boolean fire;
 	private float timeLeft;
 	private List<Confetti> confettis;
 

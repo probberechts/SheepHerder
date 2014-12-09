@@ -45,30 +45,30 @@ public class ScreenService extends ScreenAdapter {
 
     /** Releases all resources of this object. */
     @Override public void dispose() {
-        try {
+        if (base != null)
             base.dispose();
+        if (overlay != null)
             overlay.dispose();
-        } catch (NullPointerException e) {}
     }
 
     /**
      * Draws all screens in the service.
      */
     public void draw() {
-        try {
+        if (base != null)
             base.draw();
+        if (overlay != null)
             overlay.draw();
-        } catch (NullPointerException e) {}
     }
 
     /**
      * Pauses all screens in the service.
      */
     public void pause() {
-        try {
+        if (base != null)
             base.pause();
+        if (overlay != null)
             overlay.pause();
-        } catch (NullPointerException e) {}
     }
 
     /**
@@ -80,20 +80,19 @@ public class ScreenService extends ScreenAdapter {
      *         The new game window height (in pixels).
      */
     public void resize(final int width, final int height) {
-        try {
+        if (base != null)
             base.resize(width, height);
+        if (overlay != null)
             overlay.resize(width, height);
-        } catch (NullPointerException e) {}
     }
 
     /**
      * Resumes all screens in the service.
      */
     public void resume() {
-        try {
-            //base.resume();
+        //base.resume();
+        if (overlay != null)
             overlay.resume();
-        } catch (NullPointerException e) {}
     }
 
     /**
@@ -103,10 +102,10 @@ public class ScreenService extends ScreenAdapter {
      *         The total amount of time, in seconds, since the last update.
      */
     public void update(final float dt) {
-        try {
+        if (base != null)
             base.update(dt);
+        if (overlay != null)
             overlay.update(dt);
-        } catch (NullPointerException e) {}
     }
 
     /**
@@ -114,12 +113,12 @@ public class ScreenService extends ScreenAdapter {
      *
      */
     public void removeOverlay(boolean resume) {
-        try {
-            overlay.dispose();
-            overlay = null;
-            if (resume)
-                base.resume();
-        } catch (NullPointerException e) {}
+        if (overlay == null)
+            return;
+        overlay.dispose();
+        overlay = null;
+        if (resume)
+            base.resume();
     }
 
     public void render(float delta) {

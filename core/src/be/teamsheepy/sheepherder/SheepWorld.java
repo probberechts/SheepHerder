@@ -1,7 +1,6 @@
 package be.teamsheepy.sheepherder;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import be.teamsheepy.sheepherder.objects.ConfettiMaker;
@@ -12,8 +11,6 @@ import be.teamsheepy.sheepherder.objects.Tree;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;

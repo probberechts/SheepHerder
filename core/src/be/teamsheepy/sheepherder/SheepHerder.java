@@ -1,7 +1,6 @@
 package be.teamsheepy.sheepherder;
 
 import be.teamsheepy.sheepherder.screens.GameScreen;
-import be.teamsheepy.sheepherder.screens.LoginScreen;
 import be.teamsheepy.sheepherder.screens.ScreenService;
 import be.teamsheepy.sheepherder.utils.AnalyticsEngine;
 import be.teamsheepy.sheepherder.utils.TimeFormatter;
@@ -13,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class SheepHerder extends Game {
 
 	public static final boolean DEBUG = true;
-	public static final String VERSION = "5";
+	public static final String VERSION = "6";
 	public static final String TRACKER_ID = "UA-56280744-3";
 	public static final String DEBUG_TRACKER_ID = "UA-56280744-1";
 	public static String TAP_OR_CLICK = "click";

@@ -29,8 +29,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2"
-     inkscape:cx="338.83333"
-     inkscape:cy="723.51467"
+     inkscape:cx="218.83333"
+     inkscape:cy="656.848"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -131,7 +131,7 @@
      inkscape:groupmode="layer"
      id="layer7"
      inkscape:label="buttons"
-     style="display:inline">
+     style="display:none">
     <rect
        inkscape:export-ydpi="79.028587"
        inkscape:export-xdpi="79.028587"
@@ -154,30 +154,6 @@
        inkscape:export-filename="/Users/probberechts/Development/SheepHerder/graphics/png/textfield.png"
        inkscape:export-xdpi="79.028587"
        inkscape:export-ydpi="79.028587" />
-    <flowRoot
-       xml:space="preserve"
-       id="flowRoot5191"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       transform="translate(-23.429687,0)"><flowRegion
-         id="flowRegion5193"><rect
-           id="rect5195"
-           width="238"
-           height="89"
-           x="86"
-           y="108" /></flowRegion><flowPara
-         id="flowPara5197"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Architects Daughter;-inkscape-font-specification:Architects Daughter">Login</flowPara></flowRoot>    <text
-       xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="63"
-       y="415"
-       id="text5199"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan5201"
-         x="63"
-         y="415"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Architects Daughter;-inkscape-font-specification:Architects Daughter">Register</tspan></text>
     <rect
        inkscape:export-ydpi="79.028587"
        inkscape:export-xdpi="79.028587"
@@ -223,14 +199,6 @@
        inkscape:export-xdpi="79.028587"
        inkscape:export-ydpi="79.028587" />
     <rect
-       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
-       id="rect5211"
-       width="135"
-       height="3"
-       x="67"
-       y="150"
-       ry="1.5" />
-    <rect
        style="opacity:0.77049178;fill:#f1adb9;fill-opacity:1;fill-rule:evenodd;stroke:#280000;stroke-width:3.31920338;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
        id="rect5723"
        width="140.96794"
@@ -265,6 +233,44 @@
          x="299"
          y="331"
          style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Architects Daughter;-inkscape-font-specification:Architects Daughter">Login</tspan></text>
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="text"
+     style="display:inline">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot5191"
+       style="display:inline;font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       transform="translate(-23.429687,0)"><flowRegion
+         id="flowRegion5193"><rect
+           id="rect5195"
+           width="238"
+           height="89"
+           x="86"
+           y="108" /></flowRegion><flowPara
+         id="flowPara5197"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Architects Daughter;-inkscape-font-specification:Architects Daughter">Login</flowPara></flowRoot>    <rect
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline"
+       id="rect5211"
+       width="120.5"
+       height="3"
+       x="65"
+       y="150"
+       ry="1.5" />
+    <text
+       xml:space="preserve"
+       style="display:inline;font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       x="63"
+       y="415"
+       id="text5199"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan5201"
+         x="63"
+         y="415"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Architects Daughter;-inkscape-font-specification:Architects Daughter">Register</tspan></text>
     <rect
        ry="1.5"
        y="422"
@@ -272,11 +278,6 @@
        height="3"
        width="190"
        id="rect5733"
-       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+       style="display:inline;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none" />
   </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer5"
-     inkscape:label="text"
-     style="display:inline" />
 </svg>

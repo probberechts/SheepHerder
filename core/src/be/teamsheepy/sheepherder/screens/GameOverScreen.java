@@ -1,18 +1,18 @@
 package be.teamsheepy.sheepherder.screens;
 
+import java.util.Random;
+
 import be.teamsheepy.sheepherder.Assets;
 import be.teamsheepy.sheepherder.SavedData;
 import be.teamsheepy.sheepherder.SheepHerder;
 import be.teamsheepy.sheepherder.SheepWorld;
 import be.teamsheepy.sheepherder.objects.ConfettiMaker;
-import be.teamsheepy.sheepherder.objects.Sheep;
 import be.teamsheepy.sheepherder.utils.TimeFormatter;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
-
-import java.util.Random;
 
 public class GameOverScreen extends Screen {
 
