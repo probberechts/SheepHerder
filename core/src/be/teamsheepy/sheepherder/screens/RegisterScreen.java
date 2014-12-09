@@ -3,6 +3,7 @@ package be.teamsheepy.sheepherder.screens;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 
@@ -19,10 +20,6 @@ import com.badlogic.gdx.net.HttpParametersUtils;
 import com.badlogic.gdx.net.HttpStatus;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class RegisterScreen extends Screen {
@@ -70,15 +67,21 @@ public class RegisterScreen extends Screen {
         twStyle.fontColor = Color.BLACK;
         twStyle.background = skin.getDrawable("background-wrong");
 
+        final Label.LabelStyle lStyle = new Label.LabelStyle();
+        lStyle.font = Assets.font28;
+        lStyle.fontColor = Color.BLACK;
+       // lStyle.background = skin.getDrawable("background");
+        
+        Label registerLabel = new Label("Register", lStyle);
+        Label loginLabel = new Label("Login", lStyle);
+        
         final TextField userField = new TextField("", tStyle);
         userField.setMessageText("username");
-        stage.addActor(userField);
 
         final TextField passField = new TextField("", tStyle);
         passField.setMessageText("password");
         passField.setPasswordCharacter('*');
         passField.setPasswordMode(true);
-        stage.addActor(passField);
 
         userField.setTextFieldListener(new TextField.TextFieldListener() {
             public void keyTyped (TextField textField, char key) {
@@ -93,7 +96,6 @@ public class RegisterScreen extends Screen {
         bStyle.down = skin.getDrawable("button-down");
 
         final TextButton loginButton = new TextButton("Login", bStyle);
-        stage.addActor(loginButton);
         loginButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -126,7 +128,7 @@ public class RegisterScreen extends Screen {
                     @Override
                     public void handleHttpResponse(Net.HttpResponse httpResponse) {
                         int statusCode = httpResponse.getStatus().getStatusCode();
-                        if(statusCode != HttpStatus.SC_OK) {
+                        if (statusCode != HttpStatus.SC_OK) {
                             userField.setStyle(twStyle);
                             passField.setStyle(twStyle);
                             loginButton.setText("Login");
@@ -138,7 +140,7 @@ public class RegisterScreen extends Screen {
                         try {
                             JsonReader reader = new JsonReader();
                             JsonValue json = reader.parse(result);
-                            if(json.has("access_token")) {
+                            if (json.has("access_token")) {
                                 SavedData.setUser(user, password);
                                 ScreenService.getInstance().add(new LeaderboardScreen());
                             } else {
@@ -146,10 +148,11 @@ public class RegisterScreen extends Screen {
                                 passField.setStyle(twStyle);
                                 loginButton.setText("Login");
                             }
-                        }  catch(Exception exception) {
+                        } catch (Exception exception) {
                             exception.printStackTrace();
                         }
                     }
+
                     @Override
                     public void failed(Throwable t) {
                         userField.setStyle(twStyle);
@@ -158,6 +161,7 @@ public class RegisterScreen extends Screen {
                         loginButton.setText("Login");
                         Gdx.app.error("Failed ", t.getMessage());
                     }
+
                     @Override
                     public void cancelled() {
                         userField.setStyle(twStyle);
@@ -170,7 +174,9 @@ public class RegisterScreen extends Screen {
         });
 
         table.row().height(50);
-        table.add(userField).center().width(300).pad(5f).padTop(80f);
+        table.add(loginLabel).width(300).padTop(50);
+        table.row().height(50);
+        table.add(userField).center().width(300).pad(5f);
         table.row().height(50);
         table.add(passField).center().width(300).pad(5f);
         table.row().height(50);
@@ -178,22 +184,18 @@ public class RegisterScreen extends Screen {
 
         final TextField newUserField = new TextField("", tStyle);
         newUserField.setMessageText("username");
-        stage.addActor(newUserField);
 
         final TextField pass1Field = new TextField("", tStyle);
         pass1Field.setMessageText("password");
         pass1Field.setPasswordCharacter('*');
         pass1Field.setPasswordMode(true);
-        stage.addActor(pass1Field);
 
         final TextField pass2Field = new TextField("", tStyle);
         pass2Field.setMessageText("confirm password");
         pass2Field.setPasswordCharacter('*');
         pass2Field.setPasswordMode(true);
-        stage.addActor(pass2Field);
 
         final TextButton registerButton = new TextButton("Register", bStyle);
-        stage.addActor(registerButton);
         registerButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -296,7 +298,9 @@ public class RegisterScreen extends Screen {
         });
 
         table.row().height(50);
-        table.add(newUserField).center().width(300).pad(5f).padTop(80f);
+        table.add(registerLabel).width(300).padTop(50);
+        table.row().height(50);
+        table.add(newUserField).center().width(300).pad(5f);
         table.row().height(50);
         table.add(pass1Field).center().width(300).pad(5f);
         table.row().height(50);
