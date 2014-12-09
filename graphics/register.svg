@@ -30,9 +30,9 @@
      inkscape:pageshadow="2"
      inkscape:zoom="2"
      inkscape:cx="218.83333"
-     inkscape:cy="656.848"
+     inkscape:cy="496.848"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer5"
      showgrid="false"
      inkscape:window-width="1280"
      inkscape:window-height="711"
@@ -238,11 +238,11 @@
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="text"
-     style="display:inline">
+     style="display:none">
     <flowRoot
        xml:space="preserve"
        id="flowRoot5191"
-       style="display:inline;font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
        transform="translate(-23.429687,0)"><flowRegion
          id="flowRegion5193"><rect
            id="rect5195"
@@ -261,7 +261,7 @@
        ry="1.5" />
     <text
        xml:space="preserve"
-       style="display:inline;font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
        x="63"
        y="415"
        id="text5199"
@@ -278,6 +278,6 @@
        height="3"
        width="190"
        id="rect5733"
-       style="display:inline;fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none" />
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline" />
   </g>
 </svg>

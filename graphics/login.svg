@@ -29,10 +29,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2"
-     inkscape:cx="318.83333"
-     inkscape:cy="703.51467"
+     inkscape:cx="198.83333"
+     inkscape:cy="643.51467"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="layer5"
      showgrid="false"
      inkscape:window-width="1280"
      inkscape:window-height="711"
@@ -131,11 +131,16 @@
      inkscape:groupmode="layer"
      id="layer7"
      inkscape:label="buttons"
-     style="display:inline">
+     style="display:inline" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer5"
+     inkscape:label="text"
+     style="display:none">
     <flowRoot
        xml:space="preserve"
        id="flowRoot5191"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;display:inline;font-family:Sans"
        transform="translate(-23.429687,0)"><flowRegion
          id="flowRegion5193"><rect
            id="rect5195"
@@ -145,7 +150,7 @@
            y="108" /></flowRegion><flowPara
          id="flowPara5197"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Architects Daughter;-inkscape-font-specification:Architects Daughter">Login</flowPara></flowRoot>    <rect
-       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
+       style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none;display:inline"
        id="rect5211"
        width="135"
        height="3"
@@ -153,9 +158,4 @@
        y="150"
        ry="1.5" />
   </g>
-  <g
-     inkscape:groupmode="layer"
-     id="layer5"
-     inkscape:label="text"
-     style="display:inline" />
 </svg>

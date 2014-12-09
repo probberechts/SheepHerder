@@ -170,7 +170,7 @@ public class LoginScreen extends Screen {
 
         
         table.row().height(50);
-        table.add(loginLabel).width(300).padTop(50f);
+        table.add(loginLabel).width(300).padTop(5f);
         table.row().height(50);
         table.add(userField).center().width(300).pad(5f);
         table.row().height(50);

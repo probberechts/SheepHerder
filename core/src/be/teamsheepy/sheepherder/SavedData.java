@@ -55,14 +55,14 @@ public class SavedData {
 		save();
 	}
 
-	public static void setUser(String userName, String password) {
-		SavedData.userName = userName;
-		SavedData.password = password;
+	public static void setUser(String user, String pass) {
+		userName = user;
+		password = pass;
 		save();
 	}
 
 	public static void logout() {
-		SavedData.password = "";
+		password = "";
 		save();
 	}
 
