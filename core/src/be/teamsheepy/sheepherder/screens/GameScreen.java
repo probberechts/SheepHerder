@@ -119,6 +119,8 @@ public class GameScreen extends Screen {
 		 * Check if game over
 		 */
 		if (world.state == SheepWorld.WORLD_STATE_GAME_OVER) {
+			int newScore = calculateScore(world.sheepsCollected, world.timeLeft);
+
 			if (!alreadyUpdated) {
 				// wanneer spel gepauseerd wordt tijden game over wordt deze data een
 				// tweede keer doorgestuurd
@@ -150,15 +152,16 @@ public class GameScreen extends Screen {
 						SavedData.gamesPlayed + "", touchTracker.getMinTouchTime());
 				SheepHerder.analytics.trackTimedEvent("swipeData", "maxSwipeTime",
 						SavedData.gamesPlayed + "", touchTracker.getMaxTouchTime());
+
+				if (newScore > SavedData.highscore)
+					Assets.allSheepInPen.play(0.2f);
 			}
 
-			int newScore = calculateScore(world.sheepsCollected, world.timeLeft);
 			if (newScore > SavedData.highscore) {
 				SavedData.newHighscore(newScore);
 				ScreenService.getInstance().add(new GameOverScreen(this, world.timeLeft, world.sheepsCollected, true));
 			} else {
 				ScreenService.getInstance().add(new GameOverScreen(this, world.timeLeft, world.sheepsCollected, false));
-
 			}
 
 			/**

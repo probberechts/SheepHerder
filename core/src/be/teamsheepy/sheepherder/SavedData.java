@@ -21,7 +21,7 @@ public class SavedData {
 		neverShowSwipeSuggestion = prefs.getBoolean("neverShowSwipeSuggestion",
 				false);
 		userName = prefs.getString("userName");
-		userName = prefs.getString("password");
+		password = prefs.getString("password");
 	}
 
 	private static void save() {

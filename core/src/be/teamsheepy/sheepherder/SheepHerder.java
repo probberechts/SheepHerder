@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SheepHerder extends Game {
 
-	public static final boolean DEBUG = false;
+	public static final boolean DEBUG = true;
 	public static final String VERSION = "6";
 	public static final String TRACKER_ID = "UA-56280744-3";
 	public static final String DEBUG_TRACKER_ID = "UA-56280744-1";

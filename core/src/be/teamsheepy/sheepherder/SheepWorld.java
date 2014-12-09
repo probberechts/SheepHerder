@@ -224,8 +224,7 @@ public class SheepWorld {
 			if (sheep.state == Sheep.SHEEP_STATE_ESCAPED && sheep.timeToDeath > 0)
 				return;
 		}
-		if (timeLeft > 0f)
-			Assets.allSheepInPen.play(0.2f);
+
 		state = WORLD_STATE_GAME_OVER;
 	}
 }
